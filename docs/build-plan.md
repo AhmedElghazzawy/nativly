@@ -57,7 +57,7 @@ A learner signs up, takes an adaptive placement test, and gets a CEFR level for 
 | Pronunciation | Azure Pronunciation Assessment | Phoneme-level scores that LLMs can't give reliably |
 | Realtime transport | WebSocket first, WebRTC (LiveKit) when latency matters | Simple first, then upgrade |
 | Auth | Own JWT + refresh tokens (learn it), or Clerk to save time | — |
-| Payments | Stripe (international) + iyzico (Turkey) | — |
+| Payments | Stripe | — |
 | Infrastructure | Docker, GitHub Actions, Fly.io/Railway first, then AWS (ECS + RDS) | Ship cheaply now and move to AWS as a skill milestone |
 | Observability | Sentry, structured logs, Langfuse for LLM traces and cost | You can't improve the tutor without seeing its conversations |
 
@@ -131,7 +131,7 @@ After each session, a background job:
 - Extracts corrections and adds them to `mistake_log` and SRS cards.
 - Updates `objective_mastery` for the objectives practiced.
 
-Keep the learner in control. A "What my teacher knows about me" page lets them view and delete facts, which matters for trust and for GDPR/KVKK.
+Keep the learner in control. A "What my teacher knows about me" page lets them view and delete facts, which matters for trust and for GDPR.
 
 ### 5.4 Real-time voice tutor
 - **v1, turn-based:** push-to-talk, then STT, then the LLM response streamed, then TTS streamed back. Target about 1.5 seconds to first audio.
@@ -200,8 +200,8 @@ Each phase ends with something deployed and usable. The durations assume part-ti
 - Voice v2: barge-in and WebRTC.
 
 ### Phase 6: Launch (3–4 weeks)
-- Landing page, onboarding, pricing, Stripe and iyzico, a free tier with limits.
-- Privacy policy, data export and deletion (KVKK/GDPR), and abuse limits.
+- Landing page, onboarding, pricing, Stripe, a free tier with limits.
+- Privacy policy, data export and deletion (GDPR), and abuse limits.
 - Closed beta with 20–50 learners and their feedback, then calibrate the placement test.
 - Optional move to AWS (ECS, RDS, S3, CloudFront) as an infrastructure milestone.
 

@@ -27,7 +27,6 @@ export default function Home() {
         </h1>
         <p className="mt-6 max-w-xl text-lg text-muted">
           Short lessons, real explanations and exercises that correct you like a person would.
-          Native gibi konuş.
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
           <Link href="/signup" className="btn-primary px-6">

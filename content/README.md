@@ -45,7 +45,7 @@ content/<language>/<level>/units/NN-name.yaml one unit, with its lessons and ste
     explanation: Shown after the learner answers.
 
     # type: cloze             # fill the blanks, one ___ per blank
-    # text: "We ___ in Izmir."
+    # text: "We ___ in Lisbon."
     # answers: [[lived]]      # accepted answers per blank
 
     # type: reorder           # tokens are shuffled automatically on import
