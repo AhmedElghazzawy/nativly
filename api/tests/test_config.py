@@ -56,3 +56,23 @@ def test_settings_normalizes_database_url() -> None:
     settings = Settings(database_url="postgresql://u:p@h/d?sslmode=require")
 
     assert settings.database_url == "postgresql+asyncpg://u:p@h/d?ssl=require"
+
+
+@pytest.mark.parametrize(
+    "overrides",
+    [
+        # Cross-field check fails (no DB URL) while a real JWT secret is present.
+        {"jwt_secret_key": "super-secret-jwt-key-that-must-not-leak-0123456789"},
+        # Cross-field check fails (no JWT secret) while a DB password is present.
+        {"database_url": "postgresql+asyncpg://u:db-password-must-not-leak@db.example.com/x"},
+    ],
+)
+def test_validation_errors_never_echo_secrets(overrides: dict[str, str]) -> None:
+    with pytest.raises(ValidationError) as exc_info:
+        Settings(environment="production", **overrides)  # type: ignore[arg-type]
+
+    # Pydantic elides the middle of long values but keeps both ends, so check the tails too.
+    message = str(exc_info.value)
+    assert "input_value" not in message
+    for value in overrides.values():
+        assert value[-12:] not in message
