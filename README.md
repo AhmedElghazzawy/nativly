@@ -31,7 +31,8 @@ follows a real CEFR curriculum (A1–C2, per skill), remembers you across sessio
 | Accounts: register, login, JWT access + rotating refresh tokens, `/me` | ✅ |
 | Adaptive placement test, per-skill CEFR levels | 🔜 Phase 2 |
 | Curriculum: courses, units, lessons, objectives; MCQ, cloze and reorder exercises | ✅ |
-| Exercise checking, mastery tracking, spaced-repetition vocabulary (FSRS) | 🚧 Phase 1 |
+| Server-side answer checking, per-objective mastery, lesson progress | ✅ |
+| Spaced-repetition vocabulary (FSRS), web lesson player | 🚧 Phase 1 |
 | AI tutor with persistent memory of your goals and recurring mistakes | 🔜 Phase 3 |
 | Real-time voice tutor with pronunciation feedback | 🔜 Phase 4 |
 
@@ -152,6 +153,9 @@ All application endpoints are versioned under `/api/v1`.
 | `GET` | `/api/v1/courses` | Courses (filter with `?language=en&level=A2`) |
 | `GET` | `/api/v1/courses/{slug}` | Course outline: units and lessons |
 | `GET` | `/api/v1/lessons/{slug}` | A lesson's steps and exercises (answers never included) |
+| `POST` | `/api/v1/exercises/{slug}/attempts` | Check an answer; returns the verdict, explanation and updated mastery |
+| `POST` | `/api/v1/lessons/{slug}/complete` | Finish a lesson (score = latest attempt per exercise) |
+| `GET` | `/api/v1/me/progress` | The learner's lessons and objective mastery, weakest first |
 
 ## Development
 
