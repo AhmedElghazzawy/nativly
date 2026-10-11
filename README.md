@@ -6,7 +6,10 @@
 
 *Native gibi konuş.*
 
+**Live API:** [nativly-api.onrender.com/docs](https://nativly-api.onrender.com/docs)
+
 [![CI](https://github.com/AhmedElghazzawy/nativly/actions/workflows/ci.yml/badge.svg)](https://github.com/AhmedElghazzawy/nativly/actions/workflows/ci.yml)
+[![API](https://img.shields.io/website?url=https%3A%2F%2Fnativly-api.onrender.com%2Fhealth&label=api&up_message=live)](https://nativly-api.onrender.com/docs)
 ![Python 3.12](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 ![PostgreSQL 16](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)
@@ -124,7 +127,7 @@ Free-tier hosting, no card required ([ADR 0005](docs/decisions/0005-free-tier-ho
 
 - **API:** [Render](https://render.com) web service built from `api/Dockerfile`, declared in
   [`render.yaml`](render.yaml). HTTPS is automatic. It deploys only after CI passes on `main`.
-- **Database:** [Neon](https://neon.tech) serverless Postgres 16 (pgvector available).
+- **Database:** [Neon](https://neon.tech) serverless Postgres 16 in Frankfurt, next to the API (pgvector available).
 - **Migrations** run on container start (`api/scripts/start.sh`).
 - **Secrets:** Render generates the JWT secret; the Neon URL is set in the Render dashboard.
 

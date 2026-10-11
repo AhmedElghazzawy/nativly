@@ -19,3 +19,4 @@ htmlcov/
 # Node (web/)
 node_modules/
 .next/
+.neon
