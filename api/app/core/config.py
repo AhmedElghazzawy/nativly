@@ -29,7 +29,10 @@ def normalize_database_url(url: str) -> str:
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_prefix="NATIVLY_", extra="ignore")
+    # hide_input_in_errors: validation errors must never echo raw env values (secrets, DB URLs).
+    model_config = SettingsConfigDict(
+        env_file=".env", env_prefix="NATIVLY_", extra="ignore", hide_input_in_errors=True
+    )
 
     app_name: str = "Nativly API"
     environment: Literal["local", "test", "staging", "production"] = "local"
