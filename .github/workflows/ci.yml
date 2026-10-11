@@ -78,3 +78,85 @@ jobs:
           push: false
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  web:
+    name: Web lint, types, unit tests & build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  e2e:
+    name: End-to-end (API + web + Playwright)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: nativly
+          POSTGRES_PASSWORD: nativly
+          POSTGRES_DB: nativly
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U nativly"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      NATIVLY_DATABASE_URL: postgresql+asyncpg://nativly:nativly@localhost:5432/nativly
+      API_URL: http://localhost:8000
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          enable-cache: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Start API with migrations and content
+        working-directory: api
+        run: |
+          uv sync --locked
+          uv run alembic upgrade head
+          uv run python -m app.learning.importer ../content
+          uv run fastapi run app/main.py --port 8000 > ../api.log 2>&1 &
+      - name: Generated API types match the API
+        working-directory: web
+        run: |
+          npm ci
+          npm run gen:api
+          git diff --exit-code -- openapi.json src/lib/api-schema.d.ts
+      - name: Build and start web
+        working-directory: web
+        run: |
+          npm run build
+          npm start > ../web.log 2>&1 &
+          npx --yes wait-on@9 --timeout 60000 http://localhost:8000/health/ready http://localhost:3000
+      - name: Playwright
+        working-directory: web
+        run: |
+          npx playwright install --with-deps chromium
+          npx playwright test
+      - name: Upload traces and logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-debug
+          path: |
+            web/test-results
+            api.log
+            web.log
