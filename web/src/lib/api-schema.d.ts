@@ -328,6 +328,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/writing/{slug}/submissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** History */
+        get: operations["history_api_v1_writing__slug__submissions_get"];
+        put?: never;
+        /** Submit */
+        post: operations["submit_api_v1_writing__slug__submissions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/mistakes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My Mistakes */
+        get: operations["my_mistakes_api_v1_me_mistakes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -599,6 +634,28 @@ export interface components {
             /** Choice */
             choice: number;
         };
+        /**
+         * MistakeCategory
+         * @enum {string}
+         */
+        MistakeCategory: "grammar" | "vocabulary" | "spelling" | "punctuation" | "word_order" | "style";
+        /** MistakeRead */
+        MistakeRead: {
+            category: components["schemas"]["MistakeCategory"];
+            /** Original */
+            original: string;
+            /** Correction */
+            correction: string;
+            /** Explanation */
+            explanation: string;
+            /** Count */
+            count: number;
+            /**
+             * Last Seen At
+             * Format: date-time
+             */
+            last_seen_at: string;
+        };
         /** ObjectiveProgressRead */
         ObjectiveProgressRead: {
             /** Slug */
@@ -732,6 +789,20 @@ export interface components {
             /** Mature Cards */
             mature_cards: number;
         };
+        /** Scores */
+        Scores: {
+            /**
+             * Task
+             * @description Did the text do what the task asked?
+             */
+            task: number;
+            /** Grammar */
+            grammar: number;
+            /** Vocabulary */
+            vocabulary: number;
+            /** Organisation */
+            organisation: number;
+        };
         /**
          * Skill
          * @enum {string}
@@ -753,6 +824,32 @@ export interface components {
             body: string | null;
             /** Exercise */
             exercise: (components["schemas"]["McqPublic"] | components["schemas"]["ClozePublic"] | components["schemas"]["ReorderPublic"]) | null;
+            writing?: components["schemas"]["WritingTaskPublic"] | null;
+        };
+        /** SubmissionRead */
+        SubmissionRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Task Slug */
+            task_slug: string;
+            /** Text */
+            text: string;
+            /** Word Count */
+            word_count: number;
+            feedback: components["schemas"]["WritingFeedback"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** SubmissionRequest */
+        SubmissionRequest: {
+            /** Text */
+            text: string;
         };
         /** TokenPair */
         TokenPair: {
@@ -831,6 +928,65 @@ export interface components {
             examples: string[];
             /** Notes */
             notes: string | null;
+        };
+        /** WritingError */
+        WritingError: {
+            /**
+             * Original
+             * @description The exact wrong words, copied from the learner's text
+             */
+            original: string;
+            /**
+             * Correction
+             * @description The corrected words only
+             */
+            correction: string;
+            /**
+             * Category
+             * @enum {string}
+             */
+            category: "grammar" | "vocabulary" | "spelling" | "punctuation" | "word_order" | "style";
+            /**
+             * Explanation
+             * @description Why it's wrong, in simple English at the learner's level
+             */
+            explanation: string;
+        };
+        /** WritingFeedback */
+        WritingFeedback: {
+            /**
+             * Corrected Text
+             * @description The learner's text with only the errors fixed
+             */
+            corrected_text: string;
+            /** Errors */
+            errors: components["schemas"]["WritingError"][];
+            /** Strengths */
+            strengths: string[];
+            /**
+             * Next Step
+             * @description One concrete thing to practise next
+             */
+            next_step: string;
+            /**
+             * Cefr Estimate
+             * @enum {string}
+             */
+            cefr_estimate: "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+            scores: components["schemas"]["Scores"];
+        };
+        /** WritingTaskPublic */
+        WritingTaskPublic: {
+            /** Slug */
+            slug: string;
+            /** Prompt */
+            prompt: string;
+            /** Guidance */
+            guidance: string[];
+            /** Min Words */
+            min_words: number;
+            /** Max Words */
+            max_words: number;
         };
     };
     responses: never;
@@ -1416,6 +1572,103 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ReviewSummary"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    history_api_v1_writing__slug__submissions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubmissionRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_api_v1_writing__slug__submissions_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SubmissionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubmissionRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    my_mistakes_api_v1_me_mistakes_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MistakeRead"][];
                 };
             };
             /** @description Validation Error */

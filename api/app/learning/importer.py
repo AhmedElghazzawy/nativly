@@ -22,7 +22,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import get_settings
 from app.core.db import create_engine, create_sessionmaker
-from app.learning.content import CourseDef, ExerciseDef, ExerciseStepDef, UnitDef
+from app.learning.content import (
+    CourseDef,
+    ExerciseDef,
+    ExerciseStepDef,
+    UnitDef,
+    WritingStepDef,
+)
 from app.learning.models import (
     Course,
     Exercise,
@@ -34,6 +40,7 @@ from app.learning.models import (
 )
 from app.vocab.content import DeckDef
 from app.vocab.importer import import_deck
+from app.writing.models import WritingTask
 
 
 class ContentError(Exception):
@@ -57,12 +64,14 @@ class ImportReport:
     objectives: int = 0
     decks: int = 0
     vocab_items: int = 0
+    writing_tasks: int = 0
     created: list[str] = field(default_factory=list)
 
     def __str__(self) -> str:
         return (
             f"{self.courses} course(s), {self.units} unit(s), {self.lessons} lesson(s), "
             f"{self.exercises} exercise(s), {self.objectives} objective(s), "
+            f"{self.writing_tasks} writing task(s), "
             f"{self.decks} deck(s) with {self.vocab_items} word(s); "
             f"{len(self.created)} new"
         )
@@ -139,6 +148,10 @@ def _cross_check(bundles: list[CourseBundle]) -> list[str]:
                         claim("exercise", ex.slug, where)
                         if ex.objective not in objectives:
                             errors.append(f"exercise '{ex.slug}': unknown objective")
+                    elif isinstance(step, WritingStepDef):
+                        claim("writing task", step.task.slug, where)
+                        if step.task.objective not in objectives:
+                            errors.append(f"writing task '{step.task.slug}': unknown objective")
         units = {u.slug for u in bundle.units}
         for deck in bundle.decks:
             claim("deck", deck.slug, where)
@@ -149,7 +162,7 @@ def _cross_check(bundles: list[CourseBundle]) -> list[str]:
     return errors
 
 
-async def _upsert[M: (Course, Unit, Lesson, LearningObjective, Exercise)](
+async def _upsert[M: (Course, Unit, Lesson, LearningObjective, Exercise, WritingTask)](
     session: AsyncSession, model: type[M], slug: str, report: ImportReport, **values: Any
 ) -> M:
     obj = await session.scalar(select(model).where(model.slug == slug))
@@ -217,6 +230,21 @@ async def import_content(session: AsyncSession, root: Path) -> ImportReport:
                             LessonStep(
                                 lesson_id=lesson.id, position=step_position,
                                 kind=StepKind.EXERCISE, exercise_id=exercise.id,
+                            )
+                        )  # fmt: skip
+                    elif isinstance(step, WritingStepDef):
+                        t = step.task
+                        task = await _upsert(
+                            session, WritingTask, t.slug, report,
+                            objective_id=objectives[t.objective].id, cefr_level=c.cefr_level,
+                            prompt=t.prompt, guidance=list(t.guidance),
+                            min_words=t.min_words, max_words=t.max_words,
+                        )  # fmt: skip
+                        report.writing_tasks += 1
+                        session.add(
+                            LessonStep(
+                                lesson_id=lesson.id, position=step_position,
+                                kind=StepKind.WRITING, writing_task_id=task.id,
                             )
                         )  # fmt: skip
                     else:

@@ -23,6 +23,10 @@ services:
         sync: false # paste Neon's direct (non-pooled) connection string when prompted
       - key: NATIVLY_JWT_SECRET_KEY
         generateValue: true # 256-bit random value created by Render
+      - key: NATIVLY_AI_PROVIDER
+        value: gemini
+      - key: NATIVLY_GEMINI_API_KEY
+        sync: false # Google AI Studio key (free tier); set via the dashboard/API, never committed
 
   - type: web
     name: nativly-web

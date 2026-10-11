@@ -7,7 +7,7 @@ identity across re-imports; UUIDs are internal.
 import enum
 import uuid
 from datetime import datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from sqlalchemy import (
     CheckConstraint,
@@ -27,6 +27,9 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.db import Base, TimestampMixin, str_enum
+
+if TYPE_CHECKING:
+    from app.writing.models import WritingTask
 
 
 class CefrLevel(enum.StrEnum):
@@ -174,9 +177,14 @@ class LessonStep(Base):
     exercise_id: Mapped[uuid.UUID | None] = mapped_column(
         ForeignKey("exercises.id", ondelete="RESTRICT"), index=True
     )
+    writing_task_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("writing_tasks.id", ondelete="RESTRICT"), index=True
+    )
 
     lesson: Mapped[Lesson] = relationship(back_populates="steps")
     exercise: Mapped[Exercise | None] = relationship()
+    # String reference: app.writing imports this module, so it can't be imported here.
+    writing_task: Mapped["WritingTask | None"] = relationship("WritingTask")
 
 
 # --- Learner progress --------------------------------------------------------------------

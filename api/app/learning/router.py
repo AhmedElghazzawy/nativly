@@ -20,6 +20,7 @@ from app.learning.schemas import (
     ProgressRead,
     StepRead,
     UnitOutline,
+    WritingTaskPublic,
 )
 
 router = APIRouter(tags=["curriculum"])
@@ -116,6 +117,15 @@ async def get_lesson(slug: str, _: CurrentUser, session: SessionDep) -> LessonDe
                 title=s.title,
                 body=s.body,
                 exercise=_public_exercise(s.exercise) if s.exercise else None,
+                writing=WritingTaskPublic(
+                    slug=s.writing_task.slug,
+                    prompt=s.writing_task.prompt,
+                    guidance=s.writing_task.guidance,
+                    min_words=s.writing_task.min_words,
+                    max_words=s.writing_task.max_words,
+                )
+                if s.writing_task
+                else None,
             )
             for s in lesson.steps
         ],

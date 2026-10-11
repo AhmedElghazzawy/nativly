@@ -116,6 +116,7 @@ jobs:
           --health-retries 10
     env:
       NATIVLY_DATABASE_URL: postgresql+asyncpg://nativly:nativly@localhost:5432/nativly
+      NATIVLY_AI_PROVIDER: fake  # deterministic demo answers; no API key in CI
       API_URL: http://localhost:8000
     steps:
       - uses: actions/checkout@v7

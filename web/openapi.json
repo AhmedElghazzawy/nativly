@@ -865,6 +865,166 @@
           }
         }
       }
+    },
+    "/api/v1/writing/{slug}/submissions": {
+      "post": {
+        "tags": [
+          "writing"
+        ],
+        "summary": "Submit",
+        "operationId": "submit_api_v1_writing__slug__submissions_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "writing"
+        ],
+        "summary": "History",
+        "operationId": "history_api_v1_writing__slug__submissions_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubmissionRead"
+                  },
+                  "title": "Response History Api V1 Writing  Slug  Submissions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/mistakes": {
+      "get": {
+        "tags": [
+          "writing"
+        ],
+        "summary": "My Mistakes",
+        "operationId": "my_mistakes_api_v1_me_mistakes_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MistakeRead"
+                  },
+                  "title": "Response My Mistakes Api V1 Me Mistakes Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1586,6 +1746,56 @@
         ],
         "title": "McqResponse"
       },
+      "MistakeCategory": {
+        "type": "string",
+        "enum": [
+          "grammar",
+          "vocabulary",
+          "spelling",
+          "punctuation",
+          "word_order",
+          "style"
+        ],
+        "title": "MistakeCategory"
+      },
+      "MistakeRead": {
+        "properties": {
+          "category": {
+            "$ref": "#/components/schemas/MistakeCategory"
+          },
+          "original": {
+            "type": "string",
+            "title": "Original"
+          },
+          "correction": {
+            "type": "string",
+            "title": "Correction"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "last_seen_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Seen At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "category",
+          "original",
+          "correction",
+          "explanation",
+          "count",
+          "last_seen_at"
+        ],
+        "title": "MistakeRead"
+      },
       "ObjectiveProgressRead": {
         "properties": {
           "slug": {
@@ -1920,6 +2130,43 @@
         ],
         "title": "ReviewSummary"
       },
+      "Scores": {
+        "properties": {
+          "task": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Task",
+            "description": "Did the text do what the task asked?"
+          },
+          "grammar": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Grammar"
+          },
+          "vocabulary": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Vocabulary"
+          },
+          "organisation": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Organisation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "task",
+          "grammar",
+          "vocabulary",
+          "organisation"
+        ],
+        "title": "Scores"
+      },
       "Skill": {
         "type": "string",
         "enum": [
@@ -2003,6 +2250,16 @@
               }
             ],
             "title": "Exercise"
+          },
+          "writing": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WritingTaskPublic"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -2014,6 +2271,60 @@
           "exercise"
         ],
         "title": "StepRead"
+      },
+      "SubmissionRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "task_slug": {
+            "type": "string",
+            "title": "Task Slug"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "word_count": {
+            "type": "integer",
+            "title": "Word Count"
+          },
+          "feedback": {
+            "$ref": "#/components/schemas/WritingFeedback"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "task_slug",
+          "text",
+          "word_count",
+          "feedback",
+          "created_at"
+        ],
+        "title": "SubmissionRead"
+      },
+      "SubmissionRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 5000,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "SubmissionRequest"
       },
       "TokenPair": {
         "properties": {
@@ -2198,6 +2509,137 @@
           "notes"
         ],
         "title": "WordRead"
+      },
+      "WritingError": {
+        "properties": {
+          "original": {
+            "type": "string",
+            "title": "Original",
+            "description": "The exact wrong words, copied from the learner's text"
+          },
+          "correction": {
+            "type": "string",
+            "title": "Correction",
+            "description": "The corrected words only"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "grammar",
+              "vocabulary",
+              "spelling",
+              "punctuation",
+              "word_order",
+              "style"
+            ],
+            "title": "Category"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation",
+            "description": "Why it's wrong, in simple English at the learner's level"
+          }
+        },
+        "type": "object",
+        "required": [
+          "original",
+          "correction",
+          "category",
+          "explanation"
+        ],
+        "title": "WritingError"
+      },
+      "WritingFeedback": {
+        "properties": {
+          "corrected_text": {
+            "type": "string",
+            "title": "Corrected Text",
+            "description": "The learner's text with only the errors fixed"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/WritingError"
+            },
+            "type": "array",
+            "maxItems": 15,
+            "title": "Errors"
+          },
+          "strengths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 1,
+            "title": "Strengths"
+          },
+          "next_step": {
+            "type": "string",
+            "title": "Next Step",
+            "description": "One concrete thing to practise next"
+          },
+          "cefr_estimate": {
+            "type": "string",
+            "enum": [
+              "A1",
+              "A2",
+              "B1",
+              "B2",
+              "C1",
+              "C2"
+            ],
+            "title": "Cefr Estimate"
+          },
+          "scores": {
+            "$ref": "#/components/schemas/Scores"
+          }
+        },
+        "type": "object",
+        "required": [
+          "corrected_text",
+          "errors",
+          "strengths",
+          "next_step",
+          "cefr_estimate",
+          "scores"
+        ],
+        "title": "WritingFeedback"
+      },
+      "WritingTaskPublic": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "guidance": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Guidance"
+          },
+          "min_words": {
+            "type": "integer",
+            "title": "Min Words"
+          },
+          "max_words": {
+            "type": "integer",
+            "title": "Max Words"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "prompt",
+          "guidance",
+          "min_words",
+          "max_words"
+        ],
+        "title": "WritingTaskPublic"
       }
     },
     "securitySchemes": {

@@ -1,5 +1,6 @@
 """Imports every ORM model so Base.metadata is complete (used by Alembic and test setup)."""
 
+from app.ai.models import LLMCall
 from app.auth.models import RefreshToken, User
 from app.core.db import Base
 from app.learning.models import (
@@ -15,6 +16,7 @@ from app.learning.models import (
     lesson_objectives,
 )
 from app.vocab.models import Deck, DeckSubscription, Review, UserCard, VocabItem, deck_items
+from app.writing.models import Mistake, WritingSubmission, WritingTask
 
 __all__ = [
     "Base",
@@ -23,10 +25,12 @@ __all__ = [
     "DeckSubscription",
     "Exercise",
     "ExerciseAttempt",
+    "LLMCall",
     "LearningObjective",
     "Lesson",
     "LessonProgress",
     "LessonStep",
+    "Mistake",
     "ObjectiveMastery",
     "RefreshToken",
     "Review",
@@ -34,6 +38,8 @@ __all__ = [
     "User",
     "UserCard",
     "VocabItem",
+    "WritingSubmission",
+    "WritingTask",
     "deck_items",
     "lesson_objectives",
 ]

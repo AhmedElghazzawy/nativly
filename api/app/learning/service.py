@@ -41,6 +41,7 @@ async def get_lesson(session: AsyncSession, slug: str) -> Lesson:
             selectinload(Lesson.unit).selectinload(Unit.course),
             selectinload(Lesson.objectives),
             selectinload(Lesson.steps).selectinload(LessonStep.exercise),
+            selectinload(Lesson.steps).selectinload(LessonStep.writing_task),
         )
     )
     if lesson is None:

@@ -43,6 +43,8 @@ services:
       NATIVLY_ENVIRONMENT: local
       NATIVLY_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-nativly}:${POSTGRES_PASSWORD:-nativly}@postgres:5432/${POSTGRES_DB:-nativly}
       NATIVLY_REDIS_URL: redis://redis:6379/0
+      NATIVLY_AI_PROVIDER: ${NATIVLY_AI_PROVIDER:-fake}  # demo answers unless a key is configured
+      NATIVLY_GEMINI_API_KEY: ${NATIVLY_GEMINI_API_KEY:-}
       RUN_MIGRATIONS: "false"  # the migrate job below already ran them
     ports:
       - "127.0.0.1:${API_PORT:-8000}:8000"

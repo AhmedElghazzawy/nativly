@@ -68,12 +68,21 @@ class ReorderPublic(_ExercisePublicBase):
 ExercisePublic = Annotated[McqPublic | ClozePublic | ReorderPublic, Field(discriminator="type")]
 
 
+class WritingTaskPublic(BaseModel):
+    slug: str
+    prompt: str
+    guidance: list[str]
+    min_words: int
+    max_words: int
+
+
 class StepRead(BaseModel):
     position: int
     kind: StepKind
     title: str | None
     body: str | None
     exercise: ExercisePublic | None
+    writing: WritingTaskPublic | None = None
 
 
 class LessonDetail(LessonSummary):

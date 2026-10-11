@@ -52,6 +52,14 @@ class Settings(BaseSettings):
     # Spaced repetition: how many brand-new words a learner meets per day.
     new_cards_per_day: int = Field(default=10, ge=0, le=100)
 
+    # AI services (app/ai). "fake" gives canned answers for local dev and e2e tests.
+    ai_provider: Literal["gemini", "fake", "disabled"] = "disabled"
+    gemini_api_key: SecretStr | None = None
+    ai_model_fast: str = "gemini-3.5-flash-lite"  # grading, extraction
+    ai_model_smart: str = "gemini-3.8-flash"  # tutoring
+    ai_daily_calls_per_user: int = Field(default=30, ge=0)
+    ai_timeout_seconds: float = Field(default=30, gt=0, le=120)
+
     @field_validator("database_url")
     @classmethod
     def _normalize_database_url(cls, value: str) -> str:

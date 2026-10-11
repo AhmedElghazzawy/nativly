@@ -9,11 +9,13 @@ from pydantic import BaseModel
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
+from app.ai.llm import LLM, create_provider
 from app.auth.router import router as auth_router
 from app.core.config import Settings, get_settings
 from app.core.db import create_engine, create_sessionmaker
 from app.learning.router import router as learning_router
 from app.vocab.router import router as vocab_router
+from app.writing.router import router as writing_router
 
 API_PREFIX = "/api/v1"
 
@@ -30,6 +32,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         engine = create_engine(settings)
         app.state.engine = engine
         app.state.sessionmaker = create_sessionmaker(engine)
+        app.state.llm = LLM(create_provider(settings), settings, app.state.sessionmaker)
         yield
         await engine.dispose()
 
@@ -75,6 +78,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(auth_router, prefix=API_PREFIX)
     app.include_router(learning_router, prefix=API_PREFIX)
     app.include_router(vocab_router, prefix=API_PREFIX)
+    app.include_router(writing_router, prefix=API_PREFIX)
 
     return app
 

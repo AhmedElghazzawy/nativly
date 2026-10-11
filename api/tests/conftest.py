@@ -7,8 +7,16 @@ import pytest
 from fastapi import FastAPI
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.engine import make_url
-from sqlalchemy.ext.asyncio import AsyncConnection, AsyncEngine, AsyncSession, create_async_engine
+from sqlalchemy.ext.asyncio import (
+    AsyncConnection,
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
 
+from app.ai.llm import LLM
+from app.ai.providers import FakeProvider
 from app.core.config import Settings, get_settings
 from app.core.db import get_session
 from app.main import create_app
@@ -75,10 +83,27 @@ async def session(connection: AsyncConnection) -> AsyncIterator[AsyncSession]:
 
 
 @pytest.fixture
-def app(settings: Settings, engine: AsyncEngine, session: AsyncSession) -> FastAPI:
+def fake_ai() -> FakeProvider:
+    """The model provider used by the app in tests. Set `.responder` or `.fail_with`."""
+    return FakeProvider()
+
+
+@pytest.fixture
+def llm(settings: Settings, connection: AsyncConnection, fake_ai: FakeProvider) -> LLM:
+    # LLM logs calls in its own sessions; bind them to the test connection so they join
+    # (and are rolled back with) the test's transaction.
+    sessions = async_sessionmaker(
+        bind=connection, expire_on_commit=False, join_transaction_mode="create_savepoint"
+    )
+    return LLM(fake_ai, settings, sessions)
+
+
+@pytest.fixture
+def app(settings: Settings, engine: AsyncEngine, session: AsyncSession, llm: LLM) -> FastAPI:
     app = create_app(settings)
     # httpx's ASGITransport doesn't run the lifespan, so wire state the way it would.
     app.state.engine = engine
+    app.state.llm = llm
     app.dependency_overrides[get_settings] = lambda: settings
     app.dependency_overrides[get_session] = lambda: session
     return app

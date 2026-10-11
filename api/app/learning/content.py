@@ -120,7 +120,27 @@ class ExerciseStepDef(StrictModel):
     exercise: ExerciseDef
 
 
-StepDef = Annotated[ExplainStepDef | ExerciseStepDef, Field(discriminator="kind")]
+class WritingTaskDef(StrictModel):
+    slug: Slug
+    objective: Slug
+    prompt: str = Field(min_length=1)
+    guidance: list[str] = Field(default_factory=list, max_length=6)
+    min_words: int = Field(ge=5, le=500)
+    max_words: int = Field(ge=10, le=800)
+
+    @model_validator(mode="after")
+    def _range(self) -> "WritingTaskDef":
+        if self.max_words <= self.min_words:
+            raise ValueError(f"{self.slug}: max_words must be greater than min_words")
+        return self
+
+
+class WritingStepDef(StrictModel):
+    kind: Literal["writing"]
+    task: WritingTaskDef
+
+
+StepDef = Annotated[ExplainStepDef | ExerciseStepDef | WritingStepDef, Field(discriminator="kind")]
 
 
 class LessonDef(StrictModel):
