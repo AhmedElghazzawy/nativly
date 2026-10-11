@@ -4,7 +4,9 @@ import { defineConfig, devices } from "@playwright/test";
 // Locally: start both, then `npm run e2e`. BASE_URL defaults to the local Next server.
 export default defineConfig({
   testDir: "./e2e",
-  timeout: 60_000,
+  timeout: 120_000,
+  // Remote runs hit free-tier instances (0.1 CPU, Argon2 hashing): allow slower responses.
+  expect: { timeout: process.env.BASE_URL ? 20_000 : 5_000 },
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? "github" : "list",
   use: {
