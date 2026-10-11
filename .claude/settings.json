@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "outputStyle": "Nativly Mentor",
+  "outputStyle": "default",
   "permissions": {
     "allow": [
       "Bash(uv run pytest *)",
@@ -12,17 +12,30 @@
       "Bash(git log *)",
       "Bash(git branch *)",
       "Bash(docker compose ps *)",
-      "Bash(docker compose logs *)"
+      "Bash(docker compose logs *)",
+      "Bash(uv *)",
+      "Bash(uvx *)",
+      "Bash(docker *)",
+      "Bash(colima *)",
+      "Bash(brew install *)",
+      "Bash(brew upgrade *)",
+      "Bash(npm install *)",
+      "Bash(npx *)",
+      "Bash(curl *)",
+      "Bash(gh *)",
+      "Bash(git add *)",
+      "Bash(git switch *)",
+      "Bash(git checkout *)",
+      "Bash(git stash *)",
+      "Bash(fly *)",
+      "Bash(flyctl *)",
+      "Bash(railway *)"
     ],
     "ask": [
       "Bash(git commit *)",
       "Bash(git push *)",
       "Bash(git merge *)",
-      "Bash(git rebase *)",
-      "Bash(uv add *)",
-      "Bash(npm install *)",
-      "Bash(uv run alembic *)",
-      "Bash(docker compose down *)"
+      "Bash(git rebase *)"
     ],
     "deny": [
       "Read(./.env)",
@@ -40,7 +53,10 @@
       {
         "matcher": "startup|resume|clear|compact",
         "hooks": [
-          { "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/session-start.sh" }
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/session-start.sh"
+          }
         ]
       }
     ],
@@ -48,7 +64,10 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-bash.sh" }
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-bash.sh"
+          }
         ]
       }
     ],
@@ -56,7 +75,10 @@
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/python-quality.sh" }
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/python-quality.sh"
+          }
         ]
       }
     ]
