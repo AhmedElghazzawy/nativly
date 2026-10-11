@@ -96,3 +96,22 @@ test("signed-out visitors are sent to log in and back", async ({ page }) => {
   await page.getByRole("button", { name: "Log in" }).click();
   await expect(page.getByText("That email and password don't match.")).toBeVisible();
 });
+
+test("logging in from a redirect returns to the page that was asked for", async ({ page }) => {
+  const email = `e2e-next-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@example.com`;
+  await page.goto("/signup");
+  await page.getByLabel("Email").fill(email);
+  await page.getByLabel("Password").fill("e2e-password-123");
+  await page.getByRole("button", { name: "Create account" }).click();
+  await expect(page.getByRole("heading", { name: "Your course" })).toBeVisible();
+  await page.getByRole("button", { name: "Log out" }).click();
+  await expect(page.getByRole("link", { name: "Start learning free" })).toBeVisible();
+
+  await page.goto("/progress");
+  await page.getByLabel("Email").fill(email);
+  await page.getByLabel("Password").fill("e2e-password-123");
+  await page.getByRole("button", { name: "Log in" }).click();
+
+  await expect(page).toHaveURL(/\/progress$/);
+  await expect(page.getByRole("heading", { name: "Your progress" })).toBeVisible();
+});

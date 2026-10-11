@@ -11,26 +11,7 @@
           "meta"
         ],
         "summary": "Liveness: the process is up",
-        "operationId": "health_health_head",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "head": {
-        "tags": [
-          "meta"
-        ],
-        "summary": "Liveness: the process is up",
-        "operationId": "health_health_head",
+        "operationId": "health_health_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -51,34 +32,7 @@
           "meta"
         ],
         "summary": "Readiness: dependencies are reachable",
-        "operationId": "ready_health_ready_head",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "503": {
-            "description": "Service Unavailable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "head": {
-        "tags": [
-          "meta"
-        ],
-        "summary": "Readiness: dependencies are reachable",
-        "operationId": "ready_health_ready_head",
+        "operationId": "ready_health_ready_get",
         "responses": {
           "200": {
             "description": "Successful Response",

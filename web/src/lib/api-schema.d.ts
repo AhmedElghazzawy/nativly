@@ -12,13 +12,12 @@ export interface paths {
             cookie?: never;
         };
         /** Liveness: the process is up */
-        get: operations["health_health_head"];
+        get: operations["health_health_get"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
-        /** Liveness: the process is up */
-        head: operations["health_health_head"];
+        head?: never;
         patch?: never;
         trace?: never;
     };
@@ -30,13 +29,12 @@ export interface paths {
             cookie?: never;
         };
         /** Readiness: dependencies are reachable */
-        get: operations["ready_health_ready_head"];
+        get: operations["ready_health_ready_get"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
-        /** Readiness: dependencies are reachable */
-        head: operations["ready_health_ready_head"];
+        head?: never;
         patch?: never;
         trace?: never;
     };
@@ -602,7 +600,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    health_health_head: {
+    health_health_get: {
         parameters: {
             query?: never;
             header?: never;
@@ -622,56 +620,7 @@ export interface operations {
             };
         };
     };
-    health_health_head: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HealthResponse"];
-                };
-            };
-        };
-    };
-    ready_health_ready_head: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Service Unavailable */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HealthResponse"];
-                };
-            };
-        };
-    };
-    ready_health_ready_head: {
+    ready_health_ready_get: {
         parameters: {
             query?: never;
             header?: never;

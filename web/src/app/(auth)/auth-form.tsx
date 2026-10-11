@@ -1,23 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useActionState } from "react";
 
 import type { AuthState } from "./actions";
 
 type Props = {
   action: (state: AuthState, formData: FormData) => Promise<AuthState>;
   mode: "login" | "signup";
-  next?: string;
 };
 
-export function AuthForm({ action, mode, next }: Props) {
+/** Where to go after logging in. Only this hidden field depends on the URL, so the visible
+ * form renders immediately and never gets swapped out while someone is typing. */
+function NextField() {
+  const next = useSearchParams().get("next");
+  return next ? <input type="hidden" name="next" value={next} /> : null;
+}
+
+export function AuthForm({ action, mode }: Props) {
   const [state, formAction, pending] = useActionState(action, {});
   const isLogin = mode === "login";
 
   return (
     <form action={formAction} className="space-y-5">
-      {next ? <input type="hidden" name="next" value={next} /> : null}
+      <Suspense fallback={null}>
+        <NextField />
+      </Suspense>
       <label className="block">
         <span className="text-sm font-medium text-ink">Email</span>
         <input

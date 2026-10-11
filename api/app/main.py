@@ -48,16 +48,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             allow_headers=["*"],
         )
 
-    # HEAD too: uptime monitors and wait-for scripts probe with HEAD requests.
-    @app.api_route(
-        "/health", methods=["GET", "HEAD"], tags=["meta"], summary="Liveness: the process is up"
-    )
+    @app.get("/health", tags=["meta"], summary="Liveness: the process is up")
     async def health() -> HealthResponse:
         return HealthResponse(status="ok")
 
-    @app.api_route(
+    @app.get(
         "/health/ready",
-        methods=["GET", "HEAD"],
         tags=["meta"],
         summary="Readiness: dependencies are reachable",
         responses={503: {"model": HealthResponse}},
@@ -69,6 +65,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         except (SQLAlchemyError, OSError):
             return JSONResponse(status_code=503, content={"status": "unavailable"})
         return JSONResponse(content={"status": "ok"})
+
+    # HEAD too: uptime monitors and wait-for scripts probe with HEAD. Registered separately and
+    # kept out of the schema, so OpenAPI operation IDs stay deterministic (GET only).
+    app.head("/health", include_in_schema=False)(health)
+    app.head("/health/ready", include_in_schema=False)(ready)
 
     app.include_router(auth_router, prefix=API_PREFIX)
     app.include_router(learning_router, prefix=API_PREFIX)
