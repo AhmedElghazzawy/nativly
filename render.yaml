@@ -23,3 +23,19 @@ services:
         sync: false # paste Neon's direct (non-pooled) connection string when prompted
       - key: NATIVLY_JWT_SECRET_KEY
         generateValue: true # 256-bit random value created by Render
+
+  - type: web
+    name: nativly-web
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: web
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: API_URL
+        value: https://nativly-api.onrender.com

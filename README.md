@@ -6,7 +6,7 @@
 
 *Native gibi konuş.*
 
-**Live API:** [nativly-api.onrender.com/docs](https://nativly-api.onrender.com/docs)
+**Live app:** [nativly-web.onrender.com](https://nativly-web.onrender.com) · **API:** [nativly-api.onrender.com/docs](https://nativly-api.onrender.com/docs)
 
 [![CI](https://github.com/AhmedElghazzawy/nativly/actions/workflows/ci.yml/badge.svg)](https://github.com/AhmedElghazzawy/nativly/actions/workflows/ci.yml)
 [![API](https://img.shields.io/website?url=https%3A%2F%2Fnativly-api.onrender.com%2Fhealth&label=api&up_message=live)](https://nativly-api.onrender.com/docs)
@@ -32,7 +32,8 @@ follows a real CEFR curriculum (A1–C2, per skill), remembers you across sessio
 | Adaptive placement test, per-skill CEFR levels | 🔜 Phase 2 |
 | Curriculum: courses, units, lessons, objectives; MCQ, cloze and reorder exercises | ✅ |
 | Server-side answer checking, per-objective mastery, lesson progress | ✅ |
-| Spaced-repetition vocabulary (FSRS), web lesson player | 🚧 Phase 1 |
+| Web app: sign-up, course outline, lesson player with instant feedback, progress | ✅ |
+| Spaced-repetition vocabulary (FSRS) and daily review | 🚧 Phase 1 |
 | AI tutor with persistent memory of your goals and recurring mistakes | 🔜 Phase 3 |
 | Real-time voice tutor with pronunciation feedback | 🔜 Phase 4 |
 
@@ -59,8 +60,8 @@ internal AI layer, so providers stay swappable, calls are logged and cost is tra
 ```
 
 **Stack:** Python 3.12 · FastAPI · Pydantic v2 · SQLAlchemy 2 (async) · Alembic · PostgreSQL 16
-· Redis · pytest · ruff · mypy (strict) · uv · Docker · GitHub Actions · Next.js (soon) ·
-Claude behind the AI layer.
+· Redis · pytest · ruff · mypy (strict) · uv · Docker · GitHub Actions · Next.js 16 · TypeScript ·
+Tailwind 4 · Playwright · Claude behind the AI layer.
 
 ## Repository layout
 
@@ -75,7 +76,7 @@ nativly/
 │   ├── migrations/      Alembic migrations
 │   ├── tests/           pytest suite (real Postgres, per-test rollback)
 │   └── Dockerfile       multi-stage, non-root production image
-├── web/                 Next.js app (Phase 1)
+├── web/                 Next.js app: lesson player, progress (see web/README.md)
 ├── content/             curriculum YAML per language and level (see content/README.md)
 ├── infra/               docker-compose for local development
 └── docs/                build plan, architecture decisions (ADRs), progress
@@ -99,6 +100,9 @@ uv run python -m app.learning.importer ../content   # load the curriculum
 
 # 3. Run the API with hot reload
 uv run fastapi dev app/main.py
+
+# 4. Run the web app (another terminal)
+cd web && npm ci && API_URL=http://localhost:8000 npm run dev   # http://localhost:3000
 ```
 
 Open the interactive API docs at <http://localhost:8000/docs>.
@@ -129,8 +133,8 @@ Generate a secret with `python -c "import secrets; print(secrets.token_urlsafe(4
 
 Free-tier hosting, no card required ([ADR 0005](docs/decisions/0005-free-tier-hosting-render-and-neon.md)):
 
-- **API:** [Render](https://render.com) web service built from `api/Dockerfile`, declared in
-  [`render.yaml`](render.yaml). HTTPS is automatic. It deploys only after CI passes on `main`.
+- **API + web:** two [Render](https://render.com) web services (Docker for the API, Node for the
+  web app), declared in [`render.yaml`](render.yaml). HTTPS is automatic. It deploys only after CI passes on `main`.
 - **Database:** [Neon](https://neon.tech) serverless Postgres 16 in Frankfurt, next to the API (pgvector available).
 - **Migrations** run on container start (`api/scripts/start.sh`).
 - **Secrets:** Render generates the JWT secret; the Neon URL is set in the Render dashboard.
@@ -167,8 +171,10 @@ uv run mypy app tests
 uv run alembic revision --autogenerate -m "describe change"   # then review the file
 ```
 
-Every push and pull request runs CI: lint and strict type-check, the test suite against
-Postgres, a migration round-trip (`upgrade → check → downgrade → upgrade`), and a Docker build.
+Every push and pull request runs CI: lint and strict type-check, the API test suite against
+Postgres, a migration round-trip (`upgrade → check → downgrade → upgrade`), a Docker build, the
+web app's lint/types/unit tests/build, and an end-to-end Playwright run (desktop and mobile) of
+sign-up → lesson → progress against a real API and database.
 
 ### Conventions
 

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --color-paper: #faf8f4;
+  --color-card: #ffffff;
+  --color-line: #e7e2d9;
+  --color-ink: #1c2330;
+  --color-muted: #5f6673;
+  --color-accent: #0e6b63;
+  --color-accent-strong: #0a524c;
+  --color-accent-soft: #e3f1ef;
+  --color-success: #1f7a46;
+  --color-success-soft: #e5f4ea;
+  --color-danger: #b4412f;
+  --color-danger-soft: #fbeae6;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 font-medium text-white shadow-sm transition hover:bg-accent-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-line bg-card px-5 py-3 font-medium text-ink transition hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .field {
+    @apply block w-full rounded-xl border border-line bg-card px-3.5 py-2.5 text-ink shadow-xs outline-none transition placeholder:text-muted/60 focus:border-accent focus:ring-2 focus:ring-accent/20;
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-card;
+  }
+}
+
+/* Lesson explanations: Markdown rendered by react-markdown. */
+.prose-lesson {
+  @apply space-y-4 text-[1.0625rem] leading-relaxed text-ink;
+}
+.prose-lesson strong {
+  @apply font-semibold text-accent-strong;
+}
+.prose-lesson em {
+  @apply text-muted;
+}
+.prose-lesson del {
+  @apply text-danger decoration-danger/60;
+}
+.prose-lesson ul {
+  @apply list-disc space-y-1.5 pl-5;
+}
+.prose-lesson blockquote {
+  @apply rounded-r-xl border-l-4 border-accent bg-accent-soft px-4 py-3 italic;
+}
+.prose-lesson table {
+  @apply w-full overflow-hidden rounded-xl border border-line text-left text-[0.95rem];
+}
+.prose-lesson th {
+  @apply bg-paper px-3 py-2 font-medium text-muted;
+}
+.prose-lesson td {
+  @apply border-t border-line px-3 py-2;
+}

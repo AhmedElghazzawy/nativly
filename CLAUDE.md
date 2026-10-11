@@ -80,7 +80,7 @@ nativly/
 │   ├── migrations/     Alembic (async env, ruff runs on generated files)
 │   ├── tests/          pytest on real Postgres, per-test rollback
 │   └── Dockerfile      multi-stage, non-root; build context is the repo root
-├── web/                Next.js + TypeScript + Tailwind (Phase 1)
+├── web/                Next.js 16 + TypeScript + Tailwind 4 (conventions: web/CLAUDE.md)
 ├── content/            curriculum YAML per language/level (rules: content/README.md)
 ├── infra/              docker-compose.yml (Postgres+pgvector, Redis, migrate job, API)
 ├── render.yaml         Render Blueprint (free web service; DB on Neon), ADR 0005
@@ -116,6 +116,12 @@ uv run alembic revision --autogenerate -m "…"   # new migration: always review
 uv run alembic check                            # models and migrations in sync?
 uv run python -m app.learning.importer ../content   # import/refresh curriculum (idempotent)
 
+# Web (run from web/)
+API_URL=http://localhost:8001 npm run dev       # http://localhost:3000 (API container on 8001)
+npm run lint && npm run typecheck && npm test   # checks
+npm run e2e                                     # Playwright against the running stack
+npm run gen:api                                 # regenerate API types after API changes
+
 # GitHub
 gh pr create · gh pr checks --watch · gh pr merge --squash --delete-branch
 ```
@@ -142,7 +148,8 @@ gh pr create · gh pr checks --watch · gh pr merge --squash --delete-branch
 See @docs/progress/PROGRESS.md. **Phase 0 is done** (live at https://nativly-api.onrender.com).
 Now Phase 1 (Learning core); read that section of `docs/build-plan.md` before planning.
 
-**Production:** Render service `nativly-api` (`srv-db5nt5navr4c739f84vg`, Frankfurt, free) and
+**Production:** Render services `nativly-api` (`srv-db5nt5navr4c739f84vg`) and `nativly-web`
+(Frankfurt, free), and
 Neon project `nativly-eu` (`spring-credit-38007462`, Frankfurt, Postgres 16). Deploys happen
 automatically after CI passes on `main`. Read logs with `render logs -r <service id>`.
 Writing secrets to Render is the owner's step (the auto-mode classifier blocks Claude from it):
