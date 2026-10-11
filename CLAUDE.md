@@ -2,43 +2,63 @@
 
 An AI language school that teaches like a real teacher: adaptive placement, a CEFR curriculum,
 a tutor with persistent memory, and real-time speaking practice. English first.
-Full plan: docs/build-plan.md (read the relevant phase when planning) · Where we are now: @docs/learning/PROGRESS.md
+
+- Full plan: `docs/build-plan.md` (read the relevant phase before planning work)
+- Where we are now: @docs/progress/PROGRESS.md
+- Why things are the way they are: `docs/decisions/` (ADRs)
 
 ---
 
-## 0. How we work: build mode
+## 1. How we work
 
-Teaching happens outside this repo (in a separate Claude chat). **Here, Claude is the engineer:**
-build Nativly to a professional, production-quality standard.
+**Claude is the engineer on this repo.** The owner (Ahmed) learns elsewhere; here the goal is a
+professional, production-quality product and a repo that reads well to anyone who opens it.
 
-- Write complete, working code. No `TODO(human)` handoffs, no quizzes, no lesson blocks.
-- Keep replies short: what changed, why (only when non-obvious), and the verification result.
-- Work in small, reviewable steps that match the current phase in PROGRESS.md.
-- Stop and ask only for real product/architecture decisions; record those as ADRs (`/adr`).
-- Always verify: tests, ruff and mypy pass before calling a step done.
-- **Never weaken, skip or delete a test to make it pass.**
-- **No dependency without a reason**: state in one line what it does and why.
-- **Git:** suggest branch names and commit messages; the owner runs `git commit`, `push` and merges
-  unless they explicitly ask otherwise.
-- If an API might have changed, look it up (Context7) instead of guessing.
-- Push back on anything insecure, over-engineered or out of phase.
+### Autonomy
+- Make engineering calls yourself and keep going. Don't stop to ask about routine choices;
+  state any non-obvious choice in one line in the final summary.
+- Stop and ask **only** for: product decisions, anything that costs money, accounts/sign-ups,
+  or something that needs the owner's password.
+- Install tools and packages when needed; say in one line what each is for.
 
-### Sizing to the owner's life
+### Constraints
+- **No paid services.** Use free tiers that need no card (e.g. Neon, Render free). If something
+  can only be done with a paid plan, stop and explain the options.
+- **The repo is public.** Never commit secrets, real credentials, personal data or `.env` files.
+  Secrets live in the host's secret store or a git-ignored `.env`. Never read or print `.env`.
+- **Respect the safety hooks** (`.claude/hooks/guard-bash.sh`). If one blocks something, explain
+  why it was needed and let the owner run it; never work around a hook.
 
-GPA and the capstone (ai-ticket-assistant) come first. Assume short sessions. Every session
-should end with something committed and working, even if small. Prefer finishing a tiny step
-over half-finishing a big one.
+### Git workflow
+- Never commit to `main` directly. One branch per step: `feat/…`, `fix/…`, `chore/…`, `docs/…`.
+- Claude commits, pushes, opens the PR (`gh pr create`), waits for CI, fixes failures, and
+  **squash-merges once CI is green** (`gh pr merge --squash --delete-branch`), then updates
+  local `main`.
+- [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `test:`,
+  `refactor:`, `docs:`, `chore:`, `ci:`. PR bodies have a Summary and a Test plan.
+
+### Definition of done (every step)
+1. Tests written for the new behaviour, including error paths.
+2. `pytest --cov`, `ruff check`, `ruff format --check` and `mypy app tests` all pass locally.
+3. Docs updated where they changed: README (features, API table, config), this file's
+   commands, `PROGRESS.md`, and an ADR for any real choice between alternatives.
+4. PR merged with CI green.
+5. Session summary appended to `docs/progress/SESSION_LOG.md` (via `/wrap-up`).
+
+### Replies
+Short. What changed, why (only when non-obvious), and the verification result. No lesson blocks,
+quizzes or `TODO(human)` handoffs.
 
 ---
 
-## 1. Product context
+## 2. Product context
 
 - CEFR levels A1–C2, per skill (reading, listening, writing, speaking, grammar, vocab).
 - Differentiators: persistent tutor memory, a real curriculum with mastery tracking, teaching
   depth (explain *why*, correct like a teacher). Not gamified, not Duolingo.
 - Tagline: "Native gibi konuş."
 
-## 2. Architecture (modular monolith)
+## 3. Architecture (modular monolith)
 
 One FastAPI codebase split into modules: `auth`, `learning`, `assessment`, `tutor`, `voice`,
 `billing`. **No microservices** until something actually hurts.
@@ -50,64 +70,81 @@ tracked per user, and tests runnable with fakes.
 
 ```
 nativly/
-├── api/            FastAPI app (see api/CLAUDE.md)
-│   ├── app/        main.py, core/, auth/, learning/, assessment/, tutor/, voice/, ai/
-│   ├── migrations/ Alembic
-│   └── tests/
-├── web/            Next.js + TypeScript + Tailwind (Phase 0 end / Phase 1)
-├── content/        curriculum YAML per language/level
-├── infra/          docker-compose, deploy configs
-└── docs/           build plan, learning log, decisions (ADRs)
+├── api/                FastAPI service (conventions: api/CLAUDE.md)
+│   ├── app/
+│   │   ├── core/       config.py (Settings) · db.py (Base, engine, get_session) · security.py
+│   │   ├── auth/       models · schemas · service · dependencies · router
+│   │   ├── models.py   imports every ORM model (for Alembic + tests)
+│   │   └── main.py     create_app(): lifespan, CORS, health checks, routers under /api/v1
+│   ├── migrations/     Alembic (async env, ruff runs on generated files)
+│   ├── tests/          pytest on real Postgres, per-test rollback
+│   └── Dockerfile      multi-stage, non-root
+├── web/                Next.js + TypeScript + Tailwind (Phase 1)
+├── content/            curriculum YAML per language/level
+├── infra/              docker-compose.yml (Postgres+pgvector, Redis, migrate job, API)
+├── docs/               build-plan · decisions/ (ADRs) · progress/ (PROGRESS, SESSION_LOG)
+└── .github/            CI workflow, Dependabot
 ```
 
-## 3. Stack
+## 4. Stack
 
-Python 3.12 · FastAPI · Pydantic v2 · SQLAlchemy 2 (async) · Alembic · PostgreSQL 16 (+pgvector
-later) · Redis + arq · pytest · ruff · mypy · uv (package manager) · Docker Compose ·
-GitHub Actions · Next.js (later) · Claude (Sonnet for tutoring, Haiku for grading) behind the AI layer.
+Python 3.12 · FastAPI · Pydantic v2 · SQLAlchemy 2 (async, asyncpg) · Alembic · PostgreSQL 16
+(pgvector image) · Redis (+ arq later) · PyJWT · pwdlib (Argon2id) · pytest + pytest-asyncio ·
+ruff · mypy (strict) · uv · Docker (Colima locally) · GitHub Actions · Next.js (Phase 1) ·
+Claude (Sonnet for tutoring, Haiku for grading) behind the AI layer.
 
-## 4. Commands
+## 5. Commands
 
-> Keep this in sync as commands are added. Tests need Postgres running (compose below).
+> Keep this in sync as commands are added. Tests need Postgres running.
 
 ```bash
+# Infra (repo root). If Docker isn't responding after a reboot: `colima start`
+docker compose -f infra/docker-compose.yml up -d                          # Postgres + Redis
+docker compose -f infra/docker-compose.yml --profile api up -d --build    # + migrate + API
+# Port 8000 may be taken by the owner's other project: prefix with API_PORT=8001
+
 # API (run from api/)
-uv sync                          # install deps
-uv run fastapi dev app/main.py   # dev server, docs at http://localhost:8000/docs
-uv run pytest                    # tests
-uv run pytest --cov              # coverage (fails under 80%)
+uv sync                                         # install deps
+uv run fastapi dev app/main.py                  # dev server, docs at /docs
+uv run pytest --cov                             # tests + coverage (fails under 80%)
 uv run ruff check . && uv run ruff format .
 uv run mypy app tests
-uv run alembic upgrade head      # apply migrations
+uv run alembic upgrade head                     # apply migrations
+uv run alembic revision --autogenerate -m "…"   # new migration: always review the file
+uv run alembic check                            # models and migrations in sync?
 
-# Infra (repo root)
-docker compose -f infra/docker-compose.yml up -d   # Postgres + Redis
-docker compose -f infra/docker-compose.yml --profile api up -d --build   # + API container
+# GitHub
+gh pr create · gh pr checks --watch · gh pr merge --squash --delete-branch
 ```
 
-## 5. Engineering standards
+## 6. Engineering standards
 
-- **Small steps, small PRs.** One branch per step: `feat/health-endpoint`, `fix/...`.
-  Conventional commits: `feat:`, `fix:`, `test:`, `refactor:`, `docs:`, `chore:`.
 - **Tests with every feature.** Arrange / act / assert. Test behaviour through the HTTP API
-  where possible.
-- **Type everything.** Full type hints; mypy must pass.
-- **Config from environment** via a Pydantic `Settings` class. Secrets only in `.env`
-  (git-ignored). Never hard-code keys, never print them, never read `.env` files.
-- **Errors are explicit.** Raise `HTTPException` (or domain exceptions mapped to HTTP) with
-  clear messages. No bare `except:`.
-- **Comments explain *why*, not *what*.** The learning explanations go in the conversation and
-  the learning log, not as noise in the code.
-- **Record decisions.** Any choice between real alternatives (JWT vs sessions, arq vs Celery,
-  FSRS vs SM-2) gets an ADR in `docs/decisions/` via `/adr`.
+  where possible. Never weaken, skip or delete a test to make it pass. Warnings are errors.
+- **Type everything.** mypy strict must pass; no `type: ignore` without a reason.
+- **Config from environment** via `Settings` (`NATIVLY_` prefix). Never hard-code secrets.
+  A new setting goes in `Settings`, the README config table, and CI/compose if needed.
+- **Errors are explicit.** Services raise domain exceptions; routers map them to
+  `HTTPException`. No bare `except:`.
+- **Comments explain *why*, not *what*.**
+- **Dependencies need a reason.** Prefer the stdlib or an existing dependency.
+- **If an API might have changed, look it up** (Context7, official docs, `gh api` for action
+  versions) instead of guessing. Pin GitHub Actions to tags that actually exist.
+- **Record decisions.** Any choice between real alternatives gets an ADR via `/adr`.
+- **Security by default:** auth on every protected route, never return internal fields,
+  validate and bound all input, least-privilege containers.
 
-## 6. Current milestone
+## 7. Current milestone
 
-See @docs/learning/PROGRESS.md. Phase 0 (Foundation): repo, `/health`, settings, Postgres +
-Redis in Compose, Alembic, pytest/ruff/mypy, CI, auth (register/login/JWT/refresh/`/me`),
-deployed with HTTPS. **Don't build Phase 1+ features until Phase 0 is done and deployed.**
+See @docs/progress/PROGRESS.md. Phase 0 (Foundation) is done except **deploying the API with
+HTTPS on a free tier**. Don't start Phase 1 features until Phase 0 is deployed.
 
-## 7. Slash commands in this repo
+## 8. Slash commands
 
-`/start-session` · `/next-step` · `/explain <file|concept>` · `/quiz` · `/review-me` ·
-`/stuck` · `/adr <decision>` · `/wrap-up`
+| Command | Use |
+|---|---|
+| `/start-session [minutes]` | Recap state, propose and start one goal |
+| `/next-step` | Plan the next step from the build plan, then build it |
+| `/review [path]` | Review the current diff for bugs, security and design before a PR |
+| `/adr <decision>` | Record an architecture decision |
+| `/wrap-up` | Verify, update PROGRESS + SESSION_LOG, commit, PR, merge |
