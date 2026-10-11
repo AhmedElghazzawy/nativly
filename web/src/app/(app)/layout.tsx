@@ -1,5 +1,6 @@
 import { logout } from "@/app/(auth)/actions";
 import { NavLink } from "@/components/nav-link";
+import { TimezoneCookie } from "@/components/timezone-cookie";
 
 export default function AppLayout({ children }: LayoutProps<"/">) {
   return (
@@ -9,6 +10,8 @@ export default function AppLayout({ children }: LayoutProps<"/">) {
           <NavLink href="/learn" also={["/lessons"]}>
             Learn
           </NavLink>
+          <NavLink href="/review">Review</NavLink>
+          <NavLink href="/words">Words</NavLink>
           <NavLink href="/progress">Progress</NavLink>
           <form action={logout} className="ml-auto">
             <button type="submit" className="rounded-lg px-3 py-1.5 text-muted hover:text-ink">
@@ -17,6 +20,7 @@ export default function AppLayout({ children }: LayoutProps<"/">) {
           </form>
         </div>
       </nav>
+      <TimezoneCookie />
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">{children}</main>
     </>
   );

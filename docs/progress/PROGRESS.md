@@ -1,7 +1,7 @@
 # Nativly progress
 
 **Current phase:** Phase 1 — Learning core
-**Next step:** Vocabulary decks + FSRS spaced repetition + daily review (API and web).
+**Next step:** Content: finish A2 Unit 1 (lessons 3–4) and write A1 + B1 Unit 1 (lessons and decks).
 
 ## Phase 0: Foundation
 - [x] Repo layout (api/, web/, content/, infra/, docs/) + README + .gitignore
@@ -24,10 +24,10 @@
 - [x] Curriculum API: courses, course outline, lesson with public exercises
 - [x] Content: A2 Unit 1 "Talking about the past", lessons 1–2
 - [x] Exercise attempts + server-side checking + `objective_mastery` + lesson progress
-- [ ] Vocabulary decks + FSRS spaced repetition + daily review API
+- [x] Vocabulary decks + FSRS spaced repetition + daily review API (ADR 0008)
 - [x] Progress API (`/me/progress`); richer dashboard stats later
 - [x] Web app (Next.js): sign-up/login, course outline, lesson player, progress (+ e2e tests)
-- [ ] Web: daily review screen (with FSRS)
+- [x] Web: word decks, daily review (keyboard-friendly), today banner, streaks
 - [ ] Content: finish A2 Unit 1 (~4 lessons) and B1 Unit 1 (~4 lessons)
 - [ ] **Done when:** a learner can do a real lesson and a daily review, and see progress
 

@@ -7,7 +7,7 @@ from datetime import date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
 from fsrs import Rating
-from sqlalchemy import and_, exists, func, select
+from sqlalchemy import and_, exists, func, or_, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -25,6 +25,9 @@ from app.vocab.models import (
 
 # A card counts as "mature" once FSRS expects it to survive three weeks (Anki's convention).
 MATURE_STABILITY_DAYS = 21.0
+# Cards still being learned that come due within this window are shown now, so a word failed
+# a minute ago returns in the same session instead of after it ends (Anki's "learn ahead").
+LEARN_AHEAD = timedelta(minutes=20)
 
 
 @dataclass(frozen=True)
@@ -137,7 +140,13 @@ async def queue(
     """Due cards first (most overdue first), then new words up to today's allowance."""
     due_rows = await session.scalars(
         select(UserCard)
-        .where(UserCard.user_id == user_id, UserCard.due <= now)
+        .where(
+            UserCard.user_id == user_id,
+            or_(
+                UserCard.due <= now,
+                and_(UserCard.state != CardState.REVIEW, UserCard.due <= now + LEARN_AHEAD),
+            ),
+        )
         .order_by(UserCard.due)
         .limit(limit)
     )

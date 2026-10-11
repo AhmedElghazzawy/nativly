@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { getCourse, getCourses, getProgress } from "@/lib/data";
-import type { LessonProgress } from "@/lib/types";
+import { getCourse, getCourses, getProgress, getReviewSummary } from "@/lib/data";
+import type { LessonProgress, ReviewSummary } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Learn" };
 
@@ -20,7 +20,11 @@ export default function LearnPage() {
 }
 
 async function Courses() {
-  const [courses, progress] = await Promise.all([getCourses(), getProgress()]);
+  const [courses, progress, review] = await Promise.all([
+    getCourses(),
+    getProgress(),
+    getReviewSummary(),
+  ]);
   const details = await Promise.all(courses.map((c) => getCourse(c.slug)));
   const byLesson = new Map(progress.lessons.map((p) => [p.lesson_slug, p]));
 
@@ -30,6 +34,7 @@ async function Courses() {
 
   return (
     <div className="mt-10 space-y-12">
+      <TodayBanner review={review} />
       {details.map((course) => (
         <section key={course.slug}>
           <div className="flex items-baseline gap-3">
@@ -105,5 +110,40 @@ function OutlineSkeleton() {
       <div className="h-8 w-64 rounded-lg bg-line/70" />
       <div className="h-56 rounded-2xl bg-line/50" />
     </div>
+  );
+}
+
+function TodayBanner({ review }: { review: ReviewSummary }) {
+  const toDo = review.due_now + review.new_available_today;
+  if (review.total_cards === 0 && review.new_available_today === 0) {
+    return (
+      <Link
+        href="/words"
+        className="card flex items-center justify-between gap-4 border-accent/30 bg-accent-soft px-5 py-4 transition hover:border-accent"
+      >
+        <span>
+          <span className="block font-medium text-accent-strong">Learn the words for this unit</span>
+          <span className="text-sm text-muted">A few new words a day, reviewed right before you forget them.</span>
+        </span>
+        <span aria-hidden="true" className="text-accent">→</span>
+      </Link>
+    );
+  }
+  return (
+    <Link
+      href="/review"
+      className="card flex items-center justify-between gap-4 px-5 py-4 transition hover:border-accent"
+    >
+      <span>
+        <span className="block font-medium text-ink">
+          {toDo > 0 ? `${toDo} word${toDo === 1 ? "" : "s"} to review today` : "Review done for today"}
+        </span>
+        <span className="text-sm text-muted">
+          {review.streak_days > 0 ? `${review.streak_days}-day streak · ` : ""}
+          {review.mature_cards} of {review.total_cards} words known
+        </span>
+      </span>
+      {toDo > 0 ? <span className="btn-primary px-4 py-2 text-sm">Start review</span> : null}
+    </Link>
   );
 }

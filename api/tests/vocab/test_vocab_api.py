@@ -120,18 +120,23 @@ async def test_new_words_per_day_are_capped(
     assert (await summary(client, auth_headers))["new_available_today"] == 0
 
 
-async def test_reviewing_schedules_the_card_and_removes_it_from_the_queue(
+async def test_reviewing_schedules_the_card(
     client: AsyncClient, auth_headers: dict[str, str]
 ) -> None:
     await subscribe(client, auth_headers)
 
-    response = await rate(client, auth_headers, "w-go", "good")
+    easy = (await rate(client, auth_headers, "w-go", "easy")).json()
+    good = (await rate(client, auth_headers, "w-see", "good")).json()
+    remaining = [c["word"]["slug"] for c in await queue(client, auth_headers)]
 
-    assert response.status_code == 200
-    body = response.json()
-    assert body["status"] == "learning"
-    assert body["interval_seconds"] > 0
-    assert "w-go" not in [c["word"]["slug"] for c in await queue(client, auth_headers)]
+    # "Easy" graduates the word to review days away: it leaves today's queue.
+    assert easy["status"] == "young"
+    assert easy["interval_seconds"] > 24 * 3600
+    assert "w-go" not in remaining
+    # "Good" on a new word is a short learning step: it returns within this session.
+    assert good["status"] == "learning"
+    assert 0 < good["interval_seconds"] <= 20 * 60
+    assert "w-see" in remaining
 
 
 async def test_due_cards_come_back_before_new_words(
@@ -263,3 +268,19 @@ def test_word_whose_examples_never_use_it_is_rejected(content: ContentDir) -> No
 
     with pytest.raises(ContentError, match="no example uses 'ago'"):
         load_content(root)
+
+
+async def test_learning_cards_due_soon_return_in_the_same_session(
+    client: AsyncClient, auth_headers: dict[str, str], app: Any, settings: Any
+) -> None:
+    from app.core.config import get_settings
+
+    app.dependency_overrides[get_settings] = lambda: settings.model_copy(
+        update={"new_cards_per_day": 1}
+    )
+    await subscribe(client, auth_headers)
+    await rate(client, auth_headers, "w-go", "again")  # due again in about a minute
+
+    cards = await queue(client, auth_headers)
+
+    assert [(c["word"]["slug"], c["status"]) for c in cards] == [("w-go", "learning")]

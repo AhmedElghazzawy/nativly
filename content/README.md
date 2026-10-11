@@ -16,6 +16,7 @@ checks that this folder always imports (`test_repository_content_is_valid`).
 ```
 content/<language>/<level>/course.yaml        course + its learning objectives
 content/<language>/<level>/units/NN-name.yaml one unit, with its lessons and steps
+content/<language>/<level>/decks/NN-name.yaml a word deck (optionally `unit:` it supports)
 ```
 
 ## Rules
@@ -50,4 +51,19 @@ content/<language>/<level>/units/NN-name.yaml one unit, with its lessons and ste
 
     # type: reorder           # tokens are shuffled automatically on import
     # answer: [She, played, tennis, last, weekend]
+```
+
+## Word decks
+
+```yaml
+slug: en-a2-deck-past-verbs-and-time
+title: "Past tense: everyday verbs and time words"
+unit: en-a2-u01            # optional: the unit this deck supports
+items:
+  - slug: en-a2-w-go
+    lemma: go
+    part_of_speech: verb   # noun, verb, adjective, adverb, preposition, phrase, other
+    definition: To move from one place to another.   # simple English, at or below the level
+    examples: [We went to the beach last Saturday.]   # 1-5; at least one must use the word
+    notes: "go – went – gone"                          # forms, usage traps
 ```

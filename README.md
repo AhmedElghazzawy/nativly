@@ -32,7 +32,8 @@ follows a real CEFR curriculum (A1–C2, per skill), remembers you across sessio
 | Curriculum: courses, units, lessons, objectives; MCQ, cloze and reorder exercises | ✅ |
 | Server-side answer checking, per-objective mastery, lesson progress | ✅ |
 | Web app: sign-up, course outline, lesson player with instant feedback, progress | ✅ |
-| Spaced-repetition vocabulary (FSRS) and daily review | 🚧 Phase 1 |
+| Vocabulary decks with FSRS spaced repetition, daily review, streaks | ✅ |
+| Full A1–B1 course content | 🚧 Phase 1 |
 | AI tutor with persistent memory of your goals and recurring mistakes | 🔜 Phase 3 |
 | Real-time voice tutor with pronunciation feedback | 🔜 Phase 4 |
 
@@ -71,6 +72,7 @@ nativly/
 │   │   ├── core/        settings, database, security primitives
 │   │   ├── auth/        users, tokens: models · schemas · service · router
 │   │   ├── learning/    curriculum models, YAML importer, curriculum API
+│   │   ├── vocab/       word decks, FSRS spaced repetition, review queue
 │   │   └── main.py      app factory, health checks, router wiring
 │   ├── migrations/      Alembic migrations
 │   ├── tests/           pytest suite (real Postgres, per-test rollback)
@@ -159,6 +161,11 @@ All application endpoints are versioned under `/api/v1`.
 | `POST` | `/api/v1/exercises/{slug}/attempts` | Check an answer; returns the verdict, explanation and updated mastery |
 | `POST` | `/api/v1/lessons/{slug}/complete` | Finish a lesson (score = latest attempt per exercise) |
 | `GET` | `/api/v1/me/progress` | The learner's lessons and objective mastery, weakest first |
+| `GET` | `/api/v1/decks`, `/decks/{slug}` | Word decks, with each word's status for the learner |
+| `PUT`/`DELETE` | `/api/v1/decks/{slug}/subscription` | Start or stop studying a deck |
+| `GET` | `/api/v1/review/queue?tz=` | Today's cards: due first, then new words (FSRS) |
+| `POST` | `/api/v1/review/{word}` | Rate a card (again/hard/good/easy); returns the next due date |
+| `GET` | `/api/v1/review/summary?tz=` | Due, new today, reviewed today, streak, known words |
 
 ## Development
 
