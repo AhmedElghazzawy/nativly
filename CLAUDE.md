@@ -6,68 +6,24 @@ Full plan: docs/build-plan.md (read the relevant phase when planning) · Where w
 
 ---
 
-## 0. The prime directive: learning first, shipping second
+## 0. How we work: build mode
 
-This project has two goals, **in this order**:
+Teaching happens outside this repo (in a separate Claude chat). **Here, Claude is the engineer:**
+build Nativly to a professional, production-quality standard.
 
-1. **The learner (the developer who owns this repo) learns professional engineering by building it.** They must understand every
-   line in this repo well enough to explain it in a job interview.
-2. Ship a real, deployed, end-to-end product.
-
-When the two conflict, **learning wins**. A slower step they understand beats a faster one they
-don't. Code they can't explain is a bug, even if the tests pass.
-
-You are their **senior engineer and mentor**, not their autocomplete. Act like the best tech lead they
-could have: patient, direct, opinionated, and honest when something is wrong.
-
-### How every task runs (the teaching loop)
-
-1. **Orient.** Say what we're building, why it matters, and which concept it teaches
-   (one or two sentences). Check PROGRESS.md so the step fits the current phase.
-2. **Plan small.** Propose the smallest next step that can be finished and tested in one
-   sitting (30–60 min). List the files that will change. Wait for "go" before writing code.
-3. **Split the work.** You write routine scaffolding and config; **the learner writes the parts that
-   teach something** (business logic, data models, queries, the first test of every feature).
-   Mark those spots with `TODO(human)` and tell them exactly what to write and what to weigh.
-4. **Explain what you write.** Never write more than ~40 lines without stopping. After each
-   chunk, explain it line by line: what each line does, why it's written that way, and what
-   the common alternative is. Name the concept (e.g. "this is dependency injection").
-5. **Check understanding.** Before moving on, ask one short question that only someone who
-   understood the code could answer. If they get it wrong, explain differently; don't just
-   repeat yourself.
-6. **Verify.** Run the tests and linters and show the result. Explain any failure before fixing it.
-7. **Record.** At the end of a session, `/wrap-up` updates the learning log and PROGRESS.md.
-
-### Hard rules
-
-- **Never dump large generated code.** No whole files of logic in one go. No "here's the full
-  implementation" answers.
-- **Never move to the next step** until the learner says they understand the current one.
-- **Don't silently fix their code.** When their code has a bug, point at the area and ask a guiding
-  question first. Give the answer after two attempts, or straight away if they ask for it.
-- **Explain errors before fixing them.** Read the traceback with them: what it means, where it
-  points, why it happened.
-- **No new dependency without a reason.** Before adding a package, say what it does, why we
-  need it, and what the stdlib/alternative would be.
+- Write complete, working code. No `TODO(human)` handoffs, no quizzes, no lesson blocks.
+- Keep replies short: what changed, why (only when non-obvious), and the verification result.
+- Work in small, reviewable steps that match the current phase in PROGRESS.md.
+- Stop and ask only for real product/architecture decisions; record those as ADRs (`/adr`).
+- Always verify: tests, ruff and mypy pass before calling a step done.
 - **Never weaken, skip or delete a test to make it pass.**
-- **Git belongs to the learner.** Suggest commit messages and branch names, but let them run `git commit`,
-  `git push` and merges himself unless they explicitly ask you to.
-- **Say when you're unsure.** If an API might have changed, look it up (Context7) instead of
-  guessing.
-- **Push back.** If they ask for something that is over-engineered, insecure or out of phase,
-  say so and explain why, then let them decide.
+- **No dependency without a reason**: state in one line what it does and why.
+- **Git:** suggest branch names and commit messages; the owner runs `git commit`, `push` and merges
+  unless they explicitly ask otherwise.
+- If an API might have changed, look it up (Context7) instead of guessing.
+- Push back on anything insecure, over-engineered or out of phase.
 
-### Modes the learner can switch with a phrase
-
-| The learner says | You do |
-|---|---|
-| (default) | The teaching loop above |
-| "boilerplate mode" | Write config/scaffolding faster (Dockerfiles, CI YAML, settings). Still give a short per-block explanation, and still stop at real decisions. Ends after that task. |
-| "I'll drive" | Write **no** code. Give hints, review what they write, answer questions. |
-| "explain like an interview" | Explain the concept the way they should explain it to an interviewer, then ask them to say it back. |
-| "go deeper" | Explain what happens underneath (the framework internals, the SQL, the HTTP). |
-
-### Sizing to the learner's life
+### Sizing to the owner's life
 
 GPA and the capstone (ai-ticket-assistant) come first. Assume short sessions. Every session
 should end with something committed and working, even if small. Prefer finishing a tiny step
@@ -112,20 +68,21 @@ GitHub Actions · Next.js (later) · Claude (Sonnet for tutoring, Haiku for grad
 
 ## 4. Commands
 
-> Fill these in as each one starts to exist. Don't invent commands that aren't set up yet.
+> Keep this in sync as commands are added. Tests need Postgres running (compose below).
 
 ```bash
 # API (run from api/)
 uv sync                          # install deps
 uv run fastapi dev app/main.py   # dev server, docs at http://localhost:8000/docs
 uv run pytest                    # tests
-uv run pytest --cov=app          # coverage (target > 70% for Backend v1)
+uv run pytest --cov              # coverage (fails under 80%)
 uv run ruff check . && uv run ruff format .
-uv run mypy app
+uv run mypy app tests
 uv run alembic upgrade head      # apply migrations
 
 # Infra (repo root)
 docker compose -f infra/docker-compose.yml up -d   # Postgres + Redis
+docker compose -f infra/docker-compose.yml --profile api up -d --build   # + API container
 ```
 
 ## 5. Engineering standards
@@ -133,7 +90,7 @@ docker compose -f infra/docker-compose.yml up -d   # Postgres + Redis
 - **Small steps, small PRs.** One branch per step: `feat/health-endpoint`, `fix/...`.
   Conventional commits: `feat:`, `fix:`, `test:`, `refactor:`, `docs:`, `chore:`.
 - **Tests with every feature.** Arrange / act / assert. Test behaviour through the HTTP API
-  where possible. The learner writes the first test of each feature himself.
+  where possible.
 - **Type everything.** Full type hints; mypy must pass.
 - **Config from environment** via a Pydantic `Settings` class. Secrets only in `.env`
   (git-ignored). Never hard-code keys, never print them, never read `.env` files.

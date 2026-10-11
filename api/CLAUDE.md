@@ -1,6 +1,6 @@
 # api/ conventions (FastAPI backend)
 
-Loaded when working inside api/. The root CLAUDE.md teaching rules still apply.
+Loaded when working inside api/. The root CLAUDE.md rules still apply.
 
 ## Module layout
 Each feature module in `app/<module>/` uses the same files:
@@ -17,7 +17,7 @@ Each feature module in `app/<module>/` uses the same files:
 - Async all the way: `async def` routes, `AsyncSession`, never call blocking I/O in a route.
 - Dependencies via `Depends()` (DB session, current user, settings).
 - Every schema change goes through an Alembic migration. Explain the generated migration
-  to the learner before applying it; autogenerate is a draft, not the truth.
+  in the summary before applying it; autogenerate is a draft, not the truth.
 - Passwords hashed with a slow hash (argon2/bcrypt). Never log or return secrets.
 
 ## Tests

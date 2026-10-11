@@ -1,18 +1,14 @@
 ---
 name: start-session
-description: Start a Nativly work session - recap where we left off, refresh memory with a quick review question, and propose today's small goal.
+description: Start a Nativly work session - recap where we left off and propose today's goal.
 disable-model-invocation: true
 argument-hint: "[minutes available, e.g. 45]"
 ---
 
 Start a work session. Time available: $ARGUMENTS (assume 45 minutes if empty).
 
-1. Read docs/learning/PROGRESS.md and the last entry of docs/learning/LEARNING_LOG.md.
-   Run `git status` and `git log --oneline -5`.
-2. In 3–4 lines, recap: current phase, the last thing finished, anything left half-done.
-3. Ask ONE spaced-repetition question about something learned in a previous session
-   (pick from the "Concepts" lines of older log entries). Wait for the answer, then give
-   short feedback.
-4. Propose ONE goal that fits the time available and the current phase, with:
-   - what we'll build, the concept it teaches, files likely to change, how we'll know it works.
-5. Suggest a branch name. Wait for the learner to say "go" before writing any code.
+1. Read docs/learning/PROGRESS.md. Run `git status` and `git log --oneline -5`.
+2. In 2–3 lines: current phase, last thing finished, anything uncommitted or half-done.
+3. Propose ONE goal that fits the time and the current phase: what gets built, files that
+   change, how it will be verified. Suggest a branch name.
+4. Start building once the owner agrees (or immediately if they already said to continue).

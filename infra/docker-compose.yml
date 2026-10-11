@@ -1,0 +1,66 @@
+name: nativly
+
+# Local development only. Credentials default to throwaway values; override them in infra/.env.
+services:
+  postgres:
+    # pgvector build of Postgres 16, so enabling embeddings later needs no image or data migration.
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-nativly}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nativly}
+      POSTGRES_DB: ${POSTGRES_DB:-nativly}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Containerised API. Day to day, run it with `uv run fastapi dev` instead;
+  # start this with `--profile api` to test the production image locally.
+  api:
+    profiles: ["api"]
+    build:
+      context: ../api
+    environment: &api-env
+      NATIVLY_ENVIRONMENT: local
+      NATIVLY_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-nativly}:${POSTGRES_PASSWORD:-nativly}@postgres:5432/${POSTGRES_DB:-nativly}
+      NATIVLY_REDIS_URL: redis://redis:6379/0
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+
+  # One-off job: applies Alembic migrations before the API starts (same image, different command).
+  migrate:
+    profiles: ["api"]
+    build:
+      context: ../api
+    command: ["alembic", "upgrade", "head"]
+    environment: *api-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres-data:
+  redis-data:

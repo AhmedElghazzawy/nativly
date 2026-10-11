@@ -4,7 +4,7 @@
 cd "${CLAUDE_PROJECT_DIR:-.}" || exit 0
 
 echo "=== Nativly session context ==="
-echo "Reminder: learning comes first. Follow the teaching loop in CLAUDE.md section 0."
+echo "Build mode: Claude is the engineer here (see CLAUDE.md section 0)."
 
 if [ -f docs/learning/PROGRESS.md ]; then
   echo
