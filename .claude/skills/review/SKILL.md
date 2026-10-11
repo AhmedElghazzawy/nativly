@@ -1,10 +1,10 @@
 ---
 name: review
-description: Review the current changes for bugs, security issues, design problems and missing tests before opening a PR, then fix what's found.
+description: Review the current changes for bugs, security issues, design problems and missing tests before pushing, then fix what's found.
 argument-hint: "[file or empty for the current branch diff]"
 ---
 
-Review: $ARGUMENTS (if empty: `git diff main...HEAD` plus uncommitted and untracked files).
+Review: $ARGUMENTS (if empty: uncommitted and untracked files plus unpushed commits, `git diff origin/main`).
 
 1. Use the code-reviewer subagent on the change.
 2. Verify each finding against the code; drop anything that doesn't hold up.

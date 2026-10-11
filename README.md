@@ -177,7 +177,9 @@ sign-up → lesson → progress against a real API and database.
 
 ### Conventions
 
-- Small branches and PRs (`feat/…`, `fix/…`), [Conventional Commits](https://www.conventionalcommits.org/).
+- Trunk-based: small commits pushed to `main`, [Conventional Commits](https://www.conventionalcommits.org/).
+  A pre-push hook runs `scripts/check.sh` (lint, types, API and web tests); enable it once per
+  clone with `git config core.hooksPath .githooks`. Production deploys only after CI passes.
 - Each module keeps HTTP (`router.py`), validation (`schemas.py`), persistence (`models.py`)
   and business logic (`service.py`) separate; services have no FastAPI imports.
 - Significant technical choices are recorded as [ADRs](docs/decisions/).

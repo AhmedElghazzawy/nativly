@@ -30,19 +30,22 @@ professional, production-quality product and a repo that reads well to anyone wh
   why it was needed and let the owner run it; never work around a hook.
 
 ### Git workflow
-- Never commit to `main` directly. One branch per step: `feat/…`, `fix/…`, `chore/…`, `docs/…`.
-- Claude commits, pushes, opens the PR (`gh pr create`), waits for CI, fixes failures, and
-  **squash-merges once CI is green** (`gh pr merge --squash --delete-branch`), then updates
-  local `main`.
+- **Trunk-based: commit and push straight to `main`** (the owner's choice; solo project).
+  One logical change per commit; no feature branches or PRs unless the owner asks.
+- `git push` runs `.githooks/pre-push` → `scripts/check.sh` (lint, types, API + web tests). Never
+  bypass it with `--no-verify` except in an emergency the owner approved.
+- Run `scripts/check.sh --e2e` before pushing user-facing changes.
+- After pushing, watch CI (`gh run watch`). If CI goes red, fixing it is the next commit,
+  before anything else. Render deploys only after CI passes on `main`, so red CI never ships.
 - [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `test:`,
-  `refactor:`, `docs:`, `chore:`, `ci:`. PR bodies have a Summary and a Test plan.
+  `refactor:`, `docs:`, `chore:`, `ci:`. The body says why, not just what.
 
 ### Definition of done (every step)
 1. Tests written for the new behaviour, including error paths.
 2. `pytest --cov`, `ruff check`, `ruff format --check` and `mypy app tests` all pass locally.
 3. Docs updated where they changed: README (features, API table, config), this file's
    commands, `PROGRESS.md`, and an ADR for any real choice between alternatives.
-4. PR merged with CI green.
+4. Pushed to `main` and CI green (and the Render deploy live, for runtime changes).
 5. Session summary appended to `docs/progress/SESSION_LOG.md` (via `/wrap-up`).
 
 ### Replies
@@ -124,7 +127,8 @@ npm run e2e                                     # Playwright against the running
 npm run gen:api                                 # regenerate API types after API changes
 
 # GitHub
-gh pr create · gh pr checks --watch · gh pr merge --squash --delete-branch
+scripts/check.sh [--e2e]                        # all local gates (also runs on git push)
+gh run watch                                    # follow CI after a push
 ```
 
 ## 6. Engineering standards
@@ -162,6 +166,6 @@ prepare a script that never prints values and have the owner run it with `!`.
 |---|---|
 | `/start-session [minutes]` | Recap state, propose and start one goal |
 | `/next-step` | Plan the next step from the build plan, then build it |
-| `/review [path]` | Review the current diff for bugs, security and design before a PR |
+| `/review [path]` | Review uncommitted or recent changes for bugs, security and design |
 | `/adr <decision>` | Record an architecture decision |
-| `/wrap-up` | Verify, update PROGRESS + SESSION_LOG, commit, PR, merge |
+| `/wrap-up` | Verify, update PROGRESS + SESSION_LOG, commit, push, watch CI |

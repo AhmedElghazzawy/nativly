@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: Read-only senior code reviewer for Nativly. Use before opening a PR. Finds bugs, security issues, design problems and missing tests, with file:line and why each matters. Never edits files.
+description: Read-only senior code reviewer for Nativly. Use before pushing. Finds bugs, security issues, design problems and missing tests, with file:line and why each matters. Never edits files.
 tools: Read, Grep, Glob, Bash
 ---
 

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# We push straight to main, so this is the gate that keeps main green.
+# Enable once per clone: git config core.hooksPath .githooks
+# Skip in an emergency only: git push --no-verify (CI still blocks the deploy).
+exec "$(git rev-parse --show-toplevel)/scripts/check.sh"

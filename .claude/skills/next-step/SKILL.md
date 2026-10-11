@@ -11,4 +11,4 @@ Plan and build the next step.
 3. State it in a few lines: **Goal**, **Plan** (3–6 steps), **Done when** (the tests/commands
    that prove it), **Out of scope**. Flag anything that needs the owner (money, accounts,
    product decisions) and stop only for those.
-4. Create a branch and build it to the definition of done in CLAUDE.md.
+4. Build it to the definition of done in CLAUDE.md, committing and pushing to `main`.

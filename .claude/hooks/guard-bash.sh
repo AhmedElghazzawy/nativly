@@ -12,13 +12,11 @@ block() { echo "Blocked by .claude/hooks/guard-bash.sh: $1" >&2; exit 2; }
 if printf '%s' "$cmd" | grep -Ev '\.env\.example' | grep -Eq '(cat|less|more|head|tail|bat)[^|;&]*\.env'; then
   block "don't read .env files. Ask the owner to check the value themselves."
 fi
-# History rewriting on shared branches.
+# History rewriting.
 if printf '%s' "$cmd" | grep -Eq 'git push.*(--force|-f( |$))'; then
   block "force-push is never done by Claude in this repo."
 fi
-if printf '%s' "$cmd" | grep -Eq 'git push.*[ :](main|master)( |$)'; then
-  block "work on a feature branch, not main. Create a feature branch and open a PR instead."
-fi
+# Pushing to main is the normal workflow (trunk-based; see CLAUDE.md). The pre-push hook gates it.
 # Destructive database commands.
 if printf '%s' "$cmd" | grep -Eiq '(drop (database|table)|alembic downgrade base|docker compose down -v)'; then
   block "destructive database command. Explain what it would do and let the owner run it."
