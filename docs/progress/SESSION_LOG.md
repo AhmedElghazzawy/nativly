@@ -20,3 +20,12 @@ README. Switched the repo from mentor mode to build mode.
 tests with per-test rollback). Colima as the local Docker runtime.
 **Next time:** push and get CI green; deploy with HTTPS.
 
+## 2026-10-11 — Phase 0 complete: live on Render + Neon
+**Built:** render.yaml Blueprint; container entrypoint (migrations + $PORT); DB URL normalization
+for provider URLs; Neon project in Frankfurt (Postgres 16); secrets set via API without being
+printed; live smoke test (register, login, /me, refresh rotation, replay rejection, HTTPS).
+Fixed a leak where settings validation errors echoed raw env values (JWT secret tail reached
+Render logs); the secret was rotated.
+**Decisions:** ADR 0005 (Render + Neon free tiers). Instructions rewritten for build mode (ADR 0004).
+**Next time:** Phase 1 planning: curriculum data model and content import.
+

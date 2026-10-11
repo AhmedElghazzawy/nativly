@@ -137,8 +137,14 @@ gh pr create · gh pr checks --watch · gh pr merge --squash --delete-branch
 
 ## 7. Current milestone
 
-See @docs/progress/PROGRESS.md. Phase 0 (Foundation) is done except **deploying the API with
-HTTPS on a free tier**. Don't start Phase 1 features until Phase 0 is deployed.
+See @docs/progress/PROGRESS.md. **Phase 0 is done** (live at https://nativly-api.onrender.com).
+Now Phase 1 (Learning core); read that section of `docs/build-plan.md` before planning.
+
+**Production:** Render service `nativly-api` (`srv-db5nt5navr4c739f84vg`, Frankfurt, free) and
+Neon project `nativly-eu` (`spring-credit-38007462`, Frankfurt, Postgres 16). Deploys happen
+automatically after CI passes on `main`. Read logs with `render logs -r <service id>`.
+Writing secrets to Render is the owner's step (the auto-mode classifier blocks Claude from it):
+prepare a script that never prints values and have the owner run it with `!`.
 
 ## 8. Slash commands
 
