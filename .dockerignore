@@ -1,0 +1,17 @@
+# Build context is the repo root; only api/ and content/ are needed in the image.
+*
+!api/
+!content/
+
+api/.venv/
+api/tests/
+api/CLAUDE.md
+api/Dockerfile
+**/__pycache__/
+**/.pytest_cache/
+**/.ruff_cache/
+**/.mypy_cache/
+**/.coverage
+**/htmlcov/
+**/.env
+**/.env.*

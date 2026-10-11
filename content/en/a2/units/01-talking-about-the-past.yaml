@@ -1,0 +1,224 @@
+slug: en-a2-u01
+position: 1
+title: Talking about the past
+description: Tell someone what you did yesterday, last weekend or a year ago.
+
+lessons:
+  - slug: en-a2-u01-l01-what-did-you-do
+    title: What I did yesterday
+    summary: Regular past simple verbs and words for "when".
+    estimated_minutes: 15
+    objectives:
+      - en-a2-past-simple-regular
+      - en-a2-past-time-expressions
+    steps:
+      - kind: explain
+        title: Finished actions in the past
+        body: |
+          We use the **past simple** for actions that started and finished in the past.
+
+          For most verbs, add **-ed**. The form is the same for *I, you, he, she, we, they*:
+
+          | Verb | Past simple |
+          |---|---|
+          | work | work**ed** |
+          | watch | watch**ed** |
+          | live | live**d** *(verb ends in -e: add only -d)* |
+          | study | stud**ied** *(consonant + y → -ied)* |
+          | stop | stop**ped** *(short verb, consonant-vowel-consonant: double the last letter)* |
+
+          > I **worked** late yesterday. She **studied** for her exam last night.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l01-ex01
+          objective: en-a2-past-simple-regular
+          type: mcq
+          difficulty: 1
+          prompt: "Choose the correct past form: Yesterday I ___ my grandmother."
+          options: [visit, visited, visitted, visiting]
+          answer: 1
+          explanation: >-
+            "Visit" is a regular verb, so the past simple is visit + -ed = "visited".
+            We don't double the t because the stress is on the first syllable (VIS-it).
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l01-ex02
+          objective: en-a2-past-simple-regular
+          type: cloze
+          difficulty: 2
+          prompt: Write the past simple of the verbs in brackets.
+          text: "Last summer we ___ (live) in Izmir, and my sister ___ (study) English every day."
+          answers:
+            - [lived]
+            - [studied]
+          explanation: >-
+            "Live" ends in -e, so add only -d: lived. "Study" ends in consonant + y,
+            so change y to i and add -ed: studied.
+
+      - kind: explain
+        title: Saying when
+        body: |
+          Past time expressions usually go at the **end** (or the start) of the sentence:
+
+          - **yesterday**, yesterday morning, yesterday evening
+          - **last** night / week / month / year / Monday
+          - two days **ago**, a week **ago**, ten years **ago**
+          - **in** 2019, **in** May
+
+          > I called him **two days ago**. **Last year** we moved to Ankara.
+
+          Careful: we say *last night*, not ~~yesterday night~~, and *last week*, not ~~the last week~~.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l01-ex03
+          objective: en-a2-past-time-expressions
+          type: mcq
+          difficulty: 1
+          prompt: "Which sentence is correct?"
+          options:
+            - I watched a film yesterday night.
+            - I watched a film last night.
+            - I watched a film the last night.
+            - I watched a film night ago.
+          answer: 1
+          explanation: >-
+            For the evening before today we say "last night". "Yesterday night" is a very
+            common mistake, and "ago" always needs an amount of time before it (two nights ago).
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l01-ex04
+          objective: en-a2-past-time-expressions
+          type: cloze
+          difficulty: 2
+          prompt: Complete with one word.
+          text: "We started this course three weeks ___, and I finished the first unit ___ Monday."
+          answers:
+            - [ago]
+            - [last, "on"]
+          explanation: >-
+            "Three weeks ago" counts back from now. For a day we can say "last Monday"
+            or "on Monday".
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l01-ex05
+          objective: en-a2-past-simple-regular
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order to make a sentence.
+          answer: [She, played, tennis, with, her, friends, last, weekend]
+          explanation: >-
+            English word order is subject (She) + verb (played) + object (tennis) + extra
+            information (with her friends) + time (last weekend).
+
+  - slug: en-a2-u01-l02-where-did-you-go
+    title: Where did you go?
+    summary: Common irregular verbs, and questions and negatives with "did".
+    estimated_minutes: 20
+    objectives:
+      - en-a2-past-simple-irregular
+      - en-a2-past-simple-questions
+    steps:
+      - kind: explain
+        title: Irregular verbs
+        body: |
+          Many of the most common verbs are **irregular**: they don't take -ed.
+          You need to learn them, but there aren't many you use every day.
+
+          | Verb | Past simple | | Verb | Past simple |
+          |---|---|---|---|---|
+          | go | **went** | | see | **saw** |
+          | have | **had** | | make | **made** |
+          | get | **got** | | eat | **ate** |
+          | do | **did** | | buy | **bought** |
+
+          > We **went** to the beach and **had** lunch by the sea.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l02-ex01
+          objective: en-a2-past-simple-irregular
+          type: mcq
+          difficulty: 1
+          prompt: "Last weekend we ___ to my uncle's house."
+          options: [goed, went, gone, go]
+          answer: 1
+          explanation: >-
+            "Go" is irregular: the past simple is "went". "Gone" is the past participle,
+            used with have (I have gone), not on its own.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l02-ex02
+          objective: en-a2-past-simple-irregular
+          type: cloze
+          difficulty: 2
+          prompt: Write the past simple of the verbs in brackets.
+          text: "I ___ (buy) a new phone, but I ___ (see) a cheaper one the next day!"
+          answers:
+            - [bought]
+            - [saw]
+          explanation: >-
+            Both are irregular: buy → bought, see → saw. Watch the spelling of "bought"
+            (b-o-u-g-h-t).
+
+      - kind: explain
+        title: Questions and negatives with did
+        body: |
+          For questions and negatives, use **did** / **didn't** + the **base form** of the verb.
+          The past is already in *did*, so the main verb doesn't change:
+
+          | | |
+          |---|---|
+          | Question | **Did** you **go** out last night? |
+          | Short answers | Yes, I **did**. / No, I **didn't**. |
+          | Negative | I **didn't go** out. *(not ~~didn't went~~)* |
+          | Wh- question | Where **did** you **go**? What **did** she **buy**? |
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l02-ex03
+          objective: en-a2-past-simple-questions
+          type: mcq
+          difficulty: 2
+          prompt: "Which sentence is correct?"
+          options:
+            - Did you saw the match?
+            - Did you see the match?
+            - You did see the match?
+            - Saw you the match?
+          answer: 1
+          explanation: >-
+            After "did" we always use the base form: "Did you see…?". "Did you saw" puts
+            the past tense in two places, which English doesn't do.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l02-ex04
+          objective: en-a2-past-simple-questions
+          type: cloze
+          difficulty: 3
+          prompt: Make the sentence negative.
+          text: "We went to the cinema. → We ___ ___ to the cinema."
+          answers:
+            - [didn't, did not]
+            - [go]
+          explanation: >-
+            Negative past simple = didn't (did not) + base form. "Went" becomes "go"
+            because "didn't" already shows the past.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l02-ex05
+          objective: en-a2-past-simple-questions
+          type: reorder
+          difficulty: 3
+          prompt: Put the words in order to make a question.
+          answer: [Where, did, you, have, dinner, yesterday, "?"]
+          explanation: >-
+            Wh- question word order: question word (Where) + did + subject (you) +
+            base verb (have) + the rest (dinner yesterday).

@@ -1,0 +1,27 @@
+slug: en-a2
+language: en
+cefr_level: A2
+title: English A2 — Elementary
+description: >-
+  Talk about your past, your plans and your daily life in simple, connected sentences.
+
+objectives:
+  - slug: en-a2-past-simple-regular
+    skill: grammar
+    can_do: Can describe finished past actions using regular past simple verbs.
+    grammar_point: Past simple, regular verbs (-ed)
+
+  - slug: en-a2-past-time-expressions
+    skill: vocab
+    can_do: Can say when something happened using yesterday, last, ago and in.
+    grammar_point: Past time expressions
+
+  - slug: en-a2-past-simple-irregular
+    skill: grammar
+    can_do: Can use common irregular past simple verbs (went, had, saw, made).
+    grammar_point: Past simple, irregular verbs
+
+  - slug: en-a2-past-simple-questions
+    skill: grammar
+    can_do: Can ask and answer simple questions about the past with did.
+    grammar_point: Past simple, questions and negatives with did

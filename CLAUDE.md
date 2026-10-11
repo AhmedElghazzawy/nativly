@@ -74,13 +74,14 @@ nativly/
 │   ├── app/
 │   │   ├── core/       config.py (Settings) · db.py (Base, engine, get_session) · security.py
 │   │   ├── auth/       models · schemas · service · dependencies · router
+│   │   ├── learning/   curriculum models · content.py (YAML schema) · importer · router
 │   │   ├── models.py   imports every ORM model (for Alembic + tests)
 │   │   └── main.py     create_app(): lifespan, CORS, health checks, routers under /api/v1
 │   ├── migrations/     Alembic (async env, ruff runs on generated files)
 │   ├── tests/          pytest on real Postgres, per-test rollback
-│   └── Dockerfile      multi-stage, non-root
+│   └── Dockerfile      multi-stage, non-root; build context is the repo root
 ├── web/                Next.js + TypeScript + Tailwind (Phase 1)
-├── content/            curriculum YAML per language/level
+├── content/            curriculum YAML per language/level (rules: content/README.md)
 ├── infra/              docker-compose.yml (Postgres+pgvector, Redis, migrate job, API)
 ├── render.yaml         Render Blueprint (free web service; DB on Neon), ADR 0005
 ├── docs/               build-plan · decisions/ (ADRs) · progress/ (PROGRESS, SESSION_LOG)
@@ -113,6 +114,7 @@ uv run mypy app tests
 uv run alembic upgrade head                     # apply migrations
 uv run alembic revision --autogenerate -m "…"   # new migration: always review the file
 uv run alembic check                            # models and migrations in sync?
+uv run python -m app.learning.importer ../content   # import/refresh curriculum (idempotent)
 
 # GitHub
 gh pr create · gh pr checks --watch · gh pr merge --squash --delete-branch

@@ -30,7 +30,8 @@ follows a real CEFR curriculum (A1–C2, per skill), remembers you across sessio
 |---|---|
 | Accounts: register, login, JWT access + rotating refresh tokens, `/me` | ✅ |
 | Adaptive placement test, per-skill CEFR levels | 🔜 Phase 2 |
-| Lessons, exercises, spaced-repetition vocabulary (FSRS) | 🔜 Phase 1 |
+| Curriculum: courses, units, lessons, objectives; MCQ, cloze and reorder exercises | ✅ |
+| Exercise checking, mastery tracking, spaced-repetition vocabulary (FSRS) | 🚧 Phase 1 |
 | AI tutor with persistent memory of your goals and recurring mistakes | 🔜 Phase 3 |
 | Real-time voice tutor with pronunciation feedback | 🔜 Phase 4 |
 
@@ -68,12 +69,13 @@ nativly/
 │   ├── app/
 │   │   ├── core/        settings, database, security primitives
 │   │   ├── auth/        users, tokens: models · schemas · service · router
+│   │   ├── learning/    curriculum models, YAML importer, curriculum API
 │   │   └── main.py      app factory, health checks, router wiring
 │   ├── migrations/      Alembic migrations
 │   ├── tests/           pytest suite (real Postgres, per-test rollback)
 │   └── Dockerfile       multi-stage, non-root production image
 ├── web/                 Next.js app (Phase 1)
-├── content/             curriculum YAML per language and level
+├── content/             curriculum YAML per language and level (see content/README.md)
 ├── infra/               docker-compose for local development
 └── docs/                build plan, architecture decisions (ADRs), progress
 ```
@@ -92,6 +94,7 @@ docker compose -f infra/docker-compose.yml up -d
 cd api
 uv sync
 uv run alembic upgrade head
+uv run python -m app.learning.importer ../content   # load the curriculum
 
 # 3. Run the API with hot reload
 uv run fastapi dev app/main.py
@@ -146,6 +149,9 @@ All application endpoints are versioned under `/api/v1`.
 | `POST` | `/api/v1/auth/refresh` | Rotate the refresh token, get a new pair |
 | `POST` | `/api/v1/auth/logout` | Revoke a refresh token |
 | `GET` | `/api/v1/auth/me` | The current user (Bearer token) |
+| `GET` | `/api/v1/courses` | Courses (filter with `?language=en&level=A2`) |
+| `GET` | `/api/v1/courses/{slug}` | Course outline: units and lessons |
+| `GET` | `/api/v1/lessons/{slug}` | A lesson's steps and exercises (answers never included) |
 
 ## Development
 
