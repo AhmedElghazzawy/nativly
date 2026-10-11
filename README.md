@@ -4,7 +4,6 @@
 
 **An AI language school that teaches like a real teacher.**
 
-*Native gibi konuş.*
 
 **Live app:** [nativly-web.onrender.com](https://nativly-web.onrender.com) · **API:** [nativly-api.onrender.com/docs](https://nativly-api.onrender.com/docs)
 

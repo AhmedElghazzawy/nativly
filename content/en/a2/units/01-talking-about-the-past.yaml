@@ -49,7 +49,7 @@ lessons:
           type: cloze
           difficulty: 2
           prompt: Write the past simple of the verbs in brackets.
-          text: "Last summer we ___ (live) in Izmir, and my sister ___ (study) English every day."
+          text: "Last summer we ___ (live) in Lisbon, and my sister ___ (study) English every day."
           answers:
             - [lived]
             - [studied]
@@ -67,7 +67,7 @@ lessons:
           - two days **ago**, a week **ago**, ten years **ago**
           - **in** 2019, **in** May
 
-          > I called him **two days ago**. **Last year** we moved to Ankara.
+          > I called him **two days ago**. **Last year** we moved to Toronto.
 
           Careful: we say *last night*, not ~~yesterday night~~, and *last week*, not ~~the last week~~.
 

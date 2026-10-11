@@ -56,7 +56,8 @@ quizzes or `TODO(human)` handoffs.
 - CEFR levels A1–C2, per skill (reading, listening, writing, speaking, grammar, vocab).
 - Differentiators: persistent tutor memory, a real curriculum with mastery tracking, teaching
   depth (explain *why*, correct like a teacher). Not gamified, not Duolingo.
-- Tagline: "Native gibi konuş."
+- **English only for now.** Finish and polish English end to end first; other languages
+  (Turkish among them) come later as content, not code. No other-language copy in the product.
 
 ## 3. Architecture (modular monolith)
 
