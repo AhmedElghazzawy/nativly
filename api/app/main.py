@@ -48,12 +48,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             allow_headers=["*"],
         )
 
-    @app.get("/health", tags=["meta"], summary="Liveness: the process is up")
+    # HEAD too: uptime monitors and wait-for scripts probe with HEAD requests.
+    @app.api_route(
+        "/health", methods=["GET", "HEAD"], tags=["meta"], summary="Liveness: the process is up"
+    )
     async def health() -> HealthResponse:
         return HealthResponse(status="ok")
 
-    @app.get(
+    @app.api_route(
         "/health/ready",
+        methods=["GET", "HEAD"],
         tags=["meta"],
         summary="Readiness: dependencies are reachable",
         responses={503: {"model": HealthResponse}},
