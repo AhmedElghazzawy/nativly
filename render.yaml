@@ -1,0 +1,24 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Free plan (no card). The database is Neon (free tier); its URL is entered once in the
+# Render dashboard and never committed.
+services:
+  - type: web
+    name: nativly-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./api/Dockerfile
+    dockerContext: ./api
+    healthCheckPath: /health
+    # Deploy only after GitHub CI has passed on main.
+    autoDeployTrigger: checksPass
+    buildFilter:
+      paths:
+        - api/**
+    envVars:
+      - key: NATIVLY_ENVIRONMENT
+        value: production
+      - key: NATIVLY_DATABASE_URL
+        sync: false # paste Neon's direct (non-pooled) connection string when prompted
+      - key: NATIVLY_JWT_SECRET_KEY
+        generateValue: true # 256-bit random value created by Render

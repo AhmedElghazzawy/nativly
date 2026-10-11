@@ -118,6 +118,18 @@ Settings are read from environment variables (or `api/.env`) prefixed with `NATI
 
 Generate a secret with `python -c "import secrets; print(secrets.token_urlsafe(48))"`.
 
+## Deployment
+
+Free-tier hosting, no card required ([ADR 0005](docs/decisions/0005-free-tier-hosting-render-and-neon.md)):
+
+- **API:** [Render](https://render.com) web service built from `api/Dockerfile`, declared in
+  [`render.yaml`](render.yaml). HTTPS is automatic. It deploys only after CI passes on `main`.
+- **Database:** [Neon](https://neon.tech) serverless Postgres 16 (pgvector available).
+- **Migrations** run on container start (`api/scripts/start.sh`).
+- **Secrets:** Render generates the JWT secret; the Neon URL is set in the Render dashboard.
+
+The free instance sleeps when idle, so the first request after a while can take ~30–60 s.
+
 ## API
 
 All application endpoints are versioned under `/api/v1`.
