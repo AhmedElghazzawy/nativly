@@ -1,0 +1,197 @@
+slug: en-a1-deck-me-and-my-family
+title: Me, my family and saying hello
+description: >-
+  The first words you need to introduce yourself, talk about your family and be polite.
+  Goes with Unit 1.
+unit: en-a1-u01
+
+items:
+  - slug: en-a1-w-hello
+    lemma: hello
+    part_of_speech: phrase
+    definition: A word you say when you meet someone.
+    examples: ["Hello! I'm Sara.", "Say hello to your mum for me."]
+    notes: "Informal: hi. Leaving: goodbye / bye."
+
+  - slug: en-a1-w-goodbye
+    lemma: goodbye
+    part_of_speech: phrase
+    definition: A word you say when you leave someone.
+    examples: ["Goodbye! See you tomorrow.", "We said goodbye at the station."]
+    notes: "Informal: bye, see you."
+
+  - slug: en-a1-w-nice-to-meet-you
+    lemma: nice to meet you
+    part_of_speech: phrase
+    definition: A polite thing to say when you meet someone for the first time.
+    examples: ["Hi, I'm Tom. Nice to meet you.", "Nice to meet you, too!"]
+
+  - slug: en-a1-w-please
+    lemma: please
+    part_of_speech: phrase
+    definition: A polite word when you ask for something.
+    examples: ["A coffee, please.", "Can you help me, please?"]
+
+  - slug: en-a1-w-thank-you
+    lemma: thank you
+    part_of_speech: phrase
+    definition: Words you say when someone helps you or gives you something.
+    examples: ["Thank you for the flowers!", "\"Here you are.\" \"Thank you.\""]
+    notes: "Informal: thanks."
+
+  - slug: en-a1-w-sorry
+    lemma: sorry
+    part_of_speech: phrase
+    definition: A word you say when you make a small mistake or feel bad about something.
+    examples: ["Sorry, I'm late!", "I'm sorry, I don't understand."]
+
+  - slug: en-a1-w-name
+    lemma: name
+    part_of_speech: noun
+    definition: The word that people call you.
+    examples: ["My name is Ali.", "What's your name?"]
+
+  - slug: en-a1-w-from
+    lemma: from
+    part_of_speech: preposition
+    definition: Used to say where someone was born or lives.
+    examples: ["I'm from Mexico.", "Where are you from?"]
+
+  - slug: en-a1-w-country
+    lemma: country
+    part_of_speech: noun
+    definition: An area of land with its own government, like Japan or Brazil.
+    examples: ["Canada is a very big country.", "How many countries have you visited?"]
+    notes: "Plural: countries"
+
+  - slug: en-a1-w-city
+    lemma: city
+    part_of_speech: noun
+    definition: A big and important town.
+    examples: ["London is my favourite city.", "I live in a small city."]
+    notes: "Plural: cities"
+
+  - slug: en-a1-w-live
+    lemma: live
+    part_of_speech: verb
+    definition: To have your home in a place.
+    examples: ["I live in Madrid.", "Where do you live?"]
+
+  - slug: en-a1-w-family
+    lemma: family
+    part_of_speech: noun
+    definition: A group of people who are related, like parents and their children.
+    examples: ["My family is very big.", "I have dinner with my family on Sundays."]
+
+  - slug: en-a1-w-mother
+    lemma: mother
+    part_of_speech: noun
+    definition: A woman who has a child.
+    examples: ["My mother is a nurse.", "Her mother lives in Lisbon."]
+    notes: "Informal: mum (UK), mom (US)"
+
+  - slug: en-a1-w-father
+    lemma: father
+    part_of_speech: noun
+    definition: A man who has a child.
+    examples: ["My father is 50.", "His father works in a bank."]
+    notes: "Informal: dad"
+
+  - slug: en-a1-w-parents
+    lemma: parents
+    part_of_speech: noun
+    definition: Your mother and father.
+    examples: ["My parents live in a village.", "Are your parents at home?"]
+
+  - slug: en-a1-w-sister
+    lemma: sister
+    part_of_speech: noun
+    definition: A girl or woman who has the same parents as you.
+    examples: ["I have one sister.", "My sister is a student."]
+
+  - slug: en-a1-w-brother
+    lemma: brother
+    part_of_speech: noun
+    definition: A boy or man who has the same parents as you.
+    examples: ["My brother is ten.", "Do you have any brothers?"]
+
+  - slug: en-a1-w-son
+    lemma: son
+    part_of_speech: noun
+    definition: A person's male child.
+    examples: ["They have a son and a daughter.", "Our son is at university."]
+
+  - slug: en-a1-w-daughter
+    lemma: daughter
+    part_of_speech: noun
+    definition: A person's female child.
+    examples: ["Her daughter is three years old.", "This is my daughter, Emma."]
+
+  - slug: en-a1-w-child
+    lemma: child
+    part_of_speech: noun
+    definition: A young boy or girl, or a person's son or daughter.
+    examples: ["They have two children.", "The child is playing in the garden."]
+    notes: "Irregular plural: one child, two children"
+
+  - slug: en-a1-w-husband
+    lemma: husband
+    part_of_speech: noun
+    definition: The man a woman is married to.
+    examples: ["Her husband is from Italy.", "This is my husband, Mark."]
+
+  - slug: en-a1-w-wife
+    lemma: wife
+    part_of_speech: noun
+    definition: The woman a man is married to.
+    examples: ["His wife is a teacher.", "My wife and I live in Berlin."]
+    notes: "Plural: wives"
+
+  - slug: en-a1-w-grandmother
+    lemma: grandmother
+    part_of_speech: noun
+    definition: The mother of your mother or father.
+    examples: ["My grandmother is 80.", "We visit our grandmother every summer."]
+    notes: "Informal: grandma, granny"
+
+  - slug: en-a1-w-friend
+    lemma: friend
+    part_of_speech: noun
+    definition: A person you know well and like.
+    examples: ["This is my friend, Leo.", "I meet my friends on Saturdays."]
+
+  - slug: en-a1-w-old
+    lemma: old
+    part_of_speech: adjective
+    definition: Having lived for many years; also used to ask or say someone's age.
+    examples: ["How old are you?", "My dog is very old."]
+
+  - slug: en-a1-w-young
+    lemma: young
+    part_of_speech: adjective
+    definition: Not old; having lived for a short time.
+    examples: ["My sister is very young.", "Our teacher is young and friendly."]
+
+  - slug: en-a1-w-student
+    lemma: student
+    part_of_speech: noun
+    definition: A person who studies at a school or university.
+    examples: ["I'm a student at the University of Leeds.", "There are 20 students in my class."]
+
+  - slug: en-a1-w-teacher
+    lemma: teacher
+    part_of_speech: noun
+    definition: A person whose job is to help people learn.
+    examples: ["Our teacher is from Ireland.", "My mother is a teacher."]
+
+  - slug: en-a1-w-job
+    lemma: job
+    part_of_speech: noun
+    definition: The work that you do to get money.
+    examples: ["What's your job?", "I have a new job in a hotel."]
+
+  - slug: en-a1-w-phone-number
+    lemma: phone number
+    part_of_speech: noun
+    definition: The numbers you use to call someone's phone.
+    examples: ["What's your phone number?", "My phone number is oh seven nine, two three one."]

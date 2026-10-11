@@ -1,7 +1,7 @@
 # Nativly progress
 
-**Current phase:** Phase 1 — Learning core
-**Next step:** Content: finish A2 Unit 1 (lessons 3–4) and write A1 + B1 Unit 1 (lessons and decks).
+**Current phase:** Phase 1 done → Phase 2 — Assessment and writing feedback
+**Next step:** Phase 2 planning: AI services layer (free Gemini tier behind `llm.complete()`), adaptive placement test, writing feedback.
 
 ## Phase 0: Foundation
 - [x] Repo layout (api/, web/, content/, infra/, docs/) + README + .gitignore
@@ -28,8 +28,9 @@
 - [x] Progress API (`/me/progress`); richer dashboard stats later
 - [x] Web app (Next.js): sign-up/login, course outline, lesson player, progress (+ e2e tests)
 - [x] Web: word decks, daily review (keyboard-friendly), today banner, streaks
-- [ ] Content: finish A2 Unit 1 (~4 lessons) and B1 Unit 1 (~4 lessons)
-- [ ] **Done when:** a learner can do a real lesson and a daily review, and see progress
+- [x] Content: A1, A2 and B1 Unit 1 — 12 lessons, 60 exercises, 3 decks / 90 words
+- [x] Web: level picker + per-course outline with level tabs (remembers the learner's course)
+- [x] **Done when:** a learner can do a real lesson and a daily review, and see progress ✅ 2026-10-11
 
 ## Backend v1 checklist (milestone)
 - [x] User accounts · [ ] Vocabulary decks · [ ] Spaced repetition review

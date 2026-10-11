@@ -222,3 +222,212 @@ lessons:
           explanation: >-
             Wh- question word order: question word (Where) + did + subject (you) +
             base verb (have) + the rest (dinner yesterday).
+
+  - slug: en-a2-u01-l03-how-was-it
+    title: How was your weekend?
+    summary: The past of "be" — was and were — for places, feelings and opinions.
+    estimated_minutes: 15
+    objectives:
+      - en-a2-past-be
+    steps:
+      - kind: explain
+        title: Was or were?
+        body: |
+          The verb **be** has two past forms. Choose by the subject:
+
+          | Subject | Past of be |
+          |---|---|
+          | I, he, she, it | **was** |
+          | you, we, they | **were** |
+
+          > The film **was** great. We **were** very tired after the trip.
+
+          Use was/were for states, places and feelings in the past — not *did*:
+          *I was at home* (not ~~I did be at home~~).
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l03-ex01
+          objective: en-a2-past-be
+          type: mcq
+          difficulty: 1
+          prompt: "The weather ___ beautiful on Saturday."
+          options: [were, was, did, is]
+          answer: 1
+          explanation: >-
+            "The weather" is singular (it), so the past of be is "was". "Were" is for
+            you, we and they.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l03-ex02
+          objective: en-a2-past-be
+          type: cloze
+          difficulty: 2
+          prompt: Complete with was or were.
+          text: "My parents ___ in Rome last week, and the hotel ___ really nice."
+          answers:
+            - ["were"]
+            - ["was"]
+          explanation: >-
+            "My parents" = they → were. "The hotel" = it → was.
+
+      - kind: explain
+        title: Questions and negatives
+        body: |
+          With **was/were** you don't need *did*. Swap the order for questions,
+          and add **n't** for negatives:
+
+          | | |
+          |---|---|
+          | Question | **Was** it expensive? **Were** you at work? |
+          | Short answers | Yes, it **was**. / No, we **weren't**. |
+          | Negative | It **wasn't** cold. They **weren't** there. |
+          | Wh- question | How **was** your weekend? Where **were** you? |
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l03-ex03
+          objective: en-a2-past-be
+          type: mcq
+          difficulty: 2
+          prompt: "Which question is correct?"
+          options:
+            - Did you be at home yesterday?
+            - Were you at home yesterday?
+            - Was you at home yesterday?
+            - You were at home yesterday?
+          answer: 1
+          explanation: >-
+            Questions with be don't use "did": just put "were" before the subject.
+            "You" always takes "were", even for one person.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l03-ex04
+          objective: en-a2-past-be
+          type: cloze
+          difficulty: 3
+          prompt: Make the sentence negative. Use a short form.
+          text: "The museum was open. → The museum ___ open."
+          answers:
+            - ["wasn't", "was not"]
+          explanation: >-
+            Negative of was = wasn't (was not). No "did" with the verb be.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l03-ex05
+          objective: en-a2-past-be
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order to make a question.
+          answer: [How, was, your, holiday, in, Greece, "?"]
+          explanation: >-
+            Wh- question with be: question word (How) + was + subject (your holiday) +
+            the rest (in Greece).
+
+  - slug: en-a2-u01-l04-tell-a-story
+    title: Tell me what happened
+    summary: Put events in order with first, then, after that and finally.
+    estimated_minutes: 20
+    objectives:
+      - en-a2-narrative-sequence
+      - en-a2-past-simple-irregular
+    steps:
+      - kind: explain
+        title: Telling a story in order
+        body: |
+          When you tell a story, **sequencing words** help the listener follow:
+
+          1. **First,** … — the first thing that happened
+          2. **Then,** … / **After that,** … — the next things
+          3. **Finally,** … — the last thing
+
+          > **First,** we took a taxi to the station. **Then** we had coffee.
+          > **After that,** we got on the train. **Finally,** we arrived in Paris at midnight.
+
+          Put a comma after *First*, *After that* and *Finally* at the start of a sentence.
+          *Then* usually doesn't need one.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l04-ex01
+          objective: en-a2-narrative-sequence
+          type: mcq
+          difficulty: 1
+          prompt: "Which word starts the LAST part of a story?"
+          options: [First, Then, After that, Finally]
+          answer: 3
+          explanation: >-
+            "Finally" introduces the last event. "First" starts the story, and "then" /
+            "after that" connect the middle events.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l04-ex02
+          objective: en-a2-past-simple-irregular
+          type: cloze
+          difficulty: 2
+          prompt: Complete the story with the past simple of the verbs in brackets.
+          text: "First, I ___ (get) up at seven. Then I ___ (have) breakfast and ___ (leave) the house."
+          answers:
+            - ["got"]
+            - ["had"]
+            - ["left"]
+          explanation: >-
+            All three are irregular: get → got, have → had, leave → left.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l04-ex03
+          objective: en-a2-narrative-sequence
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order.
+          answer: [After, that, ",", we, went, to, the, beach, "."]
+          explanation: >-
+            The sequencing phrase comes first, followed by a comma, then subject + verb +
+            the rest of the sentence.
+
+      - kind: explain
+        title: Linking two actions in one sentence
+        body: |
+          You can join two short actions with **and then** or **and**:
+
+          > I finished work **and then** I went to the gym.
+          > She bought a ticket **and** got on the bus.
+
+          When the subject is the same, you don't need to repeat it after *and*:
+          *She bought a ticket and (she) got on the bus.*
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l04-ex04
+          objective: en-a2-narrative-sequence
+          type: mcq
+          difficulty: 2
+          prompt: "Choose the best next sentence: \"First, we had dinner at a small restaurant.\""
+          options:
+            - Finally, we decided to go out.
+            - After that, we walked along the river.
+            - First, we were hungry.
+            - Then, we will go home.
+          answer: 1
+          explanation: >-
+            The story is in the past and we need the next event: "After that, we walked…".
+            "Finally" would end the story too early, and "will go" is the future.
+
+      - kind: exercise
+        exercise:
+          slug: en-a2-u01-l04-ex05
+          objective: en-a2-past-simple-irregular
+          type: cloze
+          difficulty: 3
+          prompt: Complete with the past simple.
+          text: "Finally, we ___ (come) home and I ___ (sleep) for ten hours!"
+          answers:
+            - ["came"]
+            - ["slept"]
+          explanation: >-
+            come → came, sleep → slept. Both are irregular, so they don't take -ed.

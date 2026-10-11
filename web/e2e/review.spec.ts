@@ -12,6 +12,7 @@ async function signUp(page: Page) {
   await page.getByLabel("Email").fill(email);
   await page.getByLabel("Password").fill("e2e-password-123");
   await page.getByRole("button", { name: "Create account" }).click();
+  await page.getByRole("link", { name: /English A2/ }).click();
   await expect(page.getByRole("heading", { name: "Your course" })).toBeVisible();
 }
 
@@ -22,7 +23,8 @@ test("a learner starts a word deck and does a daily review", async ({ page }) =>
 
   await page.getByRole("link", { name: "Words", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Word decks" })).toBeVisible();
-  await page.getByRole("button", { name: "Study this deck" }).first().click();
+  const deck = page.getByRole("listitem").filter({ hasText: "Past tense: everyday verbs" });
+  await deck.getByRole("button", { name: "Study this deck" }).click();
   await expect(page.getByText("Studying", { exact: true })).toBeVisible();
   await shot(page, "11-words");
 

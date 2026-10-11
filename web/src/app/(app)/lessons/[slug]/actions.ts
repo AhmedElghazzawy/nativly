@@ -40,7 +40,7 @@ export async function completeLesson(lessonSlug: string): Promise<ActionResult<L
       `/lessons/${encodeURIComponent(lessonSlug)}/complete`,
       { method: "POST" },
     );
-    revalidatePath("/learn");
+    revalidatePath("/learn", "layout");
     revalidatePath("/progress");
     return { ok: true, data };
   } catch (error) {

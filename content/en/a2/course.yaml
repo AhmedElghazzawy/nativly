@@ -25,3 +25,13 @@ objectives:
     skill: grammar
     can_do: Can ask and answer simple questions about the past with did.
     grammar_point: Past simple, questions and negatives with did
+
+  - slug: en-a2-past-be
+    skill: grammar
+    can_do: Can describe past states and places using was and were.
+    grammar_point: Past simple of be (was / were)
+
+  - slug: en-a2-narrative-sequence
+    skill: writing
+    can_do: Can tell a short story in order using first, then, after that and finally.
+    grammar_point: Sequencing words in past narratives

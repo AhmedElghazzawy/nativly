@@ -33,7 +33,7 @@ follows a real CEFR curriculum (A1–C2, per skill), remembers you across sessio
 | Server-side answer checking, per-objective mastery, lesson progress | ✅ |
 | Web app: sign-up, course outline, lesson player with instant feedback, progress | ✅ |
 | Vocabulary decks with FSRS spaced repetition, daily review, streaks | ✅ |
-| Full A1–B1 course content | 🚧 Phase 1 |
+| Course content: A1, A2, B1 (Unit 1 each: 12 lessons, 90 words) | ✅ growing |
 | AI tutor with persistent memory of your goals and recurring mistakes | 🔜 Phase 3 |
 | Real-time voice tutor with pronunciation feedback | 🔜 Phase 4 |
 

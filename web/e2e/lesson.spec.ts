@@ -26,6 +26,10 @@ test("a new learner signs up, completes lesson 1 and sees progress", async ({ pa
   await shot(page, "02-signup");
   await page.getByRole("button", { name: "Create account" }).click();
 
+  // First visit: pick a level (until the placement test exists).
+  await expect(page.getByRole("heading", { name: "Choose your level" })).toBeVisible();
+  await shot(page, "03a-choose-level");
+  await page.getByRole("link", { name: /English A2/ }).click();
   await expect(page.getByRole("heading", { name: "Your course" })).toBeVisible();
   await expect(page.getByText("Talking about the past")).toBeVisible();
   await shot(page, "03-learn");
@@ -103,7 +107,7 @@ test("logging in from a redirect returns to the page that was asked for", async 
   await page.getByLabel("Email").fill(email);
   await page.getByLabel("Password").fill("e2e-password-123");
   await page.getByRole("button", { name: "Create account" }).click();
-  await expect(page.getByRole("heading", { name: "Your course" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Choose your level" })).toBeVisible();
   await page.getByRole("button", { name: "Log out" }).click();
   await expect(page.getByRole("link", { name: "Start learning free" })).toBeVisible();
 

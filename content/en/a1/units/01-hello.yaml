@@ -1,0 +1,409 @@
+slug: en-a1-u01
+position: 1
+title: Hello, I'm…
+description: Say who you are, where you're from, and who's in your family.
+
+lessons:
+  - slug: en-a1-u01-l01-nice-to-meet-you
+    title: Nice to meet you
+    summary: "I am, you are, she is: the verb be."
+    estimated_minutes: 10
+    objectives:
+      - en-a1-be-affirmative
+    steps:
+      - kind: explain
+        title: The verb "be"
+        body: |
+          **Be** is the most important verb in English. It has three forms in the present:
+
+          | Subject | be | Short form |
+          |---|---|---|
+          | I | **am** | I**'m** |
+          | you, we, they | **are** | you**'re**, we**'re**, they**'re** |
+          | he, she, it | **is** | he**'s**, she**'s**, it**'s** |
+
+          > Hi, I**'m** Sara. This **is** Tom. He**'s** my friend.
+
+          In speaking, we almost always use the short forms.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l01-ex01
+          objective: en-a1-be-affirmative
+          type: mcq
+          difficulty: 1
+          prompt: "Hello, I ___ Daniel."
+          options: [is, am, are, be]
+          answer: 1
+          explanation: >-
+            With "I" we always use "am" (short form: I'm).
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l01-ex02
+          objective: en-a1-be-affirmative
+          type: mcq
+          difficulty: 1
+          prompt: "Maria ___ a teacher."
+          options: [are, am, is, be]
+          answer: 2
+          explanation: >-
+            Maria = she, and with he, she and it we use "is".
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l01-ex03
+          objective: en-a1-be-affirmative
+          type: cloze
+          difficulty: 2
+          prompt: Complete with am, is or are.
+          text: "We ___ students, and our teacher ___ from Canada."
+          answers:
+            - ["are"]
+            - ["is"]
+          explanation: >-
+            "We" takes "are". "Our teacher" is one person (he or she), so it takes "is".
+
+      - kind: explain
+        title: Saying hello
+        body: |
+          | You say | They answer |
+          |---|---|
+          | Hi! / Hello! | Hi! |
+          | How are you? | I'm fine, thanks. And you? |
+          | Nice to meet you. | Nice to meet you, too. |
+          | What's your name? | My name's Ali. / I'm Ali. |
+
+          *What's* = *What is*. *Name's* = *name is*.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l01-ex04
+          objective: en-a1-be-affirmative
+          type: mcq
+          difficulty: 1
+          prompt: "Someone says \"Nice to meet you.\" What do you answer?"
+          options:
+            - "Nice to meet you, too."
+            - "I'm fine, thanks."
+            - "My name is fine."
+            - "Yes, I am."
+          answer: 0
+          explanation: >-
+            We answer "Nice to meet you" with "Nice to meet you, too." "I'm fine, thanks"
+            answers "How are you?".
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l01-ex05
+          objective: en-a1-be-affirmative
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order.
+          answer: [This, is, my, friend, Leo, "."]
+          explanation: >-
+            "This is…" is how we introduce another person: This is + my friend + name.
+
+  - slug: en-a1-u01-l02-where-are-you-from
+    title: Where are you from?
+    summary: Questions and negatives with be; countries and nationalities.
+    estimated_minutes: 15
+    objectives:
+      - en-a1-be-questions
+    steps:
+      - kind: explain
+        title: Questions with be
+        body: |
+          To make a question, put **am / is / are before the subject**:
+
+          | Statement | Question |
+          |---|---|
+          | You **are** from Brazil. | **Are** you from Brazil? |
+          | She **is** a doctor. | **Is** she a doctor? |
+          | — | Where **are** you from? |
+
+          Short answers: *Yes, I am.* / *No, I'm not.* — *Yes, she is.* / *No, she isn't.*
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l02-ex01
+          objective: en-a1-be-questions
+          type: mcq
+          difficulty: 1
+          prompt: "Which question is correct?"
+          options:
+            - You are from Japan?
+            - Are you from Japan?
+            - Do you are from Japan?
+            - Is you from Japan?
+          answer: 1
+          explanation: >-
+            Questions with be start with the verb: Are + you + from Japan? We don't use
+            "do" with be.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l02-ex02
+          objective: en-a1-be-questions
+          type: cloze
+          difficulty: 2
+          prompt: Complete the short answers.
+          text: "\"Is he from Spain?\" \"Yes, he ___.\" — \"Are they students?\" \"No, they ___.\""
+          answers:
+            - ["is"]
+            - ["aren't", "are not"]
+          explanation: >-
+            Short answers repeat the verb: Yes, he is. / No, they aren't. Don't use the
+            short form in a positive short answer (not "Yes, he's").
+
+      - kind: explain
+        title: Countries and nationalities
+        body: |
+          | Country | Nationality |
+          |---|---|
+          | Brazil | Brazil**ian** |
+          | Germany | German |
+          | Japan | Japan**ese** |
+          | Spain | Span**ish** |
+          | the United Kingdom (the UK) | British |
+          | the United States (the USA) | American |
+
+          Countries and nationalities always start with a **capital letter**:
+          *I'm from Spain. I'm Spanish.*
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l02-ex03
+          objective: en-a1-be-questions
+          type: mcq
+          difficulty: 1
+          prompt: "Kenji is from Japan. He is ___."
+          options: [Japan, Japanish, Japanese, japanese]
+          answer: 2
+          explanation: >-
+            The nationality for Japan is "Japanese", always with a capital J.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l02-ex04
+          objective: en-a1-be-questions
+          type: cloze
+          difficulty: 2
+          prompt: Make the sentence negative. Use a short form.
+          text: "I am from Germany. → I ___ from Germany."
+          answers:
+            - ["'m not", "am not"]
+          explanation: >-
+            Negative of "I am" = I'm not (I am not). We never say "I amn't".
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l02-ex05
+          objective: en-a1-be-questions
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order to make a question.
+          answer: [Where, are, your, parents, from, "?"]
+          explanation: >-
+            Question word (Where) + are + subject (your parents) + from?
+
+  - slug: en-a1-u01-l03-my-family
+    title: This is my family
+    summary: "My, your, his, her: talking about the people in your life."
+    estimated_minutes: 15
+    objectives:
+      - en-a1-possessives
+    steps:
+      - kind: explain
+        title: My, your, his, her…
+        body: |
+          **Possessive adjectives** say who something belongs to. They go **before a noun**:
+
+          | Subject | Possessive |
+          |---|---|
+          | I | **my** sister |
+          | you | **your** phone |
+          | he | **his** brother |
+          | she | **her** mother |
+          | it | **its** name |
+          | we | **our** house |
+          | they | **their** children |
+
+          > This is **my** brother. **His** name is Omar. **His** wife is Lina.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l03-ex01
+          objective: en-a1-possessives
+          type: mcq
+          difficulty: 1
+          prompt: "This is Anna. ___ husband is a doctor."
+          options: [His, Her, She, Their]
+          answer: 1
+          explanation: >-
+            Anna is a woman, so we use "her". "His" is for a man; "she" is a subject
+            pronoun, not a possessive.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l03-ex02
+          objective: en-a1-possessives
+          type: cloze
+          difficulty: 2
+          prompt: Complete with a possessive adjective.
+          text: "We live in London. ___ flat is small. Tom and Kate are our friends. ___ house is big."
+          answers:
+            - ["Our", "our"]
+            - ["Their", "their"]
+          explanation: >-
+            We → our. Tom and Kate = they → their.
+
+      - kind: explain
+        title: Family words
+        body: |
+          | | |
+          |---|---|
+          | mother / father | → **parents** |
+          | sister / brother | |
+          | daughter / son | → **children** (one child, two children) |
+          | wife / husband | |
+          | grandmother / grandfather | → **grandparents** |
+
+          Careful: **he's** = he is, but **his** = belongs to him.
+          *He's my brother. His name is Sam.*
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l03-ex03
+          objective: en-a1-possessives
+          type: mcq
+          difficulty: 2
+          prompt: "Which sentence is correct?"
+          options:
+            - He's name is Paul.
+            - His name is Paul.
+            - Him name is Paul.
+            - He name is Paul.
+          answer: 1
+          explanation: >-
+            Before a noun (name) we need the possessive "his". "He's" means "he is".
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l03-ex04
+          objective: en-a1-possessives
+          type: mcq
+          difficulty: 1
+          prompt: "My father's mother is my ___."
+          options: [aunt, sister, grandmother, daughter]
+          answer: 2
+          explanation: >-
+            Your parents' mothers are your grandmothers.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l03-ex05
+          objective: en-a1-possessives
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order.
+          answer: [Their, children, are, at, school, "."]
+          explanation: >-
+            Possessive (their) + noun (children) + are + place (at school).
+
+  - slug: en-a1-u01-l04-numbers-and-age
+    title: How old are you?
+    summary: Numbers 1–100, ages and phone numbers.
+    estimated_minutes: 15
+    objectives:
+      - en-a1-numbers-age
+    steps:
+      - kind: explain
+        title: Numbers
+        body: |
+          | | | |
+          |---|---|---|
+          | 11 eleven | 12 twelve | 13 thir**teen** |
+          | 20 twenty | 30 thir**ty** | 40 for**ty** *(no u!)* |
+          | 21 twenty-one | 55 fifty-five | 100 a hundred |
+
+          Listen to the end of the word: thir**TEEN** (13) has the stress at the end;
+          **THIR**ty (30) has the stress at the start.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l04-ex01
+          objective: en-a1-numbers-age
+          type: mcq
+          difficulty: 1
+          prompt: "How do you write 40?"
+          options: [fourty, forty, fourteen, fortee]
+          answer: 1
+          explanation: >-
+            Four → forty, without the u. "Fourteen" (14) keeps the u.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l04-ex02
+          objective: en-a1-numbers-age
+          type: cloze
+          difficulty: 2
+          prompt: Write the number in words.
+          text: "My grandfather is 72: he is ___ years old."
+          answers:
+            - ["seventy-two", "seventy two"]
+          explanation: >-
+            72 = seventy-two. Numbers from 21 to 99 use a hyphen: twenty-one, seventy-two.
+
+      - kind: explain
+        title: Age and phone numbers
+        body: |
+          Use **be** for age, not *have*:
+
+          > How old **are** you? — I**'m** 25. / I'm 25 years old.
+
+          ~~I have 25 years~~ is a very common mistake.
+
+          For phone numbers, say each number separately. **0** is usually *oh*:
+          *07 23 51 → oh seven, two three, five one.*
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l04-ex03
+          objective: en-a1-numbers-age
+          type: mcq
+          difficulty: 2
+          prompt: "Which sentence is correct?"
+          options:
+            - I have 19 years.
+            - I am 19 years.
+            - I'm 19.
+            - I'm have 19 years old.
+          answer: 2
+          explanation: >-
+            In English we use "be" for age: I'm 19 (or I'm 19 years old). "I have 19 years"
+            is a translation from other languages.
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l04-ex04
+          objective: en-a1-numbers-age
+          type: cloze
+          difficulty: 2
+          prompt: Complete the question.
+          text: "\"How ___ is your sister?\" \"She's twelve.\""
+          answers:
+            - ["old"]
+          explanation: >-
+            We ask about age with "How old…?".
+
+      - kind: exercise
+        exercise:
+          slug: en-a1-u01-l04-ex05
+          objective: en-a1-numbers-age
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order to make a question.
+          answer: [How, old, are, your, children, "?"]
+          explanation: >-
+            How old + are + subject (your children)?

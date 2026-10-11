@@ -20,7 +20,7 @@ export default function Home() {
     <main className="flex-1">
       <section className="mx-auto max-w-5xl px-4 pt-16 pb-20 sm:pt-24">
         <p className="mb-4 inline-block rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-accent-strong">
-          English · A2 now open
+          English · A1 to B1 now open
         </p>
         <h1 className="max-w-3xl font-display text-5xl leading-[1.05] text-ink sm:text-6xl">
           Learn English with a teacher who explains <em className="text-accent">why</em>.

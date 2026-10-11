@@ -1,0 +1,28 @@
+slug: en-a1
+language: en
+cefr_level: A1
+title: English A1 — Beginner
+description: >-
+  Introduce yourself, talk about your family and where you're from, and understand simple
+  everyday questions.
+
+objectives:
+  - slug: en-a1-be-affirmative
+    skill: grammar
+    can_do: Can introduce themselves and others using am, is and are.
+    grammar_point: Present of be, affirmative, with subject pronouns
+
+  - slug: en-a1-be-questions
+    skill: grammar
+    can_do: Can ask and answer simple questions about where people are from.
+    grammar_point: Present of be, questions and negatives
+
+  - slug: en-a1-possessives
+    skill: grammar
+    can_do: Can talk about their family using my, your, his, her, our and their.
+    grammar_point: Possessive adjectives
+
+  - slug: en-a1-numbers-age
+    skill: vocab
+    can_do: Can say and understand numbers, ages and phone numbers.
+    grammar_point: Numbers 1-100; How old…?

@@ -1,0 +1,210 @@
+slug: en-b1-deck-experiences
+title: "Experiences: past participles and time words"
+description: >-
+  The irregular past participles you need for the present perfect, plus the words for
+  experiences and time. Goes with Unit 1.
+unit: en-b1-u01
+
+items:
+  - slug: en-b1-w-be-been
+    lemma: be
+    part_of_speech: verb
+    definition: The past participle "been" is used for places you have visited and come back from.
+    examples: ["Have you ever been to Mexico?", "I've been to London twice."]
+    notes: "be – was/were – been"
+
+  - slug: en-b1-w-go-gone
+    lemma: go
+    part_of_speech: verb
+    definition: The past participle "gone" means someone went somewhere and is still there.
+    examples: ["She's gone to the shops; she'll be back at six.", "Where has everyone gone?"]
+    notes: "go – went – gone (been = went and came back)"
+
+  - slug: en-b1-w-see-seen
+    lemma: see
+    part_of_speech: verb
+    definition: To notice with your eyes, or to watch a film, play, etc.
+    examples: ["I've never seen the sea.", "Have you seen my phone?"]
+    notes: "see – saw – seen"
+
+  - slug: en-b1-w-eat-eaten
+    lemma: eat
+    part_of_speech: verb
+    definition: To put food in your mouth and swallow it.
+    examples: ["Have you ever eaten snails?", "I haven't eaten since breakfast."]
+    notes: "eat – ate – eaten"
+
+  - slug: en-b1-w-write-written
+    lemma: write
+    part_of_speech: verb
+    definition: To make words on paper or a screen.
+    examples: ["She has written three novels.", "I've just written to the landlord."]
+    notes: "write – wrote – written"
+
+  - slug: en-b1-w-take-taken
+    lemma: take
+    part_of_speech: verb
+    definition: To carry, use or accept something; to do an exam.
+    examples: ["Have you taken your driving test yet?", "I've taken hundreds of photos."]
+    notes: "take – took – taken"
+
+  - slug: en-b1-w-give-given
+    lemma: give
+    part_of_speech: verb
+    definition: To let someone have something.
+    examples: ["My boss has given me a day off.", "Have you ever given a speech?"]
+    notes: "give – gave – given"
+
+  - slug: en-b1-w-know-known
+    lemma: know
+    part_of_speech: verb
+    definition: To have information about something, or to be familiar with someone.
+    examples: ["I've known Maria since we were five.", "How long have you known him?"]
+    notes: "know – knew – known"
+
+  - slug: en-b1-w-fly-flown
+    lemma: fly
+    part_of_speech: verb
+    definition: To travel by plane, or to move through the air.
+    examples: ["I've never flown first class.", "We flew to Lisbon last summer."]
+    notes: "fly – flew – flown"
+
+  - slug: en-b1-w-ride-ridden
+    lemma: ride
+    part_of_speech: verb
+    definition: To sit on and control a bike, horse or motorbike.
+    examples: ["Have you ever ridden a camel?", "I rode my bike to work."]
+    notes: "ride – rode – ridden"
+
+  - slug: en-b1-w-break-broken
+    lemma: break
+    part_of_speech: verb
+    definition: To damage something so it separates into pieces or stops working.
+    examples: ["I've broken my glasses again!", "She broke her leg skiing."]
+    notes: "break – broke – broken"
+
+  - slug: en-b1-w-forget-forgotten
+    lemma: forget
+    part_of_speech: verb
+    definition: To not remember something.
+    examples: ["I've forgotten his name.", "Don't forget your passport!"]
+    notes: "forget – forgot – forgotten"
+
+  - slug: en-b1-w-choose-chosen
+    lemma: choose
+    part_of_speech: verb
+    definition: To decide which one you want.
+    examples: ["Have you chosen a restaurant yet?", "She chose the blue dress."]
+    notes: "choose – chose – chosen"
+
+  - slug: en-b1-w-speak-spoken
+    lemma: speak
+    part_of_speech: verb
+    definition: To say words; to talk.
+    examples: ["I've spoken to the manager.", "Have you ever spoken in public?"]
+    notes: "speak – spoke – spoken"
+
+  - slug: en-b1-w-win-won
+    lemma: win
+    part_of_speech: verb
+    definition: To be the best in a game or competition, or to get a prize.
+    examples: ["Our team has won every match this season.", "Have you ever won anything?"]
+    notes: "win – won – won (pronounced like 'one')"
+
+  - slug: en-b1-w-lose-lost
+    lemma: lose
+    part_of_speech: verb
+    definition: To not be able to find something, or to not win.
+    examples: ["I've lost my wallet.", "We lost the final."]
+    notes: "lose – lost – lost. Don't confuse with loose (not tight)."
+
+  - slug: en-b1-w-experience
+    lemma: experience
+    part_of_speech: noun
+    definition: Something that happens to you that affects how you feel, or knowledge from doing something.
+    examples: ["Living abroad was an amazing experience.", "Do you have any experience of teaching?"]
+    notes: "Countable (an experience = an event) or uncountable (experience = skill)."
+
+  - slug: en-b1-w-abroad
+    lemma: abroad
+    part_of_speech: adverb
+    definition: In or to a foreign country.
+    examples: ["Have you ever lived abroad?", "She studied abroad for a year."]
+    notes: "No preposition: go abroad (not go to abroad)."
+
+  - slug: en-b1-w-ever
+    lemma: ever
+    part_of_speech: adverb
+    definition: At any time; used in questions about experiences.
+    examples: ["Have you ever been to India?", "It's the best meal I've ever had."]
+
+  - slug: en-b1-w-never
+    lemma: never
+    part_of_speech: adverb
+    definition: Not at any time.
+    examples: ["I've never tried skiing.", "She's never been late."]
+    notes: "Use a positive verb: I've never (not: I haven't never)."
+
+  - slug: en-b1-w-already
+    lemma: already
+    part_of_speech: adverb
+    definition: Before now, or sooner than expected.
+    examples: ["I've already seen this film.", "Are you leaving already?"]
+
+  - slug: en-b1-w-yet
+    lemma: yet
+    part_of_speech: adverb
+    definition: Until now; used in questions and negative sentences.
+    examples: ["Have you finished yet?", "I haven't decided yet."]
+    notes: "Goes at the end of the sentence."
+
+  - slug: en-b1-w-just
+    lemma: just
+    part_of_speech: adverb
+    definition: A very short time ago.
+    examples: ["I've just got home.", "The film has just started."]
+
+  - slug: en-b1-w-recently
+    lemma: recently
+    part_of_speech: adverb
+    definition: Not long ago.
+    examples: ["Have you seen any good films recently?", "I've recently started running."]
+
+  - slug: en-b1-w-for
+    lemma: for
+    part_of_speech: preposition
+    definition: Used with a period of time to say how long.
+    examples: ["I've lived here for ten years.", "We waited for an hour."]
+    notes: "for + period (for two days); since + starting point (since Monday)"
+
+  - slug: en-b1-w-since
+    lemma: since
+    part_of_speech: preposition
+    definition: From a time in the past until now.
+    examples: ["I've worked here since 2020.", "We've been friends since we were kids."]
+
+  - slug: en-b1-w-try
+    lemma: try
+    part_of_speech: verb
+    definition: To do or use something to see if you like it, or to make an effort.
+    examples: ["Have you ever tried Korean food?", "I tried to call you."]
+    notes: "try – tried – tried"
+
+  - slug: en-b1-w-achieve
+    lemma: achieve
+    part_of_speech: verb
+    definition: To succeed in doing something difficult after a lot of work.
+    examples: ["She has achieved a lot in her career.", "What do you want to achieve this year?"]
+
+  - slug: en-b1-w-adventure
+    lemma: adventure
+    part_of_speech: noun
+    definition: An exciting and unusual experience.
+    examples: ["Our trip to the jungle was a real adventure.", "I love adventure films."]
+
+  - slug: en-b1-w-once-in-a-lifetime
+    lemma: once in a lifetime
+    part_of_speech: phrase
+    definition: Happening only once, so very special.
+    examples: ["Seeing the Northern Lights was a once-in-a-lifetime experience.", "This is a once in a lifetime chance!"]
+    notes: "Before a noun, use hyphens: a once-in-a-lifetime trip."

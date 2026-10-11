@@ -35,6 +35,6 @@ export async function fetchMoreCards(): Promise<QueueCard[]> {
 
 /** Stats on other pages (streak, due counts) change after a session. */
 export async function finishSession(): Promise<void> {
-  revalidatePath("/learn");
+  revalidatePath("/learn", "layout");
   revalidatePath("/words");
 }

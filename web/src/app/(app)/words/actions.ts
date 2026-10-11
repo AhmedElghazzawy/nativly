@@ -10,7 +10,7 @@ async function setStudying(slug: string, studying: boolean): Promise<void> {
   });
   revalidatePath("/words");
   revalidatePath(`/words/${slug}`);
-  revalidatePath("/learn");
+  revalidatePath("/learn", "layout");
 }
 
 export async function startDeck(slug: string): Promise<void> {

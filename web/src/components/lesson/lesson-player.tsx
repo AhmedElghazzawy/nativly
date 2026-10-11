@@ -61,7 +61,7 @@ export function LessonPlayer({ lesson }: { lesson: LessonDetail }) {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="flex items-center gap-4">
-        <Link href="/learn" aria-label="Back to course" className="text-2xl leading-none text-muted hover:text-ink">
+        <Link href={`/learn/${lesson.course_slug}`} aria-label="Back to course" className="text-2xl leading-none text-muted hover:text-ink">
           ×
         </Link>
         <div
@@ -182,7 +182,7 @@ function LessonComplete({ lesson, progress }: { lesson: LessonDetail; progress: 
         ))}
       </ul>
       <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-        <Link href="/learn" className="btn-primary">
+        <Link href={`/learn/${lesson.course_slug}`} className="btn-primary">
           Back to course
         </Link>
         <Link href="/progress" className="btn-secondary">

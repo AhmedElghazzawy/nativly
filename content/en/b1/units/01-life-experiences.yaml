@@ -1,0 +1,380 @@
+slug: en-b1-u01
+position: 1
+title: Life experiences
+description: Talk about what you've done in your life, and how long things have been true.
+
+lessons:
+  - slug: en-b1-u01-l01-have-you-ever
+    title: Have you ever…?
+    summary: The present perfect for life experiences, with ever and never.
+    estimated_minutes: 15
+    objectives:
+      - en-b1-present-perfect-experience
+    steps:
+      - kind: explain
+        title: Experiences at any time in your life
+        body: |
+          When the **experience** matters but **not when** it happened, use the
+          **present perfect**: *have / has* + **past participle**.
+
+          | | |
+          |---|---|
+          | I / you / we / they | **have** (**'ve**) **been** to Japan. |
+          | he / she / it | **has** (**'s**) **tried** sushi. |
+
+          > I**'ve visited** twelve countries. She**'s never seen** snow.
+
+          The time is your whole life up to now, so we **don't** say when.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l01-ex01
+          objective: en-b1-present-perfect-experience
+          type: mcq
+          difficulty: 1
+          prompt: "My brother ___ to Australia three times."
+          options: [have been, has been, has went, was been]
+          answer: 1
+          explanation: >-
+            My brother = he, so "has" + past participle "been". "Went" is the past simple,
+            not the past participle.
+
+      - kind: explain
+        title: Ever, never and been vs gone
+        body: |
+          - **Ever** = at any time (in questions): *Have you **ever** eaten octopus?*
+          - **Never** = at no time (positive verb!): *I've **never** eaten octopus.*
+            Not ~~I haven't never~~.
+
+          **Been** or **gone**?
+          - *She's **been** to Paris.* → she went and came back (an experience).
+          - *She's **gone** to Paris.* → she is in Paris now.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l01-ex02
+          objective: en-b1-present-perfect-experience
+          type: cloze
+          difficulty: 2
+          prompt: Complete with the present perfect of the verbs in brackets.
+          text: "\"Have you ever ___ (ride) a horse?\" \"No, I've never ___ (do) that.\""
+          answers:
+            - ["ridden"]
+            - ["done"]
+          explanation: >-
+            Both past participles are irregular: ride – rode – ridden, do – did – done.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l01-ex03
+          objective: en-b1-present-perfect-experience
+          type: mcq
+          difficulty: 2
+          prompt: "Anna isn't here. She ___ to the supermarket. She'll be back soon."
+          options: [has been, has gone, went to, have gone]
+          answer: 1
+          explanation: >-
+            She is at the supermarket now and hasn't come back, so we use "has gone".
+            "Has been" would mean she went and returned.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l01-ex04
+          objective: en-b1-present-perfect-experience
+          type: mcq
+          difficulty: 2
+          prompt: "Which sentence is correct?"
+          options:
+            - I haven't never flown in a plane.
+            - I've never flew in a plane.
+            - I've never flown in a plane.
+            - I never have flown in a plane.
+          answer: 2
+          explanation: >-
+            "Never" already makes the sentence negative, so the verb stays positive:
+            I've never + past participle (fly – flew – flown).
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l01-ex05
+          objective: en-b1-present-perfect-experience
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order to make a question.
+          answer: [Have, you, ever, met, anyone, famous, "?"]
+          explanation: >-
+            Have + subject + ever + past participle + the rest.
+
+  - slug: en-b1-u01-l02-perfect-or-past
+    title: When did it happen?
+    summary: Present perfect or past simple? It depends on the time.
+    estimated_minutes: 20
+    objectives:
+      - en-b1-perfect-vs-past
+    steps:
+      - kind: explain
+        title: Finished time or not?
+        body: |
+          The difference is **the time**, not how long ago it happened:
+
+          | Present perfect | Past simple |
+          |---|---|
+          | No time, or an unfinished time | A finished time |
+          | I've been to Rome. | I went to Rome **in 2019**. |
+          | I've seen her **this week**. | I saw her **last week**. |
+
+          A conversation often **starts** with the present perfect and **continues** in the
+          past simple once we know when:
+
+          > "Have you ever been to Rome?" "Yes, I **went** there last summer. It **was** amazing."
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l02-ex01
+          objective: en-b1-perfect-vs-past
+          type: mcq
+          difficulty: 1
+          prompt: "I ___ this film last year."
+          options: [have seen, saw, have saw, seen]
+          answer: 1
+          explanation: >-
+            "Last year" is a finished time, so we use the past simple: saw.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l02-ex02
+          objective: en-b1-perfect-vs-past
+          type: mcq
+          difficulty: 2
+          prompt: "Which sentence is correct?"
+          options:
+            - I have lost my keys yesterday.
+            - I lost my keys yesterday.
+            - I have losed my keys yesterday.
+            - I was lost my keys yesterday.
+          answer: 1
+          explanation: >-
+            With a finished past time like "yesterday" we can't use the present perfect.
+            Lose – lost – lost.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l02-ex03
+          objective: en-b1-perfect-vs-past
+          type: cloze
+          difficulty: 3
+          prompt: Complete the conversation with the verbs in brackets.
+          text: "\"Have you ever ___ (try) Thai food?\" \"Yes, I ___ (have) it in Bangkok two years ago.\""
+          answers:
+            - ["tried"]
+            - ["had"]
+          explanation: >-
+            The question asks about experience (present perfect: tried). The answer gives a
+            finished time, "two years ago", so it switches to the past simple: had.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l02-ex04
+          objective: en-b1-perfect-vs-past
+          type: mcq
+          difficulty: 2
+          prompt: "It's 3 p.m. I ___ two coffees this morning."
+          options: [have had, had, have, was having]
+          answer: 1
+          explanation: >-
+            At 3 p.m. "this morning" is finished, so the past simple "had" is correct.
+            At 11 a.m. you could say "I've had two coffees this morning".
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l02-ex05
+          objective: en-b1-perfect-vs-past
+          type: reorder
+          difficulty: 3
+          prompt: Put the words in order.
+          answer: [When, did, you, start, learning, English, "?"]
+          explanation: >-
+            Questions with "when" ask for a finished time, so we use the past simple:
+            When + did + subject + base verb.
+
+  - slug: en-b1-u01-l03-for-and-since
+    title: How long have you…?
+    summary: For and since, for things that started in the past and are still true.
+    estimated_minutes: 15
+    objectives:
+      - en-b1-for-since
+    steps:
+      - kind: explain
+        title: Started in the past, still true now
+        body: |
+          Use the present perfect to say how long something has continued **until now**:
+
+          > I**'ve lived** here **for** five years. (I still live here.)
+          > She**'s worked** at the bank **since** 2020.
+
+          - **for** + a period of time: *for ten minutes, for two weeks, for ages*
+          - **since** + the starting point: *since Monday, since 2018, since I was a child*
+
+          Ask with **How long…?** — *How long have you known Ben?*
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l03-ex01
+          objective: en-b1-for-since
+          type: cloze
+          difficulty: 1
+          prompt: Complete with for or since.
+          text: "I've had this car ___ 2021, and I've known my neighbour ___ six years."
+          answers:
+            - ["since"]
+            - ["for"]
+          explanation: >-
+            2021 is a starting point → since. Six years is a period → for.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l03-ex02
+          objective: en-b1-for-since
+          type: mcq
+          difficulty: 2
+          prompt: "Which sentence is correct?"
+          options:
+            - I live in this flat since 2019.
+            - I am living in this flat since 2019.
+            - I've lived in this flat since 2019.
+            - I lived in this flat since 2019.
+          answer: 2
+          explanation: >-
+            For something that started in the past and is still true, English uses the
+            present perfect, not the present simple.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l03-ex03
+          objective: en-b1-for-since
+          type: mcq
+          difficulty: 2
+          prompt: "We've been friends ___ we were at school."
+          options: [for, since, from, during]
+          answer: 1
+          explanation: >-
+            "We were at school" is the starting point, so we use "since" + a clause.
+
+      - kind: explain
+        title: How long vs When
+        body: |
+          | Question | Answer |
+          |---|---|
+          | **How long** have you worked here? | **For** three years. / **Since** 2023. |
+          | **When** did you start? | **In** 2023. / Three years **ago**. |
+
+          *How long* → present perfect (until now). *When* → past simple (a finished moment).
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l03-ex04
+          objective: en-b1-for-since
+          type: cloze
+          difficulty: 3
+          prompt: Complete the question.
+          text: "\"How ___ have you been a teacher?\" \"For about ten years.\""
+          answers:
+            - ["long"]
+          explanation: >-
+            We ask about duration with "How long…?" and the present perfect.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l03-ex05
+          objective: en-b1-for-since
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order.
+          answer: [She, has, played, the, piano, since, she, was, six, "."]
+          explanation: >-
+            Subject + has + past participle + object + since + the starting point.
+
+  - slug: en-b1-u01-l04-already-yet-just
+    title: Have you done it yet?
+    summary: Already, yet and just for recent news and things still to do.
+    estimated_minutes: 15
+    objectives:
+      - en-b1-already-yet-just
+    steps:
+      - kind: explain
+        title: Already, yet and just
+        body: |
+          | Word | Meaning | Position | Example |
+          |---|---|---|---|
+          | **just** | a very short time ago | before the participle | I've **just** finished. |
+          | **already** | sooner than expected | before the participle | She's **already** left. |
+          | **yet** | until now (questions, negatives) | at the end | Have you eaten **yet**? / I haven't eaten **yet**. |
+
+          > "Have you booked the tickets **yet**?" "Yes, I've **already** done it. I've **just** sent you the email."
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l04-ex01
+          objective: en-b1-already-yet-just
+          type: mcq
+          difficulty: 1
+          prompt: "I haven't finished my homework ___."
+          options: [already, just, yet, ever]
+          answer: 2
+          explanation: >-
+            In negative sentences we use "yet" at the end: I haven't finished it yet.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l04-ex02
+          objective: en-b1-already-yet-just
+          type: mcq
+          difficulty: 2
+          prompt: "Which sentence is correct?"
+          options:
+            - I've finished already my report.
+            - I've already finished my report.
+            - I already have finished my report yet.
+            - I've yet finished my report.
+          answer: 1
+          explanation: >-
+            "Already" goes between have/has and the past participle: I've already finished.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l04-ex03
+          objective: en-b1-already-yet-just
+          type: cloze
+          difficulty: 2
+          prompt: Complete with just, already or yet.
+          text: "\"Is Tom here?\" \"No, sorry, he's ___ gone out. He left a minute ago.\""
+          answers:
+            - ["just"]
+          explanation: >-
+            "A minute ago" tells us it happened a very short time ago → just.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l04-ex04
+          objective: en-b1-already-yet-just
+          type: cloze
+          difficulty: 3
+          prompt: Complete with the correct words.
+          text: "\"Have you seen the new Bond film ___?\" \"Yes, I've ___ seen it twice!\""
+          answers:
+            - ["yet"]
+            - ["already"]
+          explanation: >-
+            Questions use "yet" at the end. "Already" shows it happened sooner than expected
+            and goes before the past participle.
+
+      - kind: exercise
+        exercise:
+          slug: en-b1-u01-l04-ex05
+          objective: en-b1-already-yet-just
+          type: reorder
+          difficulty: 2
+          prompt: Put the words in order.
+          answer: [We, have, just, moved, to, a, new, flat, "."]
+          explanation: >-
+            Subject + have + just + past participle + the rest.

@@ -1,0 +1,28 @@
+slug: en-b1
+language: en
+cefr_level: B1
+title: English B1 — Intermediate
+description: >-
+  Talk about your experiences, explain your opinions and handle most everyday situations
+  with confidence.
+
+objectives:
+  - slug: en-b1-present-perfect-experience
+    skill: grammar
+    can_do: Can talk about life experiences using the present perfect with ever and never.
+    grammar_point: Present perfect for experiences
+
+  - slug: en-b1-perfect-vs-past
+    skill: grammar
+    can_do: Can choose between the present perfect and the past simple.
+    grammar_point: Present perfect vs past simple
+
+  - slug: en-b1-for-since
+    skill: grammar
+    can_do: Can say how long something has continued using for and since.
+    grammar_point: Present perfect with for and since
+
+  - slug: en-b1-already-yet-just
+    skill: grammar
+    can_do: Can talk about recent events and things still to do using already, yet and just.
+    grammar_point: Present perfect with already, yet and just
