@@ -1,8 +1,9 @@
+import enum
 from collections.abc import AsyncIterator
 from datetime import datetime
 
 from fastapi import Request
-from sqlalchemy import DateTime, MetaData, func
+from sqlalchemy import DateTime, Enum, MetaData, func
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -52,3 +53,16 @@ async def get_session(request: Request) -> AsyncIterator[AsyncSession]:
     sessionmaker: async_sessionmaker[AsyncSession] = request.app.state.sessionmaker
     async with sessionmaker() as session:
         yield session
+
+
+def str_enum(enum_cls: type[enum.StrEnum], name: str) -> Enum:
+    # VARCHAR + CHECK instead of a native Postgres ENUM: adding a value later is a one-line
+    # constraint change rather than an ALTER TYPE that can't run inside a transaction.
+    return Enum(
+        enum_cls,
+        name=name,
+        native_enum=False,
+        create_constraint=True,
+        length=20,
+        values_callable=lambda e: [m.value for m in e],
+    )

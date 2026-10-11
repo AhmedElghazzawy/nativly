@@ -535,6 +535,336 @@
           }
         ]
       }
+    },
+    "/api/v1/decks": {
+      "get": {
+        "tags": [
+          "vocabulary"
+        ],
+        "summary": "List Decks",
+        "operationId": "list_decks_api_v1_decks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DeckSummary"
+                  },
+                  "type": "array",
+                  "title": "Response List Decks Api V1 Decks Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/decks/{slug}": {
+      "get": {
+        "tags": [
+          "vocabulary"
+        ],
+        "summary": "Get Deck",
+        "operationId": "get_deck_api_v1_decks__slug__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeckDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/decks/{slug}/subscription": {
+      "put": {
+        "tags": [
+          "vocabulary"
+        ],
+        "summary": "Subscribe",
+        "operationId": "subscribe_api_v1_decks__slug__subscription_put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "vocabulary"
+        ],
+        "summary": "Unsubscribe",
+        "operationId": "unsubscribe_api_v1_decks__slug__subscription_delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/queue": {
+      "get": {
+        "tags": [
+          "vocabulary"
+        ],
+        "summary": "Review Queue",
+        "operationId": "review_queue_api_v1_review_queue_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "tz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "IANA timezone for 'today', e.g. Europe/Berlin",
+              "default": "UTC",
+              "title": "Tz"
+            },
+            "description": "IANA timezone for 'today', e.g. Europe/Berlin"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueCard"
+                  },
+                  "title": "Response Review Queue Api V1 Review Queue Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/{item_slug}": {
+      "post": {
+        "tags": [
+          "vocabulary"
+        ],
+        "summary": "Review",
+        "operationId": "review_api_v1_review__item_slug__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "item_slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Item Slug"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/summary": {
+      "get": {
+        "tags": [
+          "vocabulary"
+        ],
+        "summary": "Review Summary",
+        "operationId": "review_summary_api_v1_review_summary_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "IANA timezone for 'today', e.g. Europe/Berlin",
+              "default": "UTC",
+              "title": "Tz"
+            },
+            "description": "IANA timezone for 'today', e.g. Europe/Berlin"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -786,6 +1116,169 @@
         ],
         "title": "CourseSummary"
       },
+      "DeckDetail": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "cefr_level": {
+            "$ref": "#/components/schemas/CefrLevel"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "studied": {
+            "type": "integer",
+            "title": "Studied"
+          },
+          "subscribed": {
+            "type": "boolean",
+            "title": "Subscribed"
+          },
+          "words": {
+            "items": {
+              "$ref": "#/components/schemas/DeckWord"
+            },
+            "type": "array",
+            "title": "Words"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title",
+          "description",
+          "cefr_level",
+          "total",
+          "studied",
+          "subscribed",
+          "words"
+        ],
+        "title": "DeckDetail"
+      },
+      "DeckSummary": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "cefr_level": {
+            "$ref": "#/components/schemas/CefrLevel"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "studied": {
+            "type": "integer",
+            "title": "Studied"
+          },
+          "subscribed": {
+            "type": "boolean",
+            "title": "Subscribed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title",
+          "description",
+          "cefr_level",
+          "total",
+          "studied",
+          "subscribed"
+        ],
+        "title": "DeckSummary"
+      },
+      "DeckWord": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "lemma": {
+            "type": "string",
+            "title": "Lemma"
+          },
+          "part_of_speech": {
+            "$ref": "#/components/schemas/PartOfSpeech"
+          },
+          "definition": {
+            "type": "string",
+            "title": "Definition"
+          },
+          "examples": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Examples"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "learning",
+              "young",
+              "mature"
+            ],
+            "title": "Status"
+          },
+          "due": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "lemma",
+          "part_of_speech",
+          "definition",
+          "examples",
+          "notes",
+          "status",
+          "due"
+        ],
+        "title": "DeckWord"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -815,6 +1308,35 @@
           "status"
         ],
         "title": "HealthResponse"
+      },
+      "Intervals": {
+        "properties": {
+          "again": {
+            "type": "integer",
+            "title": "Again"
+          },
+          "hard": {
+            "type": "integer",
+            "title": "Hard"
+          },
+          "good": {
+            "type": "integer",
+            "title": "Good"
+          },
+          "easy": {
+            "type": "integer",
+            "title": "Easy"
+          }
+        },
+        "type": "object",
+        "required": [
+          "again",
+          "hard",
+          "good",
+          "easy"
+        ],
+        "title": "Intervals",
+        "description": "Seconds until the card returns for each rating, shown on the rating buttons."
       },
       "LessonDetail": {
         "properties": {
@@ -1136,6 +1658,19 @@
         ],
         "title": "ObjectiveRead"
       },
+      "PartOfSpeech": {
+        "type": "string",
+        "enum": [
+          "noun",
+          "verb",
+          "adjective",
+          "adverb",
+          "preposition",
+          "phrase",
+          "other"
+        ],
+        "title": "PartOfSpeech"
+      },
       "ProgressRead": {
         "properties": {
           "lessons": {
@@ -1160,6 +1695,33 @@
           "objectives"
         ],
         "title": "ProgressRead"
+      },
+      "QueueCard": {
+        "properties": {
+          "word": {
+            "$ref": "#/components/schemas/WordRead"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "learning",
+              "young",
+              "mature"
+            ],
+            "title": "Status"
+          },
+          "intervals": {
+            "$ref": "#/components/schemas/Intervals"
+          }
+        },
+        "type": "object",
+        "required": [
+          "word",
+          "status",
+          "intervals"
+        ],
+        "title": "QueueCard"
       },
       "RefreshRequest": {
         "properties": {
@@ -1257,6 +1819,106 @@
           "sequence"
         ],
         "title": "ReorderResponse"
+      },
+      "ReviewRequest": {
+        "properties": {
+          "rating": {
+            "type": "string",
+            "enum": [
+              "again",
+              "hard",
+              "good",
+              "easy"
+            ],
+            "title": "Rating"
+          },
+          "duration_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 3600000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Ms"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rating"
+        ],
+        "title": "ReviewRequest"
+      },
+      "ReviewResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "learning",
+              "young",
+              "mature"
+            ],
+            "title": "Status"
+          },
+          "due": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Due"
+          },
+          "interval_seconds": {
+            "type": "integer",
+            "title": "Interval Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "due",
+          "interval_seconds"
+        ],
+        "title": "ReviewResult"
+      },
+      "ReviewSummary": {
+        "properties": {
+          "due_now": {
+            "type": "integer",
+            "title": "Due Now"
+          },
+          "new_available_today": {
+            "type": "integer",
+            "title": "New Available Today"
+          },
+          "reviewed_today": {
+            "type": "integer",
+            "title": "Reviewed Today"
+          },
+          "streak_days": {
+            "type": "integer",
+            "title": "Streak Days"
+          },
+          "total_cards": {
+            "type": "integer",
+            "title": "Total Cards"
+          },
+          "mature_cards": {
+            "type": "integer",
+            "title": "Mature Cards"
+          }
+        },
+        "type": "object",
+        "required": [
+          "due_now",
+          "new_available_today",
+          "reviewed_today",
+          "streak_days",
+          "total_cards",
+          "mature_cards"
+        ],
+        "title": "ReviewSummary"
       },
       "Skill": {
         "type": "string",
@@ -1489,6 +2151,53 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "WordRead": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "lemma": {
+            "type": "string",
+            "title": "Lemma"
+          },
+          "part_of_speech": {
+            "$ref": "#/components/schemas/PartOfSpeech"
+          },
+          "definition": {
+            "type": "string",
+            "title": "Definition"
+          },
+          "examples": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Examples"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "lemma",
+          "part_of_speech",
+          "definition",
+          "examples",
+          "notes"
+        ],
+        "title": "WordRead"
       }
     },
     "securitySchemes": {

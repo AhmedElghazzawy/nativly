@@ -225,6 +225,109 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/decks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Decks */
+        get: operations["list_decks_api_v1_decks_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/decks/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Deck */
+        get: operations["get_deck_api_v1_decks__slug__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/decks/{slug}/subscription": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Subscribe */
+        put: operations["subscribe_api_v1_decks__slug__subscription_put"];
+        post?: never;
+        /** Unsubscribe */
+        delete: operations["unsubscribe_api_v1_decks__slug__subscription_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/review/queue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Review Queue */
+        get: operations["review_queue_api_v1_review_queue_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/review/{item_slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Review */
+        post: operations["review_api_v1_review__item_slug__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/review/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Review Summary */
+        get: operations["review_summary_api_v1_review_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -315,6 +418,61 @@ export interface components {
             /** Description */
             description: string;
         };
+        /** DeckDetail */
+        DeckDetail: {
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Description */
+            description: string;
+            cefr_level: components["schemas"]["CefrLevel"];
+            /** Total */
+            total: number;
+            /** Studied */
+            studied: number;
+            /** Subscribed */
+            subscribed: boolean;
+            /** Words */
+            words: components["schemas"]["DeckWord"][];
+        };
+        /** DeckSummary */
+        DeckSummary: {
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Description */
+            description: string;
+            cefr_level: components["schemas"]["CefrLevel"];
+            /** Total */
+            total: number;
+            /** Studied */
+            studied: number;
+            /** Subscribed */
+            subscribed: boolean;
+        };
+        /** DeckWord */
+        DeckWord: {
+            /** Slug */
+            slug: string;
+            /** Lemma */
+            lemma: string;
+            part_of_speech: components["schemas"]["PartOfSpeech"];
+            /** Definition */
+            definition: string;
+            /** Examples */
+            examples: string[];
+            /** Notes */
+            notes: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "new" | "learning" | "young" | "mature";
+            /** Due */
+            due: string | null;
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
@@ -327,6 +485,20 @@ export interface components {
              * @enum {string}
              */
             status: "ok" | "unavailable";
+        };
+        /**
+         * Intervals
+         * @description Seconds until the card returns for each rating, shown on the rating buttons.
+         */
+        Intervals: {
+            /** Again */
+            again: number;
+            /** Hard */
+            hard: number;
+            /** Good */
+            good: number;
+            /** Easy */
+            easy: number;
         };
         /** LessonDetail */
         LessonDetail: {
@@ -454,6 +626,11 @@ export interface components {
             /** Grammar Point */
             grammar_point: string | null;
         };
+        /**
+         * PartOfSpeech
+         * @enum {string}
+         */
+        PartOfSpeech: "noun" | "verb" | "adjective" | "adverb" | "preposition" | "phrase" | "other";
         /** ProgressRead */
         ProgressRead: {
             /** Lessons */
@@ -463,6 +640,16 @@ export interface components {
              * @description Weakest first
              */
             objectives: components["schemas"]["ObjectiveProgressRead"][];
+        };
+        /** QueueCard */
+        QueueCard: {
+            word: components["schemas"]["WordRead"];
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "new" | "learning" | "young" | "mature";
+            intervals: components["schemas"]["Intervals"];
         };
         /** RefreshRequest */
         RefreshRequest: {
@@ -504,6 +691,46 @@ export interface components {
             type: "reorder";
             /** Sequence */
             sequence: string[];
+        };
+        /** ReviewRequest */
+        ReviewRequest: {
+            /**
+             * Rating
+             * @enum {string}
+             */
+            rating: "again" | "hard" | "good" | "easy";
+            /** Duration Ms */
+            duration_ms?: number | null;
+        };
+        /** ReviewResult */
+        ReviewResult: {
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "new" | "learning" | "young" | "mature";
+            /**
+             * Due
+             * Format: date-time
+             */
+            due: string;
+            /** Interval Seconds */
+            interval_seconds: number;
+        };
+        /** ReviewSummary */
+        ReviewSummary: {
+            /** Due Now */
+            due_now: number;
+            /** New Available Today */
+            new_available_today: number;
+            /** Reviewed Today */
+            reviewed_today: number;
+            /** Streak Days */
+            streak_days: number;
+            /** Total Cards */
+            total_cards: number;
+            /** Mature Cards */
+            mature_cards: number;
         };
         /**
          * Skill
@@ -590,6 +817,20 @@ export interface components {
             input?: unknown;
             /** Context */
             ctx?: Record<string, never>;
+        };
+        /** WordRead */
+        WordRead: {
+            /** Slug */
+            slug: string;
+            /** Lemma */
+            lemma: string;
+            part_of_speech: components["schemas"]["PartOfSpeech"];
+            /** Definition */
+            definition: string;
+            /** Examples */
+            examples: string[];
+            /** Notes */
+            notes: string | null;
         };
     };
     responses: never;
@@ -975,6 +1216,215 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ProgressRead"];
+                };
+            };
+        };
+    };
+    list_decks_api_v1_decks_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeckSummary"][];
+                };
+            };
+        };
+    };
+    get_deck_api_v1_decks__slug__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeckDetail"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    subscribe_api_v1_decks__slug__subscription_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    unsubscribe_api_v1_decks__slug__subscription_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    review_queue_api_v1_review_queue_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+                /** @description IANA timezone for 'today', e.g. Europe/Berlin */
+                tz?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QueueCard"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    review_api_v1_review__item_slug__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                item_slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviewRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    review_summary_api_v1_review_summary_get: {
+        parameters: {
+            query?: {
+                /** @description IANA timezone for 'today', e.g. Europe/Berlin */
+                tz?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewSummary"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

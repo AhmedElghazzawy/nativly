@@ -32,6 +32,8 @@ from app.learning.models import (
     StepKind,
     Unit,
 )
+from app.vocab.content import DeckDef
+from app.vocab.importer import import_deck
 
 
 class ContentError(Exception):
@@ -43,6 +45,7 @@ class CourseBundle:
     path: Path
     course: CourseDef
     units: list[UnitDef]
+    decks: list[DeckDef] = field(default_factory=list)
 
 
 @dataclass
@@ -52,12 +55,15 @@ class ImportReport:
     lessons: int = 0
     exercises: int = 0
     objectives: int = 0
+    decks: int = 0
+    vocab_items: int = 0
     created: list[str] = field(default_factory=list)
 
     def __str__(self) -> str:
         return (
             f"{self.courses} course(s), {self.units} unit(s), {self.lessons} lesson(s), "
-            f"{self.exercises} exercise(s), {self.objectives} objective(s); "
+            f"{self.exercises} exercise(s), {self.objectives} objective(s), "
+            f"{self.decks} deck(s) with {self.vocab_items} word(s); "
             f"{len(self.created)} new"
         )
 
@@ -86,7 +92,13 @@ def load_content(root: Path) -> list[CourseBundle]:
                 units.append(UnitDef.model_validate(_read_yaml(unit_file)))
             except (ValidationError, yaml.YAMLError) as exc:
                 errors.append(f"{unit_file}: {exc}")
-        bundles.append(CourseBundle(course_file, course, units))
+        decks: list[DeckDef] = []
+        for deck_file in sorted((course_file.parent / "decks").glob("*.yaml")):
+            try:
+                decks.append(DeckDef.model_validate(_read_yaml(deck_file)))
+            except (ValidationError, yaml.YAMLError) as exc:
+                errors.append(f"{deck_file}: {exc}")
+        bundles.append(CourseBundle(course_file, course, units, decks))
 
     if not errors:
         errors.extend(_cross_check(bundles))
@@ -127,6 +139,13 @@ def _cross_check(bundles: list[CourseBundle]) -> list[str]:
                         claim("exercise", ex.slug, where)
                         if ex.objective not in objectives:
                             errors.append(f"exercise '{ex.slug}': unknown objective")
+        units = {u.slug for u in bundle.units}
+        for deck in bundle.decks:
+            claim("deck", deck.slug, where)
+            if deck.unit is not None and deck.unit not in units:
+                errors.append(f"deck '{deck.slug}': unknown unit '{deck.unit}'")
+            for item in deck.items:
+                claim("vocab item", item.slug, where)
     return errors
 
 
@@ -167,6 +186,7 @@ async def import_content(session: AsyncSession, root: Path) -> ImportReport:
             )  # fmt: skip
             report.objectives += 1
 
+        unit_ids = {}
         for u in bundle.units:
             unit = await _upsert(
                 session, Unit, u.slug, report,
@@ -174,6 +194,7 @@ async def import_content(session: AsyncSession, root: Path) -> ImportReport:
                 description=u.description,
             )  # fmt: skip
             report.units += 1
+            unit_ids[u.slug] = unit.id
 
             for position, lesson_def in enumerate(u.lessons, start=1):
                 lesson = await _upsert(
@@ -206,6 +227,14 @@ async def import_content(session: AsyncSession, root: Path) -> ImportReport:
                             )
                         )  # fmt: skip
                 await session.flush()
+
+        for deck_def in bundle.decks:
+            count, created = await import_deck(
+                session, deck_def, c.language, c.cefr_level, unit_ids
+            )
+            report.decks += 1
+            report.vocab_items += count
+            report.created.extend(created)
 
     await session.commit()
     return report

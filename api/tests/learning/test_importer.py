@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.learning.importer import ContentError, import_content, load_content
 from app.learning.models import Exercise, Lesson, LessonStep, StepKind
-from tests.learning.conftest import REPO_CONTENT, ContentDir, course_yaml, unit_yaml
+from tests.content import REPO_CONTENT, ContentDir, course_yaml, unit_yaml
 
 
 async def count(session: AsyncSession, model: Any) -> int:

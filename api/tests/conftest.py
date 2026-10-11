@@ -1,5 +1,6 @@
 import os
 from collections.abc import AsyncIterator
+from pathlib import Path
 
 import asyncpg
 import pytest
@@ -12,6 +13,7 @@ from app.core.config import Settings, get_settings
 from app.core.db import get_session
 from app.main import create_app
 from app.models import Base
+from tests.content import ContentDir
 
 TEST_DATABASE_URL = os.environ.get(
     "NATIVLY_TEST_DATABASE_URL",
@@ -95,3 +97,8 @@ async def auth_headers(client: AsyncClient) -> dict[str, str]:
     await client.post("/api/v1/auth/register", json=credentials)
     response = await client.post("/api/v1/auth/login", json=credentials)
     return {"Authorization": f"Bearer {response.json()['access_token']}"}
+
+
+@pytest.fixture
+def content(tmp_path: Path) -> ContentDir:
+    return ContentDir(tmp_path / "content")

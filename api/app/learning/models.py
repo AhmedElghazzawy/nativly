@@ -13,7 +13,6 @@ from sqlalchemy import (
     CheckConstraint,
     Column,
     DateTime,
-    Enum,
     Float,
     ForeignKey,
     Index,
@@ -27,7 +26,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.core.db import Base, TimestampMixin
+from app.core.db import Base, TimestampMixin, str_enum
 
 
 class CefrLevel(enum.StrEnum):
@@ -68,19 +67,6 @@ class LessonStatus(enum.StrEnum):
     COMPLETED = "completed"
 
 
-def _str_enum(enum_cls: type[enum.StrEnum], name: str) -> Enum:
-    # VARCHAR + CHECK instead of a native Postgres ENUM: adding a value later is a one-line
-    # constraint change rather than an ALTER TYPE that can't run inside a transaction.
-    return Enum(
-        enum_cls,
-        name=name,
-        native_enum=False,
-        create_constraint=True,
-        length=20,
-        values_callable=lambda e: [m.value for m in e],
-    )
-
-
 lesson_objectives = Table(
     "lesson_objectives",
     Base.metadata,
@@ -97,7 +83,7 @@ class Course(TimestampMixin, Base):
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     slug: Mapped[str] = mapped_column(String(100), unique=True)
     language: Mapped[str] = mapped_column(String(8))
-    cefr_level: Mapped[CefrLevel] = mapped_column(_str_enum(CefrLevel, "cefr_level"))
+    cefr_level: Mapped[CefrLevel] = mapped_column(str_enum(CefrLevel, "cefr_level"))
     title: Mapped[str] = mapped_column(String(200))
     description: Mapped[str] = mapped_column(Text, default="")
 
@@ -130,8 +116,8 @@ class LearningObjective(TimestampMixin, Base):
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     slug: Mapped[str] = mapped_column(String(100), unique=True)
     language: Mapped[str] = mapped_column(String(8))
-    cefr_level: Mapped[CefrLevel] = mapped_column(_str_enum(CefrLevel, "cefr_level"))
-    skill: Mapped[Skill] = mapped_column(_str_enum(Skill, "skill"))
+    cefr_level: Mapped[CefrLevel] = mapped_column(str_enum(CefrLevel, "cefr_level"))
+    skill: Mapped[Skill] = mapped_column(str_enum(Skill, "skill"))
     can_do: Mapped[str] = mapped_column(Text)
     grammar_point: Mapped[str | None] = mapped_column(String(200))
 
@@ -164,7 +150,7 @@ class Exercise(TimestampMixin, Base):
     objective_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("learning_objectives.id", ondelete="RESTRICT"), index=True
     )
-    type: Mapped[ExerciseType] = mapped_column(_str_enum(ExerciseType, "exercise_type"))
+    type: Mapped[ExerciseType] = mapped_column(str_enum(ExerciseType, "exercise_type"))
     difficulty: Mapped[int] = mapped_column(SmallInteger)
     # What the learner sees (safe to send to clients).
     payload: Mapped[dict[str, Any]] = mapped_column(JSONB)
@@ -182,7 +168,7 @@ class LessonStep(Base):
         ForeignKey("lessons.id", ondelete="CASCADE"), index=True
     )
     position: Mapped[int] = mapped_column(SmallInteger)
-    kind: Mapped[StepKind] = mapped_column(_str_enum(StepKind, "step_kind"))
+    kind: Mapped[StepKind] = mapped_column(str_enum(StepKind, "step_kind"))
     title: Mapped[str | None] = mapped_column(String(200))
     body: Mapped[str | None] = mapped_column(Text)  # Markdown
     exercise_id: Mapped[uuid.UUID | None] = mapped_column(
@@ -247,7 +233,7 @@ class LessonProgress(Base):
     lesson_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("lessons.id", ondelete="CASCADE"), primary_key=True
     )
-    status: Mapped[LessonStatus] = mapped_column(_str_enum(LessonStatus, "lesson_status"))
+    status: Mapped[LessonStatus] = mapped_column(str_enum(LessonStatus, "lesson_status"))
     score: Mapped[float | None] = mapped_column(Float)
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

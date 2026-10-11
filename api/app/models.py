@@ -14,10 +14,13 @@ from app.learning.models import (
     Unit,
     lesson_objectives,
 )
+from app.vocab.models import Deck, DeckSubscription, Review, UserCard, VocabItem, deck_items
 
 __all__ = [
     "Base",
     "Course",
+    "Deck",
+    "DeckSubscription",
     "Exercise",
     "ExerciseAttempt",
     "LearningObjective",
@@ -26,7 +29,11 @@ __all__ = [
     "LessonStep",
     "ObjectiveMastery",
     "RefreshToken",
+    "Review",
     "Unit",
     "User",
+    "UserCard",
+    "VocabItem",
+    "deck_items",
     "lesson_objectives",
 ]

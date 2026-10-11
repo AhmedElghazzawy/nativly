@@ -1,10 +1,11 @@
+"""Helpers that write a content/ tree (courses, units, decks) for importer and API tests."""
+
 from pathlib import Path
 from typing import Any
 
-import pytest
 import yaml
 
-REPO_CONTENT = Path(__file__).resolve().parents[3] / "content"
+REPO_CONTENT = Path(__file__).resolve().parents[2] / "content"
 
 
 def course_yaml(**overrides: Any) -> dict[str, Any]:
@@ -74,6 +75,37 @@ def unit_yaml(**overrides: Any) -> dict[str, Any]:
     } | overrides
 
 
+def deck_yaml(**overrides: Any) -> dict[str, Any]:
+    words = [
+        ("w-go", "go", "verb", "To move.", ["We went home."], "go - went - gone"),
+        (
+            "w-see",
+            "see",
+            "verb",
+            "To notice with your eyes.",
+            ["I saw a film."],
+            "see - saw - seen",
+        ),
+        ("w-ago", "ago", "adverb", "Before now.", ["Two days ago."], None),
+    ]
+    return {
+        "slug": "deck-1",
+        "title": "Test deck",
+        "unit": "unit-1",
+        "items": [
+            {
+                "slug": slug,
+                "lemma": lemma,
+                "part_of_speech": pos,
+                "definition": definition,
+                "examples": examples,
+                **({"notes": notes} if notes else {}),
+            }
+            for slug, lemma, pos, definition, examples, notes in words
+        ],
+    } | overrides
+
+
 class ContentDir:
     """Writes a content tree like the real `content/` folder into a temp directory."""
 
@@ -85,15 +117,15 @@ class ContentDir:
         course: dict[str, Any] | None = None,
         units: list[dict[str, Any]] | None = None,
         course_dir: str = "en/a2",
+        decks: list[dict[str, Any]] | None = None,
     ) -> Path:
         base = self.root / course_dir
         (base / "units").mkdir(parents=True, exist_ok=True)
         (base / "course.yaml").write_text(yaml.safe_dump(course or course_yaml()))
         for i, unit in enumerate(units if units is not None else [unit_yaml()], start=1):
             (base / "units" / f"{i:02d}.yaml").write_text(yaml.safe_dump(unit))
+        if decks:
+            (base / "decks").mkdir(exist_ok=True)
+            for i, deck in enumerate(decks, start=1):
+                (base / "decks" / f"{i:02d}.yaml").write_text(yaml.safe_dump(deck))
         return self.root
-
-
-@pytest.fixture
-def content(tmp_path: Path) -> ContentDir:
-    return ContentDir(tmp_path / "content")

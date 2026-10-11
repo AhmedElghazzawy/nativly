@@ -3,7 +3,7 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.learning.importer import import_content
-from tests.learning.conftest import ContentDir, course_yaml
+from tests.content import ContentDir, course_yaml
 
 API = "/api/v1"
 

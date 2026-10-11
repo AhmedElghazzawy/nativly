@@ -15,19 +15,19 @@ Slug = Annotated[str, Field(pattern=r"^[a-z0-9]+(?:-[a-z0-9]+)*$", max_length=10
 CLOZE_BLANK = "___"
 
 
-class _Strict(BaseModel):
+class StrictModel(BaseModel):
     # Typos in content (e.g. `explaination:`) must fail the import, not be silently dropped.
     model_config = ConfigDict(extra="forbid", frozen=True)
 
 
-class ObjectiveDef(_Strict):
+class ObjectiveDef(StrictModel):
     slug: Slug
     skill: Skill
     can_do: str = Field(min_length=1)
     grammar_point: str | None = None
 
 
-class CourseDef(_Strict):
+class CourseDef(StrictModel):
     slug: Slug
     language: str = Field(pattern=r"^[a-z]{2}$")
     cefr_level: CefrLevel
@@ -36,7 +36,7 @@ class CourseDef(_Strict):
     objectives: list[ObjectiveDef] = Field(min_length=1)
 
 
-class _ExerciseBase(_Strict):
+class _ExerciseBase(StrictModel):
     slug: Slug
     objective: Slug
     difficulty: int = Field(default=1, ge=1, le=5)
@@ -109,13 +109,13 @@ class ReorderDef(_ExerciseBase):
 ExerciseDef = Annotated[McqDef | ClozeDef | ReorderDef, Field(discriminator="type")]
 
 
-class ExplainStepDef(_Strict):
+class ExplainStepDef(StrictModel):
     kind: Literal["explain"]
     title: str | None = None
     body: str = Field(min_length=1, description="Markdown")
 
 
-class ExerciseStepDef(_Strict):
+class ExerciseStepDef(StrictModel):
     kind: Literal["exercise"]
     exercise: ExerciseDef
 
@@ -123,7 +123,7 @@ class ExerciseStepDef(_Strict):
 StepDef = Annotated[ExplainStepDef | ExerciseStepDef, Field(discriminator="kind")]
 
 
-class LessonDef(_Strict):
+class LessonDef(StrictModel):
     slug: Slug
     title: str = Field(min_length=1, max_length=200)
     summary: str = ""
@@ -132,7 +132,7 @@ class LessonDef(_Strict):
     steps: list[StepDef] = Field(min_length=1)
 
 
-class UnitDef(_Strict):
+class UnitDef(StrictModel):
     slug: Slug
     position: int = Field(ge=1)
     title: str = Field(min_length=1, max_length=200)

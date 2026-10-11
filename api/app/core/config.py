@@ -49,6 +49,9 @@ class Settings(BaseSettings):
 
     cors_origins: list[str] = []
 
+    # Spaced repetition: how many brand-new words a learner meets per day.
+    new_cards_per_day: int = Field(default=10, ge=0, le=100)
+
     @field_validator("database_url")
     @classmethod
     def _normalize_database_url(cls, value: str) -> str:

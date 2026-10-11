@@ -1,0 +1,276 @@
+slug: en-a2-deck-past-verbs-and-time
+title: "Past tense: everyday verbs and time words"
+description: >-
+  The irregular verbs you need most to talk about your day, plus the words that say when
+  something happened. Goes with Unit 1.
+unit: en-a2-u01
+
+items:
+  # --- Irregular verbs (base - past) ---------------------------------------------------
+  - slug: en-a2-w-go
+    lemma: go
+    part_of_speech: verb
+    definition: To move from one place to another.
+    examples:
+      - We went to the beach last Saturday.
+      - Where did you go on holiday?
+    notes: "go – went – gone"
+
+  - slug: en-a2-w-have
+    lemma: have
+    part_of_speech: verb
+    definition: To own something, or to eat, drink or experience something.
+    examples:
+      - I had pasta for dinner yesterday.
+      - Did you have a good weekend?
+    notes: "have – had – had"
+
+  - slug: en-a2-w-get
+    lemma: get
+    part_of_speech: verb
+    definition: To receive something, or to arrive somewhere.
+    examples:
+      - I got a message from my brother this morning.
+      - What time did you get home?
+    notes: "get – got – got (US: gotten)"
+
+  - slug: en-a2-w-make
+    lemma: make
+    part_of_speech: verb
+    definition: To create or prepare something.
+    examples:
+      - She made a cake for my birthday.
+      - I made a mistake in my homework.
+    notes: "make – made – made"
+
+  - slug: en-a2-w-do
+    lemma: do
+    part_of_speech: verb
+    definition: To perform an action or a job.
+    examples:
+      - What did you do last night?
+      - I did my homework after dinner.
+    notes: "do – did – done"
+
+  - slug: en-a2-w-see
+    lemma: see
+    part_of_speech: verb
+    definition: To notice something with your eyes, or to meet someone.
+    examples:
+      - We saw a great film on Friday.
+      - I saw my old teacher at the station.
+    notes: "see – saw – seen"
+
+  - slug: en-a2-w-buy
+    lemma: buy
+    part_of_speech: verb
+    definition: To get something by paying money for it.
+    examples:
+      - I bought new shoes last week.
+      - What did you buy at the market?
+    notes: "buy – bought – bought"
+
+  - slug: en-a2-w-eat
+    lemma: eat
+    part_of_speech: verb
+    definition: To put food in your mouth and swallow it.
+    examples:
+      - We ate at a small restaurant near the river.
+      - Have you eaten yet?
+    notes: "eat – ate – eaten"
+
+  - slug: en-a2-w-come
+    lemma: come
+    part_of_speech: verb
+    definition: To move towards the place where the speaker is.
+    examples:
+      - My friends came to my house on Sunday.
+      - When did you come back from London?
+    notes: "come – came – come"
+
+  - slug: en-a2-w-take
+    lemma: take
+    part_of_speech: verb
+    definition: To carry or move something with you, or to use a bus, train, etc.
+    examples:
+      - I took the bus to work this morning.
+      - She took a lot of photos on her trip.
+    notes: "take – took – taken"
+
+  - slug: en-a2-w-meet
+    lemma: meet
+    part_of_speech: verb
+    definition: To see and talk to someone, by plan or by chance.
+    examples:
+      - I met Sara for coffee yesterday.
+      - Where did you meet your husband?
+    notes: "meet – met – met"
+
+  - slug: en-a2-w-leave
+    lemma: leave
+    part_of_speech: verb
+    definition: To go away from a place.
+    examples:
+      - I left the office at six o'clock.
+      - The train left ten minutes late.
+    notes: "leave – left – left"
+
+  - slug: en-a2-w-write
+    lemma: write
+    part_of_speech: verb
+    definition: To put words on paper or on a screen.
+    examples:
+      - I wrote an email to my manager.
+      - He wrote his name at the top of the page.
+    notes: "write – wrote – written"
+
+  - slug: en-a2-w-feel
+    lemma: feel
+    part_of_speech: verb
+    definition: To have an emotion or a feeling in your body.
+    examples:
+      - I felt tired after the long journey.
+      - How did you feel before the exam?
+    notes: "feel – felt – felt"
+
+  - slug: en-a2-w-find
+    lemma: find
+    part_of_speech: verb
+    definition: To discover something you were looking for, or by chance.
+    examples:
+      - I found my keys under the sofa.
+      - She found a nice flat near the centre.
+    notes: "find – found – found"
+
+  - slug: en-a2-w-think
+    lemma: think
+    part_of_speech: verb
+    definition: To have an idea or an opinion in your mind.
+    examples:
+      - I thought the film was too long.
+      - What did you think of the hotel?
+    notes: "think – thought – thought"
+
+  - slug: en-a2-w-sleep
+    lemma: sleep
+    part_of_speech: verb
+    definition: To rest with your eyes closed, usually at night.
+    examples:
+      - I slept for ten hours on Saturday!
+      - Did you sleep well?
+    notes: "sleep – slept – slept"
+
+  - slug: en-a2-w-spend
+    lemma: spend
+    part_of_speech: verb
+    definition: To use money to buy things, or to use time doing something.
+    examples:
+      - We spent the whole day at the museum.
+      - I spent too much money on clothes.
+    notes: "spend – spent – spent"
+
+  # --- Regular verbs with spelling changes ----------------------------------------------
+  - slug: en-a2-w-study
+    lemma: study
+    part_of_speech: verb
+    definition: To spend time learning about a subject.
+    examples:
+      - I studied English for two hours yesterday.
+      - She studied medicine at university.
+    notes: "Regular: study → studied (consonant + y → -ied)"
+
+  - slug: en-a2-w-stop
+    lemma: stop
+    part_of_speech: verb
+    definition: To finish doing something, or to stay still after moving.
+    examples:
+      - It stopped raining in the afternoon.
+      - The bus stopped outside my house.
+    notes: "Regular: stop → stopped (double the last consonant)"
+
+  - slug: en-a2-w-travel
+    lemma: travel
+    part_of_speech: verb
+    definition: To go from one place to another, often to a far place.
+    examples:
+      - We travelled around Spain by train.
+      - Did you travel a lot last year?
+    notes: "Regular: UK travelled, US traveled"
+
+  - slug: en-a2-w-arrive
+    lemma: arrive
+    part_of_speech: verb
+    definition: To get to a place at the end of a journey.
+    examples:
+      - We arrived at the airport at midnight.
+      - What time did your guests arrive?
+    notes: "Regular: arrive → arrived (ends in -e: add only -d). We arrive at a place, in a city."
+
+  # --- Time expressions ------------------------------------------------------------------
+  - slug: en-a2-w-yesterday
+    lemma: yesterday
+    part_of_speech: adverb
+    definition: On the day before today.
+    examples:
+      - I called my mum yesterday.
+      - Yesterday morning it was very cold.
+
+  - slug: en-a2-w-last-night
+    lemma: last night
+    part_of_speech: phrase
+    definition: The evening or night before today.
+    examples:
+      - I watched a film last night.
+      - Did you go out last night?
+    notes: "Say last night, not \"yesterday night\"."
+
+  - slug: en-a2-w-last-week
+    lemma: last week
+    part_of_speech: phrase
+    definition: The week before this one.
+    examples:
+      - Last week I started a new job.
+      - We moved house last week.
+    notes: "Also: last month, last year, last Monday. No \"the\"."
+
+  - slug: en-a2-w-ago
+    lemma: ago
+    part_of_speech: adverb
+    definition: Before now; used after a length of time.
+    examples:
+      - I moved here three years ago.
+      - She left five minutes ago.
+    notes: "Time + ago: two days ago, a long time ago."
+
+  - slug: en-a2-w-when
+    lemma: when
+    part_of_speech: adverb
+    definition: At what time; used to ask about time.
+    examples:
+      - When did you arrive?
+      - I was happy when I heard the news.
+
+  - slug: en-a2-w-then
+    lemma: then
+    part_of_speech: adverb
+    definition: After that; next.
+    examples:
+      - We had lunch and then went for a walk.
+      - First I showered, then I got dressed.
+
+  - slug: en-a2-w-later
+    lemma: later
+    part_of_speech: adverb
+    definition: At a time after now or after the time you are talking about.
+    examples:
+      - She called me later that evening.
+      - Two hours later, we were home.
+
+  - slug: en-a2-w-during
+    lemma: during
+    part_of_speech: preposition
+    definition: From the beginning to the end of a period of time, or at a point in it.
+    examples:
+      - I fell asleep during the film.
+      - During the summer we visited my grandparents.
+    notes: "during + noun (during the meeting), not during + verb."

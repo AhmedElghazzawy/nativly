@@ -13,6 +13,7 @@ from app.auth.router import router as auth_router
 from app.core.config import Settings, get_settings
 from app.core.db import create_engine, create_sessionmaker
 from app.learning.router import router as learning_router
+from app.vocab.router import router as vocab_router
 
 API_PREFIX = "/api/v1"
 
@@ -73,6 +74,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app.include_router(auth_router, prefix=API_PREFIX)
     app.include_router(learning_router, prefix=API_PREFIX)
+    app.include_router(vocab_router, prefix=API_PREFIX)
 
     return app
 
