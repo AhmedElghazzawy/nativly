@@ -31,7 +31,7 @@ follows a real CEFR curriculum (A1–C2, per skill), remembers you across sessio
 | AI tutor with persistent memory of your goals and recurring mistakes | 🔜 Phase 3 |
 | Real-time voice tutor with pronunciation feedback | 🔜 Phase 4 |
 
-See the full [build plan](docs/build-plan.md) and [current progress](docs/learning/PROGRESS.md).
+See the full [build plan](docs/build-plan.md) and [current progress](docs/progress/PROGRESS.md).
 
 ## Architecture
 

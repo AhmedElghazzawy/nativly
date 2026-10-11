@@ -1,7 +1,7 @@
 # 0001. Build Nativly with Claude Code as a mentor, not an autopilot
 
 - **Date:** 2026-10-10
-- **Status:** accepted
+- **Status:** superseded by [0004](0004-claude-code-as-engineer-build-mode.md)
 
 ## Context
 Nativly's first goal is learning professional software engineering; shipping is second.

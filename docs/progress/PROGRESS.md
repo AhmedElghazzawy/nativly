@@ -1,8 +1,7 @@
 # Nativly progress
 
 **Current phase:** Phase 0 — Foundation
-**Next step:** Push the branch and get CI green on GitHub; then deploy the API with HTTPS (Fly.io or Railway, needs an account).
-**Review next time:** _(concepts to revisit; /quiz and /start-session add to this)_
+**Next step:** Deploy the API with HTTPS on free tiers (Neon Postgres + Render web service). Needs the owner to sign up for both.
 
 ## Phase 0: Foundation
 - [x] Repo layout (api/, web/, content/, infra/, docs/) + README + .gitignore
@@ -16,7 +15,7 @@
 - [x] Alembic set up, first migration
 - [x] GitHub Actions CI: ruff, mypy, pytest on every push
 - [x] Auth: users table, register, login, JWT access + refresh, `/me`
-- [ ] Deploy API with HTTPS (Fly.io or Railway)
+- [ ] Deploy API with HTTPS (free tier: Neon + Render)
 - [ ] **Done when:** sign-up works on the live URL and CI is green
 
 ## Backend v1 checklist (milestone)

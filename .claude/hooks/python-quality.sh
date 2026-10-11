@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Runs after Claude edits or writes a file. For Python files it formats the file with
 # ruff, then lints it. Lint problems are reported back to Claude (exit 2) so it has to
-# fix them AND explain the rule to the learner, instead of the problems piling up.
+# fix them right away instead of the problems piling up.
 input=$(cat)
 file=$(printf '%s' "$input" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
 case "$file" in *.py) ;; *) exit 0 ;; esac
@@ -17,7 +17,7 @@ if ! out=$($RUFF check "$file" 2>&1); then
   {
     echo "ruff found issues in $file:"
     echo "$out"
-    echo "Fix them, and briefly explain to the learner what each rule protects against."
+    echo "Fix them (or add a justified noqa if it is a false positive)."
   } >&2
   exit 2
 fi
