@@ -1,7 +1,7 @@
 # Nativly progress
 
 **Current phase:** Phase 1 — Learning core
-**Next step:** Plan Phase 1: curriculum data model (levels, units, lessons, objectives) + content YAML import.
+**Next step:** Exercise attempts: check answers server-side, record attempts, update `objective_mastery`; lesson progress.
 
 ## Phase 0: Foundation
 - [x] Repo layout (api/, web/, content/, infra/, docs/) + README + .gitignore
@@ -17,6 +17,18 @@
 - [x] Auth: users table, register, login, JWT access + refresh, `/me`
 - [x] Deploy API with HTTPS (free tier: Neon + Render): https://nativly-api.onrender.com
 - [x] **Done when:** sign-up works on the live URL and CI is green ✅ 2026-10-11
+
+## Phase 1: Learning core
+- [x] Curriculum tables (courses, units, lessons, steps, objectives, exercises) + migration
+- [x] YAML content format, validator and idempotent importer (runs on deploy)
+- [x] Curriculum API: courses, course outline, lesson with public exercises
+- [x] Content: A2 Unit 1 "Talking about the past", lessons 1–2
+- [ ] Exercise attempts + server-side checking + `objective_mastery` + lesson progress
+- [ ] Vocabulary decks + FSRS spaced repetition + daily review API
+- [ ] Progress dashboard API
+- [ ] Web app (Next.js): lesson player, daily review, progress
+- [ ] Content: finish A2 Unit 1 (~4 lessons) and B1 Unit 1 (~4 lessons)
+- [ ] **Done when:** a learner can do a real lesson and a daily review, and see progress
 
 ## Backend v1 checklist (milestone)
 - [x] User accounts · [ ] Vocabulary decks · [ ] Spaced repetition review

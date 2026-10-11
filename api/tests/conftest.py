@@ -87,3 +87,11 @@ async def client(app: FastAPI) -> AsyncIterator[AsyncClient]:
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         yield ac
+
+
+@pytest.fixture
+async def auth_headers(client: AsyncClient) -> dict[str, str]:
+    credentials = {"email": "learner@example.com", "password": "learner-password"}
+    await client.post("/api/v1/auth/register", json=credentials)
+    response = await client.post("/api/v1/auth/login", json=credentials)
+    return {"Authorization": f"Bearer {response.json()['access_token']}"}

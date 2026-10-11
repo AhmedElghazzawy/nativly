@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
 
+# Build context: the repo root (so curriculum content in content/ can be baked in).
 # ---- build: resolve deps into a venv with uv, using the lockfile ----
 FROM python:3.12-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:0.12.23 /uv /bin/uv
@@ -12,11 +13,12 @@ WORKDIR /app
 
 # Deps first, in their own layer, so code changes don't reinstall everything.
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    --mount=type=bind,source=api/uv.lock,target=uv.lock \
+    --mount=type=bind,source=api/pyproject.toml,target=pyproject.toml \
     uv sync --locked --no-dev --no-install-project
 
-COPY . .
+COPY api/ .
+COPY content/ ./content/
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev
 

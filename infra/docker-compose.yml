@@ -36,8 +36,9 @@ services:
   # start this with `--profile api` to test the production image locally.
   api:
     profiles: ["api"]
-    build:
-      context: ../api
+    build: &api-build
+      context: ..
+      dockerfile: api/Dockerfile
     environment: &api-env
       NATIVLY_ENVIRONMENT: local
       NATIVLY_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-nativly}:${POSTGRES_PASSWORD:-nativly}@postgres:5432/${POSTGRES_DB:-nativly}
@@ -51,12 +52,11 @@ services:
       redis:
         condition: service_healthy
 
-  # One-off job: applies Alembic migrations before the API starts (same image, different command).
+  # One-off job: migrations + curriculum import before the API starts (same image, other command).
   migrate:
     profiles: ["api"]
-    build:
-      context: ../api
-    command: ["alembic", "upgrade", "head"]
+    build: *api-build
+    command: ["sh", "-c", "alembic upgrade head && python -m app.learning.importer content"]
     environment: *api-env
     depends_on:
       postgres:

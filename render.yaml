@@ -8,13 +8,14 @@ services:
     plan: free
     region: frankfurt
     dockerfilePath: ./api/Dockerfile
-    dockerContext: ./api
+    dockerContext: .
     healthCheckPath: /health
     # Deploy only after GitHub CI has passed on main.
     autoDeployTrigger: checksPass
     buildFilter:
       paths:
         - api/**
+        - content/**
     envVars:
       - key: NATIVLY_ENVIRONMENT
         value: production
