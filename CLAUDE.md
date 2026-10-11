@@ -82,6 +82,7 @@ nativly/
 ├── web/                Next.js + TypeScript + Tailwind (Phase 1)
 ├── content/            curriculum YAML per language/level
 ├── infra/              docker-compose.yml (Postgres+pgvector, Redis, migrate job, API)
+├── render.yaml         Render Blueprint (free web service; DB on Neon), ADR 0005
 ├── docs/               build-plan · decisions/ (ADRs) · progress/ (PROGRESS, SESSION_LOG)
 └── .github/            CI workflow, Dependabot
 ```
