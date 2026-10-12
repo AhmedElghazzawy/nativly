@@ -6,12 +6,20 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { completeLesson, submitAttempt } from "@/app/(app)/lessons/[slug]/actions";
 import { ClozeView, McqView, ReorderView } from "@/components/lesson/exercises";
 import { Markdown } from "@/components/lesson/markdown";
+import { WritingView } from "@/components/lesson/writing";
 import { joinTokens, splitCloze } from "@/lib/text";
-import type { AttemptResult, Exercise, ExerciseResponse, LessonDetail, LessonProgress } from "@/lib/types";
+import type {
+  AttemptResult,
+  Exercise,
+  ExerciseResponse,
+  LessonDetail,
+  LessonProgress,
+} from "@/lib/types";
 
 export function LessonPlayer({ lesson }: { lesson: LessonDetail }) {
   const [index, setIndex] = useState(0);
   const [result, setResult] = useState<AttemptResult | null>(null);
+  const [writingDone, setWritingDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [finished, setFinished] = useState<LessonProgress | null>(null);
   const [pending, startTransition] = useTransition();
@@ -25,13 +33,15 @@ export function LessonPlayer({ lesson }: { lesson: LessonDetail }) {
   const step = lesson.steps[index];
   const isLast = index === lesson.steps.length - 1;
   const exercise = step.exercise ?? null;
-  const canContinue = !exercise || result !== null;
+  const writing = step.writing ?? null;
+  const canContinue = writing ? writingDone : !exercise || result !== null;
 
   function next() {
     setError(null);
     if (!isLast) {
       setIndex(index + 1);
       setResult(null);
+      setWritingDone(false);
       return;
     }
     startTransition(async () => {
@@ -61,7 +71,11 @@ export function LessonPlayer({ lesson }: { lesson: LessonDetail }) {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="flex items-center gap-4">
-        <Link href={`/learn/${lesson.course_slug}`} aria-label="Back to course" className="text-2xl leading-none text-muted hover:text-ink">
+        <Link
+          href={`/learn/${lesson.course_slug}`}
+          aria-label="Back to course"
+          className="text-2xl leading-none text-muted hover:text-ink"
+        >
           ×
         </Link>
         <div
@@ -85,14 +99,27 @@ export function LessonPlayer({ lesson }: { lesson: LessonDetail }) {
       <p className="mt-8 text-sm font-medium text-accent">{lesson.title}</p>
 
       <article key={index} className="card mt-3 p-6 sm:p-8">
-        {exercise ? (
+        {writing ? (
+          <>
+            <p className="mb-2 text-sm font-medium text-accent">Writing</p>
+            <h2 className="mb-5 font-display text-2xl text-ink">{writing.prompt}</h2>
+            <WritingView task={writing} onDone={() => setWritingDone(true)} />
+          </>
+        ) : exercise ? (
           <>
             <h2 className="mb-6 font-display text-2xl text-ink">{exercise.prompt}</h2>
-            <ExerciseView exercise={exercise} result={result} submitting={pending} onSubmit={submit} />
+            <ExerciseView
+              exercise={exercise}
+              result={result}
+              submitting={pending}
+              onSubmit={submit}
+            />
           </>
         ) : (
           <>
-            {step.title ? <h2 className="mb-5 font-display text-3xl text-ink">{step.title}</h2> : null}
+            {step.title ? (
+              <h2 className="mb-5 font-display text-3xl text-ink">{step.title}</h2>
+            ) : null}
             <Markdown>{step.body ?? ""}</Markdown>
           </>
         )}
@@ -107,7 +134,13 @@ export function LessonPlayer({ lesson }: { lesson: LessonDetail }) {
 
       {canContinue ? (
         <div className="mt-6 flex justify-end">
-          <button type="button" onClick={next} disabled={pending} className="btn-primary min-w-40" autoFocus>
+          <button
+            type="button"
+            onClick={next}
+            disabled={pending}
+            className="btn-primary min-w-40"
+            autoFocus
+          >
             {pending ? "Saving…" : isLast ? "Finish lesson" : "Continue"}
           </button>
         </div>
@@ -169,7 +202,11 @@ function Feedback({ result, exercise }: { result: AttemptResult; exercise: Exerc
 function LessonComplete({ lesson, progress }: { lesson: LessonDetail; progress: LessonProgress }) {
   const percent = Math.round((progress.score ?? 0) * 100);
   const message =
-    percent === 100 ? "Perfect lesson." : percent >= 70 ? "Nicely done." : "Good effort. Review the explanations and try again soon.";
+    percent === 100
+      ? "Perfect lesson."
+      : percent >= 70
+        ? "Nicely done."
+        : "Good effort. Review the explanations and try again soon.";
   return (
     <div className="card mx-auto max-w-xl p-8 text-center sm:p-10">
       <p className="text-sm font-medium text-accent">Lesson complete</p>

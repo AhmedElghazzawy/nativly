@@ -60,6 +60,12 @@ class Settings(BaseSettings):
     ai_daily_calls_per_user: int = Field(default=30, ge=0)
     ai_timeout_seconds: float = Field(default=30, gt=0, le=120)
 
+    @field_validator("gemini_api_key", mode="before")
+    @classmethod
+    def _blank_key_means_none(cls, value: object) -> object:
+        # Compose and hosts often pass unset secrets as "": treat that as "not configured".
+        return None if isinstance(value, str) and not value.strip() else value
+
     @field_validator("database_url")
     @classmethod
     def _normalize_database_url(cls, value: str) -> str:

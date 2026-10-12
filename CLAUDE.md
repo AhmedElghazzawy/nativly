@@ -80,6 +80,8 @@ nativly/
 │   │   ├── auth/       models · schemas · service · dependencies · router
 │   │   ├── learning/   curriculum models · content.py (YAML schema) · importer · router
 │   │   ├── vocab/      decks, FSRS (srs.py is the only fsrs import) · review queue
+│   │   ├── ai/         LLM.complete(): the ONLY provider gateway (quota, retry, llm_calls log)
+│   │   ├── writing/    writing tasks · feedback.py (prompt + schema, PROMPT_VERSION) · mistakes
 │   │   ├── models.py   imports every ORM model (for Alembic + tests)
 │   │   └── main.py     create_app(): lifespan, CORS, health checks, routers under /api/v1
 │   ├── migrations/     Alembic (async env, ruff runs on generated files)
@@ -96,9 +98,10 @@ nativly/
 ## 4. Stack
 
 Python 3.12 · FastAPI · Pydantic v2 · SQLAlchemy 2 (async, asyncpg) · Alembic · PostgreSQL 16
-(pgvector image) · Redis (+ arq later) · PyJWT · pwdlib (Argon2id) · py-fsrs · pytest + pytest-asyncio ·
+(pgvector image) · Redis (+ arq later) · PyJWT · pwdlib (Argon2id) · py-fsrs · google-genai (Gemini,
+free tier) behind app/ai · pytest + pytest-asyncio ·
 ruff · mypy (strict) · uv · Docker (Colima locally) · GitHub Actions · Next.js (Phase 1) ·
-Claude (Sonnet for tutoring, Haiku for grading) behind the AI layer.
+Claude possible later behind the same AI layer (provider is a setting).
 
 ## 5. Commands
 

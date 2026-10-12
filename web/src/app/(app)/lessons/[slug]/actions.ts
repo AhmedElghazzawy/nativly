@@ -3,7 +3,12 @@
 import { revalidatePath } from "next/cache";
 
 import { ApiError, apiFetch } from "@/lib/api";
-import type { AttemptResult, ExerciseResponse, LessonProgress } from "@/lib/types";
+import type {
+  AttemptResult,
+  ExerciseResponse,
+  LessonProgress,
+  WritingSubmission,
+} from "@/lib/types";
 
 export type ActionResult<T> = { ok: true; data: T } | { ok: false; error: string };
 
@@ -41,6 +46,23 @@ export async function completeLesson(lessonSlug: string): Promise<ActionResult<L
       { method: "POST" },
     );
     revalidatePath("/learn", "layout");
+    revalidatePath("/progress");
+    return { ok: true, data };
+  } catch (error) {
+    if (error instanceof ApiError) return { ok: false, error: error.detail };
+    throw error;
+  }
+}
+
+export async function submitWriting(
+  taskSlug: string,
+  text: string,
+): Promise<ActionResult<WritingSubmission>> {
+  try {
+    const data = await apiFetch<WritingSubmission>(
+      `/writing/${encodeURIComponent(taskSlug)}/submissions`,
+      { method: "POST", body: JSON.stringify({ text }) },
+    );
     revalidatePath("/progress");
     return { ok: true, data };
   } catch (error) {

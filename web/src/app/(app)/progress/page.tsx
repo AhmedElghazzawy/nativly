@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { getProgress } from "@/lib/data";
+import { getMistakes, getProgress } from "@/lib/data";
+import type { Mistake } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Progress" };
 
@@ -30,7 +31,7 @@ export default function ProgressPage() {
 }
 
 async function ProgressContent() {
-  const { lessons, objectives } = await getProgress();
+  const [{ lessons, objectives }, mistakes] = await Promise.all([getProgress(), getMistakes(8)]);
   const completed = lessons.filter((l) => l.status === "completed");
 
   if (objectives.length === 0) {
@@ -83,26 +84,63 @@ async function ProgressContent() {
         </ul>
       </section>
 
-      <section className="card h-fit p-6">
-        <h2 className="font-display text-xl text-ink">Lessons</h2>
-        <p className="mt-1 text-sm text-muted">
-          {completed.length} completed · {lessons.length - completed.length} in progress
-        </p>
-        <ul className="mt-4 space-y-3">
-          {lessons.map((l) => (
-            <li key={l.lesson_slug}>
-              <Link href={`/lessons/${l.lesson_slug}`} className="flex justify-between gap-3 hover:text-accent">
-                <span className="text-ink">{l.title}</span>
-                <span className="shrink-0 text-sm text-muted tabular-nums">
-                  {l.status === "completed" && l.score !== null
-                    ? `${Math.round(l.score * 100)}%`
-                    : "in progress"}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <div className="space-y-8">
+        <section className="card h-fit p-6">
+          <h2 className="font-display text-xl text-ink">Lessons</h2>
+          <p className="mt-1 text-sm text-muted">
+            {completed.length} completed · {lessons.length - completed.length} in progress
+          </p>
+          <ul className="mt-4 space-y-3">
+            {lessons.map((l) => (
+              <li key={l.lesson_slug}>
+                <Link
+                  href={`/lessons/${l.lesson_slug}`}
+                  className="flex justify-between gap-3 hover:text-accent"
+                >
+                  <span className="text-ink">{l.title}</span>
+                  <span className="shrink-0 text-sm text-muted tabular-nums">
+                    {l.status === "completed" && l.score !== null
+                      ? `${Math.round(l.score * 100)}%`
+                      : "in progress"}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <Mistakes mistakes={mistakes} />
+      </div>
     </div>
+  );
+}
+
+function Mistakes({ mistakes }: { mistakes: Mistake[] }) {
+  if (mistakes.length === 0) return null;
+  return (
+    <section className="card h-fit p-6">
+      <h2 className="font-display text-xl text-ink">Mistakes you make most</h2>
+      <p className="mt-1 text-sm text-muted">
+        From your writing. Your tutor will help you practise these.
+      </p>
+      <ul className="mt-4 space-y-3">
+        {mistakes.map((m) => (
+          <li key={`${m.original}-${m.correction}`} className="text-sm">
+            <p className="flex flex-wrap items-baseline gap-x-2">
+              <span className="text-danger line-through">{m.original}</span>
+              <span aria-hidden="true" className="text-muted">
+                →
+              </span>
+              <span className="font-medium text-success">{m.correction}</span>
+              {m.count > 1 ? (
+                <span className="ml-auto rounded-full bg-danger-soft px-2 py-0.5 text-xs font-medium text-danger">
+                  ×{m.count}
+                </span>
+              ) : null}
+            </p>
+            <p className="mt-0.5 text-muted">{m.explanation}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

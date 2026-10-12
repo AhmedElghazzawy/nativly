@@ -431,3 +431,15 @@ lessons:
             - ["slept"]
           explanation: >-
             come → came, sleep → slept. Both are irregular, so they don't take -ed.
+
+      - kind: writing
+        task:
+          slug: en-a2-u01-l04-write-weekend
+          objective: en-a2-narrative-sequence
+          prompt: Tell the story of your last weekend. What did you do, and how was it?
+          guidance:
+            - Use first, then, after that and finally
+            - Use at least three irregular verbs (went, had, saw…)
+            - Say how something was (It was great / The weather wasn't good…)
+          min_words: 50
+          max_words: 150

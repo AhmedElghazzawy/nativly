@@ -14,8 +14,8 @@ step "api: mypy"
 step "api: pytest (needs Postgres: docker compose -f infra/docker-compose.yml up -d)"
 (cd "$root/api" && uv run pytest -q --cov)
 
-step "web: lint, types, unit tests"
-(cd "$root/web" && npm run --silent lint && npm run --silent typecheck && npm test --silent)
+step "web: format, lint, types, unit tests"
+(cd "$root/web" && npm run --silent format:check && npm run --silent lint && npm run --silent typecheck && npm test --silent)
 
 if [[ "${1:-}" == "--e2e" ]]; then
   step "web: playwright"

@@ -12,3 +12,4 @@ versions: read `node_modules/next/dist/docs/` before using an unfamiliar API (se
 - Tailwind theme tokens live in `src/app/globals.css` (`@theme`). Don't name a color after a
   Tailwind utility (e.g. `right`, `center`): `text-right` would collide with text-align.
 - Every user-facing flow gets a Playwright test in `e2e/`.
+- Formatting is Prettier (+ Tailwind class sorting): run `npm run format`; CI checks it.

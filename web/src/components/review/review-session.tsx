@@ -8,10 +8,25 @@ import { formatInterval } from "@/lib/format";
 import type { QueueCard, RatingName } from "@/lib/types";
 
 const RATINGS: { name: RatingName; label: string; key: string; style: string }[] = [
-  { name: "again", label: "Again", key: "1", style: "border-danger/40 text-danger hover:bg-danger-soft" },
+  {
+    name: "again",
+    label: "Again",
+    key: "1",
+    style: "border-danger/40 text-danger hover:bg-danger-soft",
+  },
   { name: "hard", label: "Hard", key: "2", style: "border-line text-ink hover:bg-paper" },
-  { name: "good", label: "Good", key: "3", style: "border-success/40 text-success hover:bg-success-soft" },
-  { name: "easy", label: "Easy", key: "4", style: "border-accent/40 text-accent hover:bg-accent-soft" },
+  {
+    name: "good",
+    label: "Good",
+    key: "3",
+    style: "border-success/40 text-success hover:bg-success-soft",
+  },
+  {
+    name: "easy",
+    label: "Easy",
+    key: "4",
+    style: "border-accent/40 text-accent hover:bg-accent-soft",
+  },
 ];
 
 export function ReviewSession({ initialCards }: { initialCards: QueueCard[] }) {
@@ -72,7 +87,9 @@ export function ReviewSession({ initialCards }: { initialCards: QueueCard[] }) {
       <div className="card mx-auto max-w-xl p-10 text-center">
         <p className="text-sm font-medium text-accent">All done for now</p>
         <h2 className="mt-2 font-display text-3xl text-ink">
-          {reviewed > 0 ? `${reviewed} review${reviewed === 1 ? "" : "s"} done` : "Nothing to review"}
+          {reviewed > 0
+            ? `${reviewed} review${reviewed === 1 ? "" : "s"} done`
+            : "Nothing to review"}
         </h2>
         <p className="mt-3 text-muted">
           {reviewed > 0
@@ -134,7 +151,11 @@ export function ReviewSession({ initialCards }: { initialCards: QueueCard[] }) {
 
       <div className="mt-6">
         {revealed ? (
-          <div className="grid grid-cols-4 gap-2" role="group" aria-label="How well did you remember?">
+          <div
+            className="grid grid-cols-4 gap-2"
+            role="group"
+            aria-label="How well did you remember?"
+          >
             {RATINGS.map((r) => (
               <button
                 key={r.name}

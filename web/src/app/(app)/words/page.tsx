@@ -40,7 +40,10 @@ async function Decks() {
                 <span className="text-xs font-medium text-accent">Studying</span>
               ) : null}
             </div>
-            <Link href={`/words/${deck.slug}`} className="mt-3 font-display text-xl text-ink hover:text-accent">
+            <Link
+              href={`/words/${deck.slug}`}
+              className="mt-3 font-display text-xl text-ink hover:text-accent"
+            >
               {deck.title}
             </Link>
             <p className="mt-1 flex-1 text-sm text-muted">{deck.description}</p>

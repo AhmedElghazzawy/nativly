@@ -9,6 +9,7 @@ import type {
   DeckDetail,
   DeckSummary,
   LessonDetail,
+  Mistake,
   Progress,
   QueueCard,
   ReviewSummary,
@@ -58,4 +59,8 @@ export async function getReviewQueue(limit = 20): Promise<QueueCard[]> {
 export async function getReviewSummary(): Promise<ReviewSummary> {
   const tz = encodeURIComponent(await learnerTimezone());
   return apiFetch<ReviewSummary>(`/review/summary?tz=${tz}`);
+}
+
+export function getMistakes(limit = 10): Promise<Mistake[]> {
+  return apiFetch<Mistake[]>(`/me/mistakes?limit=${limit}`);
 }

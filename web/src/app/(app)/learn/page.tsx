@@ -35,8 +35,8 @@ async function LevelPicker() {
     <>
       <h1 className="font-display text-4xl text-ink">Choose your level</h1>
       <p className="mt-2 max-w-2xl text-muted">
-        Pick the level that sounds most like you. You can switch at any time, and a placement test is
-        coming soon.
+        Pick the level that sounds most like you. You can switch at any time, and a placement test
+        is coming soon.
       </p>
       <ul className="mt-10 grid gap-4 sm:grid-cols-3">
         {courses.map((course) => (

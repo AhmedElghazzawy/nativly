@@ -20,7 +20,11 @@ type ExerciseProps<E> = {
 
 function CheckButton({ disabled, submitting }: { disabled: boolean; submitting: boolean }) {
   return (
-    <button type="submit" disabled={disabled || submitting} className="btn-primary mt-8 w-full sm:w-auto">
+    <button
+      type="submit"
+      disabled={disabled || submitting}
+      className="btn-primary mt-8 w-full sm:w-auto"
+    >
       {submitting ? "Checking…" : "Check answer"}
     </button>
   );
@@ -76,7 +80,12 @@ export function McqView({ exercise, result, submitting, onSubmit }: ExerciseProp
   );
 }
 
-export function ClozeView({ exercise, result, submitting, onSubmit }: ExerciseProps<ClozeExercise>) {
+export function ClozeView({
+  exercise,
+  result,
+  submitting,
+  onSubmit,
+}: ExerciseProps<ClozeExercise>) {
   const parts = splitCloze(exercise.text);
   const [blanks, setBlanks] = useState<string[]>(() => Array(exercise.blanks).fill(""));
   const expected = Array.isArray(result?.correct_answer) ? result.correct_answer : null;
@@ -144,7 +153,11 @@ export function ReorderView({
     >
       <div
         className={`flex min-h-16 flex-wrap items-center gap-2 rounded-xl border-2 border-dashed px-3 py-3 ${
-          result ? (result.is_correct ? "border-success bg-success-soft" : "border-danger bg-danger-soft") : "border-line"
+          result
+            ? result.is_correct
+              ? "border-success bg-success-soft"
+              : "border-danger bg-danger-soft"
+            : "border-line"
         }`}
         aria-label="Your sentence"
       >
@@ -167,7 +180,10 @@ export function ReorderView({
       <div className="mt-5 flex flex-wrap gap-2" aria-label="Word bank">
         {exercise.tokens.map((token, i) =>
           picked.includes(i) ? (
-            <span key={i} className="rounded-lg border border-dashed border-line px-3 py-1.5 text-transparent select-none">
+            <span
+              key={i}
+              className="rounded-lg border border-dashed border-line px-3 py-1.5 text-transparent select-none"
+            >
               {token}
             </span>
           ) : (

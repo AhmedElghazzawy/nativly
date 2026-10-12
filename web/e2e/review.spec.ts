@@ -3,7 +3,11 @@ import { expect, test, type Page } from "@playwright/test";
 const SHOTS = process.env.SCREENSHOT_DIR;
 
 async function shot(page: Page, name: string) {
-  if (SHOTS) await page.screenshot({ path: `${SHOTS}/${test.info().project.name}-${name}.png`, fullPage: true });
+  if (SHOTS)
+    await page.screenshot({
+      path: `${SHOTS}/${test.info().project.name}-${name}.png`,
+      fullPage: true,
+    });
 }
 
 async function signUp(page: Page) {

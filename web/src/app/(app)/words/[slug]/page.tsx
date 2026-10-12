@@ -45,12 +45,15 @@ async function Deck({ params }: Pick<PageProps<"/words/[slug]">, "params">) {
           <li key={w.slug} className="flex items-start gap-4 px-5 py-4">
             <div className="min-w-0 flex-1">
               <p className="font-medium text-ink">
-                {w.lemma} <span className="text-sm font-normal text-muted italic">{w.part_of_speech}</span>
+                {w.lemma}{" "}
+                <span className="text-sm font-normal text-muted italic">{w.part_of_speech}</span>
               </p>
               <p className="text-sm text-muted">{w.definition}</p>
               {w.notes ? <p className="mt-1 text-xs text-muted">{w.notes}</p> : null}
             </div>
-            <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS[w.status].style}`}>
+            <span
+              className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS[w.status].style}`}
+            >
               {STATUS[w.status].label}
             </span>
           </li>

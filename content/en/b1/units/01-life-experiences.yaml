@@ -197,6 +197,20 @@ lessons:
             Questions with "when" ask for a finished time, so we use the past simple:
             When + did + subject + base verb.
 
+      - kind: writing
+        task:
+          slug: en-b1-u01-l02-write-experience
+          objective: en-b1-perfect-vs-past
+          prompt: >-
+            Write about a memorable experience. Start with something you have done, then tell
+            the story of when it happened.
+          guidance:
+            - Open with the present perfect (I've been… / I've tried…)
+            - Switch to the past simple for the details (Last year I… / It was…)
+            - Say how you felt and whether you would do it again
+          min_words: 80
+          max_words: 200
+
   - slug: en-b1-u01-l03-for-and-since
     title: How long have you…?
     summary: For and since, for things that started in the past and are still true.

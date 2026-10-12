@@ -311,6 +311,18 @@ lessons:
           explanation: >-
             Possessive (their) + noun (children) + are + place (at school).
 
+      - kind: writing
+        task:
+          slug: en-a1-u01-l03-write-family
+          objective: en-a1-possessives
+          prompt: Write about your family. Who is in your family? What are their names?
+          guidance:
+            - Use "This is my…" or "I have…"
+            - Give names with his / her (His name is… / Her name is…)
+            - Say how old one person is
+          min_words: 25
+          max_words: 80
+
   - slug: en-a1-u01-l04-numbers-and-age
     title: How old are you?
     summary: Numbers 1–100, ages and phone numbers.

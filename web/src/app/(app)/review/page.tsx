@@ -13,7 +13,11 @@ export default function ReviewPage() {
       <p className="mt-2 text-muted">
         Each word returns right before you&apos;d forget it. Be honest with your ratings.
       </p>
-      <Suspense fallback={<div className="mx-auto mt-10 h-80 max-w-xl animate-pulse rounded-2xl bg-line/50" />}>
+      <Suspense
+        fallback={
+          <div className="mx-auto mt-10 h-80 max-w-xl animate-pulse rounded-2xl bg-line/50" />
+        }
+      >
         <Session />
       </Suspense>
     </>
@@ -27,7 +31,11 @@ async function Session() {
       <dl className="mx-auto mt-8 mb-6 grid max-w-xl grid-cols-3 gap-3 text-center">
         <Stat label="Day streak" value={summary.streak_days} />
         <Stat label="Reviewed today" value={summary.reviewed_today} />
-        <Stat label="Words studied" value={summary.total_cards} hint={`${summary.mature_cards} known`} />
+        <Stat
+          label="Words studied"
+          value={summary.total_cards}
+          hint={`${summary.mature_cards} known`}
+        />
       </dl>
       <ReviewSession initialCards={cards} />
     </>

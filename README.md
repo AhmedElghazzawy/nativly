@@ -28,7 +28,8 @@ follows a real CEFR curriculum (A1–C2, per skill), remembers you across sessio
 | | Status |
 |---|---|
 | Accounts: register, login, JWT access + rotating refresh tokens, `/me` | ✅ |
-| Adaptive placement test, per-skill CEFR levels | 🔜 Phase 2 |
+| AI writing feedback: explained corrections, CEFR estimate, recurring-mistake log | ✅ |
+| Adaptive placement test, per-skill CEFR levels | 🚧 Phase 2 |
 | Curriculum: courses, units, lessons, objectives; MCQ, cloze and reorder exercises | ✅ |
 | Server-side answer checking, per-objective mastery, lesson progress | ✅ |
 | Web app: sign-up, course outline, lesson player with instant feedback, progress | ✅ |
@@ -73,6 +74,8 @@ nativly/
 │   │   ├── auth/        users, tokens: models · schemas · service · router
 │   │   ├── learning/    curriculum models, YAML importer, curriculum API
 │   │   ├── vocab/       word decks, FSRS spaced repetition, review queue
+│   │   ├── ai/          the only gateway to model providers: quotas, logging, retries
+│   │   ├── writing/     writing tasks, AI feedback, mistake log
 │   │   └── main.py      app factory, health checks, router wiring
 │   ├── migrations/      Alembic migrations
 │   ├── tests/           pytest suite (real Postgres, per-test rollback)
@@ -127,6 +130,9 @@ Settings are read from environment variables (or `api/.env`) prefixed with `NATI
 | `NATIVLY_ACCESS_TOKEN_TTL_MINUTES` | `15` | |
 | `NATIVLY_REFRESH_TOKEN_TTL_DAYS` | `30` | |
 | `NATIVLY_CORS_ORIGINS` | `[]` | JSON list, e.g. `["http://localhost:3000"]` |
+| `NATIVLY_AI_PROVIDER` | `disabled` | `gemini`, `fake` (labelled demo answers) or `disabled` |
+| `NATIVLY_GEMINI_API_KEY` | — | Free key from [Google AI Studio](https://aistudio.google.com) |
+| `NATIVLY_AI_DAILY_CALLS_PER_USER` | `30` | Per-learner AI allowance per 24 h |
 
 Generate a secret with `python -c "import secrets; print(secrets.token_urlsafe(48))"`.
 
@@ -166,6 +172,8 @@ All application endpoints are versioned under `/api/v1`.
 | `GET` | `/api/v1/review/queue?tz=` | Today's cards: due first, then new words (FSRS) |
 | `POST` | `/api/v1/review/{word}` | Rate a card (again/hard/good/easy); returns the next due date |
 | `GET` | `/api/v1/review/summary?tz=` | Due, new today, reviewed today, streak, known words |
+| `POST` | `/api/v1/writing/{task}/submissions` | Submit writing; returns AI feedback (corrections, level, scores) |
+| `GET` | `/api/v1/me/mistakes` | The learner's most frequent mistakes |
 
 ## Development
 

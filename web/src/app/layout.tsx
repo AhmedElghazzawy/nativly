@@ -8,7 +8,10 @@ const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin", "latin-e
 const fraunces = Fraunces({ variable: "--font-fraunces", subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
-  title: { default: "Nativly — Learn English with a teacher who explains why", template: "%s · Nativly" },
+  title: {
+    default: "Nativly — Learn English with a teacher who explains why",
+    template: "%s · Nativly",
+  },
   description:
     "An AI language school that teaches like a real teacher: a real curriculum, explanations that tell you why, and progress you can see.",
 };

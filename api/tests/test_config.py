@@ -76,3 +76,12 @@ def test_validation_errors_never_echo_secrets(overrides: dict[str, str]) -> None
     assert "input_value" not in message
     for value in overrides.values():
         assert value[-12:] not in message
+
+
+def test_blank_gemini_key_means_ai_is_not_configured() -> None:
+    from app.ai.llm import create_provider
+
+    settings = Settings(ai_provider="gemini", gemini_api_key="  ")
+
+    assert settings.gemini_api_key is None
+    assert create_provider(settings) is None

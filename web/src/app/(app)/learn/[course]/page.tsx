@@ -14,7 +14,9 @@ export default function LearnPage({ params }: PageProps<"/learn/[course]">) {
   return (
     <>
       <h1 className="font-display text-4xl text-ink">Your course</h1>
-      <p className="mt-2 text-muted">One short lesson at a time. Explanations first, then practice.</p>
+      <p className="mt-2 text-muted">
+        One short lesson at a time. Explanations first, then practice.
+      </p>
       <Suspense fallback={<OutlineSkeleton />}>
         <Courses params={params} />
       </Suspense>
@@ -140,10 +142,16 @@ function TodayBanner({ review }: { review: ReviewSummary }) {
         className="card flex items-center justify-between gap-4 border-accent/30 bg-accent-soft px-5 py-4 transition hover:border-accent"
       >
         <span>
-          <span className="block font-medium text-accent-strong">Learn the words for this unit</span>
-          <span className="text-sm text-muted">A few new words a day, reviewed right before you forget them.</span>
+          <span className="block font-medium text-accent-strong">
+            Learn the words for this unit
+          </span>
+          <span className="text-sm text-muted">
+            A few new words a day, reviewed right before you forget them.
+          </span>
         </span>
-        <span aria-hidden="true" className="text-accent">→</span>
+        <span aria-hidden="true" className="text-accent">
+          →
+        </span>
       </Link>
     );
   }
@@ -154,7 +162,9 @@ function TodayBanner({ review }: { review: ReviewSummary }) {
     >
       <span>
         <span className="block font-medium text-ink">
-          {toDo > 0 ? `${toDo} word${toDo === 1 ? "" : "s"} to review today` : "Review done for today"}
+          {toDo > 0
+            ? `${toDo} word${toDo === 1 ? "" : "s"} to review today`
+            : "Review done for today"}
         </span>
         <span className="text-sm text-muted">
           {review.streak_days > 0 ? `${review.streak_days}-day streak · ` : ""}

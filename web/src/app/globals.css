@@ -31,7 +31,7 @@ body {
     @apply inline-flex items-center justify-center rounded-xl border border-line bg-card px-5 py-3 font-medium text-ink transition hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50;
   }
   .field {
-    @apply block w-full rounded-xl border border-line bg-card px-3.5 py-2.5 text-ink shadow-xs outline-none transition placeholder:text-muted/60 focus:border-accent focus:ring-2 focus:ring-accent/20;
+    @apply block w-full rounded-xl border border-line bg-card px-3.5 py-2.5 text-ink shadow-xs transition outline-none placeholder:text-muted/60 focus:border-accent focus:ring-2 focus:ring-accent/20;
   }
   .card {
     @apply rounded-2xl border border-line bg-card;

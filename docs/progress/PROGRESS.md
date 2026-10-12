@@ -1,7 +1,7 @@
 # Nativly progress
 
 **Current phase:** Phase 1 done → Phase 2 — Assessment and writing feedback
-**Next step:** Phase 2 planning: AI services layer (free Gemini tier behind `llm.complete()`), adaptive placement test, writing feedback.
+**Next step:** Configure the production Gemini key, then build the adaptive placement test.
 
 ## Phase 0: Foundation
 - [x] Repo layout (api/, web/, content/, infra/, docs/) + README + .gitignore
@@ -31,6 +31,15 @@
 - [x] Content: A1, A2 and B1 Unit 1 — 12 lessons, 60 exercises, 3 decks / 90 words
 - [x] Web: level picker + per-course outline with level tabs (remembers the learner's course)
 - [x] **Done when:** a learner can do a real lesson and a daily review, and see progress ✅ 2026-10-11
+
+## Phase 2: Assessment and writing feedback
+- [x] AI services layer: `LLM.complete()`, Gemini + fake/demo providers, quotas, `llm_calls` log
+- [x] Writing tasks in lessons + AI feedback (corrections, explanations, CEFR, scores) + mistake log
+- [x] Web: writing step with live word count, marked-up corrections, recurring mistakes on Progress
+- [ ] Production Gemini key configured (owner: create key in AI Studio, run the setup script)
+- [ ] Adaptive placement test (grammar, vocab, reading) + writing task → per-skill levels
+- [ ] Evaluation set for writing feedback (expected corrections; run when prompts change)
+- [ ] **Done when:** a new user gets per-skill levels and a starting point in the course
 
 ## Backend v1 checklist (milestone)
 - [x] User accounts · [ ] Vocabulary decks · [ ] Spaced repetition review
