@@ -28,6 +28,7 @@ from app.learning.content import (
     ExerciseStepDef,
     UnitDef,
     WritingStepDef,
+    shuffle_options,
 )
 from app.learning.models import (
     Course,
@@ -220,11 +221,11 @@ async def import_content(session: AsyncSession, root: Path) -> ImportReport:
 
     for pb in content.placement:
         for item in pb.bank.items:
+            options, answer = shuffle_options(item.slug, list(item.options), item.answer)
             await _upsert(
                 session, PlacementItem, item.slug, report,
                 language=pb.language, skill=pb.bank.skill, cefr_level=item.level,
-                passage=item.passage, prompt=item.prompt, options=list(item.options),
-                answer=item.answer,
+                passage=item.passage, prompt=item.prompt, options=options, answer=answer,
             )  # fmt: skip
             report.placement_items += 1
 

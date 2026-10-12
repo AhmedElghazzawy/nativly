@@ -9,7 +9,7 @@ from app.learning.importer import ContentError, import_content, load_all
 from tests.content import ContentDir, course_yaml
 
 API = "/api/v1"
-RIGHT, WRONG = 0, 1  # every test item has option 0 correct
+RIGHT, WRONG = "right", "wrong"  # option texts; positions are shuffled on import
 
 
 def bank(skill: str, per_level: int = 3) -> dict[str, Any]:
@@ -21,7 +21,7 @@ def bank(skill: str, per_level: int = 3) -> dict[str, Any]:
                 "level": level,
                 "prompt": f"{skill} {level} question {i}",
                 "options": ["right", "wrong", "also wrong"],
-                "answer": RIGHT,
+                "answer": 0,
                 **({"passage": "A short text."} if skill == "reading" else {}),
             }
             for level in ("A1", "A2", "B1", "B2")
@@ -67,12 +67,17 @@ async def reply(client: AsyncClient, headers: dict[str, str], state: Any, choice
     )
 
 
+def pick(question: Any, text: str) -> int:
+    return int(question["options"].index(text))
+
+
 async def run(client: AsyncClient, headers: dict[str, str], choose: Any) -> Any:
     state = await start(client, headers)
     asked: list[str] = []
     while state["status"] == "in_progress":
         asked.append(state["question"]["slug"])
-        response = await reply(client, headers, state, choose(state["question"]))
+        question = state["question"]
+        response = await reply(client, headers, state, pick(question, choose(question)))
         assert response.status_code == 200, response.text
         state = response.json()
     assert len(asked) == len(set(asked)), "an item was asked twice"
@@ -185,7 +190,9 @@ async def test_a_learner_cannot_answer_someone_elses_test(
     await client.post(f"{API}/auth/register", json=other)
     token = (await client.post(f"{API}/auth/login", json=other)).json()["access_token"]
 
-    response = await reply(client, {"Authorization": f"Bearer {token}"}, state, RIGHT)
+    response = await reply(
+        client, {"Authorization": f"Bearer {token}"}, state, pick(state["question"], RIGHT)
+    )
 
     assert response.status_code == 404
 

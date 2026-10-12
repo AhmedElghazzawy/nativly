@@ -2,16 +2,18 @@ from typing import Any
 
 import pytest
 from httpx import AsyncClient
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.learning.importer import import_content
+from app.learning.models import Exercise
 from tests.content import ContentDir, unit_yaml
 
 API = "/api/v1"
 LESSON = "lesson-1"
 
 CORRECT: dict[str, dict[str, Any]] = {
-    "ex-mcq": {"type": "mcq", "choice": 1},
+    "ex-mcq": {"type": "mcq", "choice": -1},  # set per test run: options are shuffled
     "ex-cloze": {"type": "cloze", "blanks": ["walked"]},
     "ex-reorder": {"type": "reorder", "sequence": ["I", "walked", "home", "yesterday"]},
 }
@@ -20,6 +22,13 @@ CORRECT: dict[str, dict[str, Any]] = {
 @pytest.fixture(autouse=True)
 async def curriculum(session: AsyncSession, content: ContentDir) -> None:
     await import_content(session, content.write())
+    mcq = await session.scalar(select(Exercise).where(Exercise.slug == "ex-mcq"))
+    assert mcq is not None
+    CORRECT["ex-mcq"]["choice"] = mcq.payload["options"].index("walked")
+
+
+def wrong_mcq_choice() -> dict[str, Any]:
+    return {"type": "mcq", "choice": 1 - CORRECT["ex-mcq"]["choice"]}
 
 
 async def attempt(
@@ -120,7 +129,7 @@ async def test_complete_lesson_requires_every_exercise(
 async def test_lesson_flow_scores_latest_attempts_and_reports_progress(
     client: AsyncClient, auth_headers: dict[str, str]
 ) -> None:
-    await attempt(client, auth_headers, "ex-mcq", {"type": "mcq", "choice": 0})  # wrong first
+    await attempt(client, auth_headers, "ex-mcq", wrong_mcq_choice())  # wrong first
     for slug, response in CORRECT.items():
         await attempt(client, auth_headers, slug, response)
 

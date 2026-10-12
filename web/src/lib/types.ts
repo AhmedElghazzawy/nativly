@@ -31,3 +31,7 @@ export type WritingTask = Schemas["WritingTaskPublic"];
 export type WritingSubmission = Schemas["SubmissionRead"];
 export type WritingFeedback = Schemas["WritingFeedback"];
 export type Mistake = Schemas["MistakeRead"];
+export type PlacementState = Schemas["PlacementState"];
+export type PlacementQuestion = Schemas["PlacementQuestion"];
+export type PlacementResult = Schemas["PlacementResult"];
+export type SkillLevel = Schemas["SkillLevelRead"];

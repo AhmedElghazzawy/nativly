@@ -35,10 +35,27 @@ async function LevelPicker() {
     <>
       <h1 className="font-display text-4xl text-ink">Choose your level</h1>
       <p className="mt-2 max-w-2xl text-muted">
-        Pick the level that sounds most like you. You can switch at any time, and a placement test
-        is coming soon.
+        Pick the level that sounds most like you, or let a short test decide. You can switch at any
+        time.
       </p>
-      <ul className="mt-10 grid gap-4 sm:grid-cols-3">
+      <Link
+        href="/placement"
+        className="card mt-8 flex items-center justify-between gap-4 border-accent/40 bg-accent-soft px-6 py-5 transition hover:border-accent"
+      >
+        <span>
+          <span className="block font-display text-xl text-accent-strong">
+            Not sure? Take the placement test
+          </span>
+          <span className="text-sm text-muted">
+            18 adaptive questions, about 8 minutes. We&apos;ll pick your course.
+          </span>
+        </span>
+        <span aria-hidden="true" className="text-2xl text-accent">
+          →
+        </span>
+      </Link>
+      <p className="mt-10 text-sm font-medium text-muted">Or choose yourself:</p>
+      <ul className="mt-3 grid gap-4 sm:grid-cols-3">
         {courses.map((course) => (
           <li key={course.slug}>
             <Link

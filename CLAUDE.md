@@ -82,6 +82,7 @@ nativly/
 │   │   ├── vocab/      decks, FSRS (srs.py is the only fsrs import) · review queue
 │   │   ├── ai/         LLM.complete(): the ONLY provider gateway (quota, retry, llm_calls log)
 │   │   ├── writing/    writing tasks · feedback.py (prompt + schema, PROMPT_VERSION) · mistakes
+│   │   ├── placement/  staircase.py (pure algorithm) · server-driven test sessions · skill levels
 │   │   ├── models.py   imports every ORM model (for Alembic + tests)
 │   │   └── main.py     create_app(): lifespan, CORS, health checks, routers under /api/v1
 │   ├── migrations/     Alembic (async env, ruff runs on generated files)

@@ -2,7 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 
-import { apiFetch } from "@/lib/api";
+import { ApiError, apiFetch } from "@/lib/api";
 import type {
   CourseDetail,
   CourseSummary,
@@ -10,6 +10,7 @@ import type {
   DeckSummary,
   LessonDetail,
   Mistake,
+  PlacementState,
   Progress,
   QueueCard,
   ReviewSummary,
@@ -63,4 +64,13 @@ export async function getReviewSummary(): Promise<ReviewSummary> {
 
 export function getMistakes(limit = 10): Promise<Mistake[]> {
   return apiFetch<Mistake[]>(`/me/mistakes?limit=${limit}`);
+}
+
+export async function getLatestPlacement(): Promise<PlacementState | null> {
+  try {
+    return await apiFetch<PlacementState>("/placement/sessions/latest");
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
 }

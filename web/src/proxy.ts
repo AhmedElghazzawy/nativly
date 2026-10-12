@@ -7,7 +7,7 @@ const ACCESS_COOKIE = "nativly_access";
 const REFRESH_COOKIE = "nativly_refresh";
 const API_URL = process.env.API_URL ?? "http://localhost:8000";
 
-const PROTECTED = ["/learn", "/lessons", "/progress", "/review", "/words"];
+const PROTECTED = ["/learn", "/lessons", "/progress", "/review", "/words", "/placement"];
 const AUTH_PAGES = ["/login", "/signup"];
 
 /**

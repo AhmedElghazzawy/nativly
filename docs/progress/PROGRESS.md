@@ -1,7 +1,7 @@
 # Nativly progress
 
 **Current phase:** Phase 1 done → Phase 2 — Assessment and writing feedback
-**Next step:** Configure the production Gemini key, then build the adaptive placement test.
+**Next step:** Configure the production Gemini key (owner), then Phase 3: the AI teacher (text) with memory.
 
 ## Phase 0: Foundation
 - [x] Repo layout (api/, web/, content/, infra/, docs/) + README + .gitignore
@@ -37,9 +37,11 @@
 - [x] Writing tasks in lessons + AI feedback (corrections, explanations, CEFR, scores) + mistake log
 - [x] Web: writing step with live word count, marked-up corrections, recurring mistakes on Progress
 - [ ] Production Gemini key configured (owner: create key in AI Studio, run the setup script)
-- [ ] Adaptive placement test (grammar, vocab, reading) + writing task → per-skill levels
+- [x] Adaptive placement test (grammar, vocab, reading) → per-skill levels + recommended course (ADR 0009)
+- [x] MCQ option shuffling on import (removes measured answer-position bias)
+- [ ] Placement: add the AI-graded writing task as a fourth skill
 - [ ] Evaluation set for writing feedback (expected corrections; run when prompts change)
-- [ ] **Done when:** a new user gets per-skill levels and a starting point in the course
+- [x] **Done when:** a new user gets per-skill levels and a starting point in the course ✅ 2026-10-12
 
 ## Backend v1 checklist (milestone)
 - [x] User accounts · [ ] Vocabulary decks · [ ] Spaced repetition review

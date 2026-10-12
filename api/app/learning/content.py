@@ -36,6 +36,19 @@ class CourseDef(StrictModel):
     objectives: list[ObjectiveDef] = Field(min_length=1)
 
 
+def shuffle_options(seed: str, options: list[str], answer: int) -> tuple[list[str], int]:
+    """Shuffle multiple-choice options deterministically (seeded by the item's slug).
+
+    Authors naturally put the right answer in the same few positions (we measured option B
+    correct in over half our questions), which a learner can exploit. Shuffling on import
+    removes that bias while keeping re-imports stable. Options must not depend on their
+    order (no "all of the above").
+    """
+    order = list(range(len(options)))
+    random.Random(seed).shuffle(order)  # noqa: S311 - not security-sensitive
+    return [options[i] for i in order], order.index(answer)
+
+
 class _ExerciseBase(StrictModel):
     slug: Slug
     objective: Slug
@@ -58,9 +71,10 @@ class McqDef(_ExerciseBase):
         return self
 
     def split(self) -> tuple[dict[str, Any], dict[str, Any]]:
+        options, correct = shuffle_options(self.slug, list(self.options), self.answer)
         return (
-            {"prompt": self.prompt, "options": list(self.options)},
-            {"correct": self.answer, "explanation": self.explanation},
+            {"prompt": self.prompt, "options": options},
+            {"correct": correct, "explanation": self.explanation},
         )
 
 

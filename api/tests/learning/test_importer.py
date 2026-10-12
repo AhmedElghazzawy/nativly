@@ -77,8 +77,11 @@ async def test_exercise_answers_are_stored_apart_from_payload(
     reorder = await session.scalar(select(Exercise).where(Exercise.slug == "ex-reorder"))
 
     assert mcq is not None and reorder is not None
-    assert mcq.payload == {"prompt": "Pick one", "options": ["walk", "walked"]}
-    assert mcq.answer == {"correct": 1, "explanation": "Add -ed."}
+    assert mcq.payload["prompt"] == "Pick one"
+    assert sorted(mcq.payload["options"]) == ["walk", "walked"]
+    # The answer index follows "walked" wherever the shuffle put it.
+    assert mcq.payload["options"][mcq.answer["correct"]] == "walked"
+    assert mcq.answer["explanation"] == "Add -ed."
     assert sorted(reorder.payload["tokens"]) == sorted(reorder.answer["sequence"])
     assert reorder.payload["tokens"] != reorder.answer["sequence"]
 
@@ -132,3 +135,15 @@ def test_course_file_must_be_valid(content: ContentDir) -> None:
 def test_missing_content_directory(tmp_path: Path) -> None:
     with pytest.raises(ContentError, match="not found"):
         load_content(tmp_path / "missing")
+
+
+def test_option_shuffle_is_deterministic_and_keeps_the_answer() -> None:
+    from app.learning.content import shuffle_options
+
+    options = ["a", "b", "c", "d"]
+    first = shuffle_options("item-1", options, 2)
+    again = shuffle_options("item-1", options, 2)
+
+    assert first == again
+    assert first[0][first[1]] == "c"
+    assert sorted(first[0]) == options

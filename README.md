@@ -29,7 +29,7 @@ follows a real CEFR curriculum (A1–C2, per skill), remembers you across sessio
 |---|---|
 | Accounts: register, login, JWT access + rotating refresh tokens, `/me` | ✅ |
 | AI writing feedback: explained corrections, CEFR estimate, recurring-mistake log | ✅ |
-| Adaptive placement test, per-skill CEFR levels | 🚧 Phase 2 |
+| Adaptive placement test (grammar, vocabulary, reading) → per-skill levels and a course | ✅ |
 | Curriculum: courses, units, lessons, objectives; MCQ, cloze and reorder exercises | ✅ |
 | Server-side answer checking, per-objective mastery, lesson progress | ✅ |
 | Web app: sign-up, course outline, lesson player with instant feedback, progress | ✅ |
@@ -76,6 +76,7 @@ nativly/
 │   │   ├── vocab/       word decks, FSRS spaced repetition, review queue
 │   │   ├── ai/          the only gateway to model providers: quotas, logging, retries
 │   │   ├── writing/     writing tasks, AI feedback, mistake log
+│   │   ├── placement/   adaptive placement test (staircase), per-skill levels
 │   │   └── main.py      app factory, health checks, router wiring
 │   ├── migrations/      Alembic migrations
 │   ├── tests/           pytest suite (real Postgres, per-test rollback)
@@ -174,6 +175,9 @@ All application endpoints are versioned under `/api/v1`.
 | `GET` | `/api/v1/review/summary?tz=` | Due, new today, reviewed today, streak, known words |
 | `POST` | `/api/v1/writing/{task}/submissions` | Submit writing; returns AI feedback (corrections, level, scores) |
 | `GET` | `/api/v1/me/mistakes` | The learner's most frequent mistakes |
+| `POST` | `/api/v1/placement/sessions` | Start (or resume) the adaptive placement test |
+| `POST` | `/api/v1/placement/sessions/{id}/answers` | Answer the current question; returns the next one or the result |
+| `GET` | `/api/v1/me/levels` | The learner's level per skill |
 
 ## Development
 

@@ -69,7 +69,7 @@ async def test_lesson_detail_never_exposes_answers(
     assert [s["position"] for s in body["steps"]] == [1, 2, 3, 4]
     explain, mcq, cloze, reorder = body["steps"]
     assert explain["exercise"] is None and explain["body"] == "Use **-ed**."
-    assert mcq["exercise"]["options"] == ["walk", "walked"]
+    assert sorted(mcq["exercise"]["options"]) == ["walk", "walked"]
     assert cloze["exercise"]["blanks"] == 1
     assert sorted(reorder["exercise"]["tokens"]) == sorted(["I", "walked", "home", "yesterday"])
     for step in (mcq, cloze, reorder):
