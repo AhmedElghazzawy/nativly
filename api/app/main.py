@@ -15,6 +15,7 @@ from app.core.config import Settings, get_settings
 from app.core.db import create_engine, create_sessionmaker
 from app.learning.router import router as learning_router
 from app.placement.router import router as placement_router
+from app.tutor.router import router as tutor_router
 from app.vocab.router import router as vocab_router
 from app.writing.router import router as writing_router
 
@@ -81,6 +82,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(vocab_router, prefix=API_PREFIX)
     app.include_router(writing_router, prefix=API_PREFIX)
     app.include_router(placement_router, prefix=API_PREFIX)
+    app.include_router(tutor_router, prefix=API_PREFIX)
 
     return app
 

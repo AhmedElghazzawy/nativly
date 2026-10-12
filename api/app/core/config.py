@@ -57,7 +57,8 @@ class Settings(BaseSettings):
     gemini_api_key: SecretStr | None = None
     ai_model_fast: str = "gemini-3.5-flash-lite"  # grading, extraction
     ai_model_smart: str = "gemini-3.8-flash"  # tutoring
-    ai_daily_calls_per_user: int = Field(default=30, ge=0)
+    # One tutor turn or one writing check = one call. Generous for learners, safe for the free tier.
+    ai_daily_calls_per_user: int = Field(default=80, ge=0)
     ai_timeout_seconds: float = Field(default=30, gt=0, le=120)
 
     @field_validator("gemini_api_key", mode="before")

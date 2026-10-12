@@ -434,6 +434,96 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/tutor/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Sessions */
+        get: operations["list_sessions_api_v1_tutor_sessions_get"];
+        put?: never;
+        /** Start */
+        post: operations["start_api_v1_tutor_sessions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/tutor/sessions/{session_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Session */
+        get: operations["get_session_api_v1_tutor_sessions__session_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/tutor/sessions/{session_id}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Send */
+        post: operations["send_api_v1_tutor_sessions__session_id__messages_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/facts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Facts
+         * @description What the teacher remembers about the learner.
+         */
+        get: operations["my_facts_api_v1_me_facts_get"];
+        put?: never;
+        post?: never;
+        /** Forget Everything */
+        delete: operations["forget_everything_api_v1_me_facts_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/facts/{fact_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Forget Fact */
+        delete: operations["forget_fact_api_v1_me_facts__fact_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -506,6 +596,29 @@ export interface components {
             type: "cloze";
             /** Blanks */
             blanks: string[];
+        };
+        /** Correction */
+        Correction: {
+            /**
+             * Original
+             * @description Exact wrong words from the learner's LAST message
+             */
+            original: string;
+            /**
+             * Correction
+             * @description The corrected words only
+             */
+            correction: string;
+            /**
+             * Category
+             * @enum {string}
+             */
+            category: "grammar" | "vocabulary" | "spelling" | "punctuation" | "word_order" | "style";
+            /**
+             * Explanation
+             * @description One short sentence, at the learner's level
+             */
+            explanation: string;
         };
         /** CourseDetail */
         CourseDetail: {
@@ -587,6 +700,21 @@ export interface components {
             status: "new" | "learning" | "young" | "mature";
             /** Due */
             due: string | null;
+        };
+        /** FactRead */
+        FactRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Fact */
+            fact: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -713,6 +841,24 @@ export interface components {
             type: "mcq";
             /** Choice */
             choice: number;
+        };
+        /** MessageRead */
+        MessageRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            speaker: components["schemas"]["Speaker"];
+            /** Text */
+            text: string;
+            /** Corrections */
+            corrections: components["schemas"]["Correction"][];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /**
          * MistakeCategory
@@ -924,6 +1070,51 @@ export interface components {
             /** Organisation */
             organisation: number;
         };
+        /** SendRequest */
+        SendRequest: {
+            /** Text */
+            text: string;
+        };
+        /** SessionDetail */
+        SessionDetail: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Title */
+            title: string | null;
+            /** Message Count */
+            message_count: number;
+            /**
+             * Started At
+             * Format: date-time
+             */
+            started_at: string;
+            /** Last Message At */
+            last_message_at: string | null;
+            /** Messages */
+            messages: components["schemas"]["MessageRead"][];
+        };
+        /** SessionSummary */
+        SessionSummary: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Title */
+            title: string | null;
+            /** Message Count */
+            message_count: number;
+            /**
+             * Started At
+             * Format: date-time
+             */
+            started_at: string;
+            /** Last Message At */
+            last_message_at: string | null;
+        };
         /**
          * Skill
          * @enum {string}
@@ -944,6 +1135,11 @@ export interface components {
             /** Score */
             score: number;
         };
+        /**
+         * Speaker
+         * @enum {string}
+         */
+        Speaker: "learner" | "tutor";
         /**
          * StepKind
          * @enum {string}
@@ -1004,6 +1200,11 @@ export interface components {
              * @description Access token lifetime in seconds
              */
             expires_in: number;
+        };
+        /** TurnRead */
+        TurnRead: {
+            learner: components["schemas"]["MessageRead"];
+            tutor: components["schemas"]["MessageRead"];
         };
         /** UnitOutline */
         UnitOutline: {
@@ -1920,6 +2121,179 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["SkillLevelRead"][];
+                };
+            };
+        };
+    };
+    list_sessions_api_v1_tutor_sessions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionSummary"][];
+                };
+            };
+        };
+    };
+    start_api_v1_tutor_sessions_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionDetail"];
+                };
+            };
+        };
+    };
+    get_session_api_v1_tutor_sessions__session_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                session_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionDetail"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    send_api_v1_tutor_sessions__session_id__messages_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                session_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SendRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TurnRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    my_facts_api_v1_me_facts_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FactRead"][];
+                };
+            };
+        };
+    };
+    forget_everything_api_v1_me_facts_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    forget_fact_api_v1_me_facts__fact_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fact_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

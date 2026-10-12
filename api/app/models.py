@@ -21,6 +21,7 @@ from app.placement.models import (
     PlacementSession,
     SkillLevel,
 )
+from app.tutor.models import LearnerFact, TutorMessage, TutorSession
 from app.vocab.models import Deck, DeckSubscription, Review, UserCard, VocabItem, deck_items
 from app.writing.models import Mistake, WritingSubmission, WritingTask
 
@@ -32,6 +33,7 @@ __all__ = [
     "Exercise",
     "ExerciseAttempt",
     "LLMCall",
+    "LearnerFact",
     "LearningObjective",
     "Lesson",
     "LessonProgress",
@@ -44,6 +46,8 @@ __all__ = [
     "RefreshToken",
     "Review",
     "SkillLevel",
+    "TutorMessage",
+    "TutorSession",
     "Unit",
     "User",
     "UserCard",

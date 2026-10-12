@@ -4,6 +4,7 @@ import re
 import uuid
 from collections.abc import Sequence
 from datetime import UTC, datetime
+from typing import Protocol
 
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
@@ -79,17 +80,30 @@ async def submit(
         llm_call_id=completion.call_id,
     )
     session.add(submission)
-    await record_mistakes(session, user_id, feedback, source="writing")
+    await record_mistakes(session, user_id, feedback.errors, source="writing")
     await session.commit()
     await session.refresh(submission)
     return submission, feedback
 
 
+class MistakeInput(Protocol):
+    # Read-only properties, so models with narrower types (Literal categories) still match.
+    @property
+    def original(self) -> str: ...
+    @property
+    def correction(self) -> str: ...
+    @property
+    def category(self) -> str: ...
+    @property
+    def explanation(self) -> str: ...
+
+
 async def record_mistakes(
-    session: AsyncSession, user_id: uuid.UUID, feedback: WritingFeedback, source: str
+    session: AsyncSession, user_id: uuid.UUID, errors: Sequence[MistakeInput], source: str
 ) -> None:
+    """Upsert each error into the learner's mistake log (writing, tutor, later speaking)."""
     now = datetime.now(UTC)
-    for error in feedback.errors:
+    for error in errors:
         if not error.original.strip() or error.original.strip() == error.correction.strip():
             continue
         stmt = insert(Mistake).values(

@@ -1189,6 +1189,255 @@
           }
         ]
       }
+    },
+    "/api/v1/tutor/sessions": {
+      "get": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "List Sessions",
+        "operationId": "list_sessions_api_v1_tutor_sessions_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SessionSummary"
+                  },
+                  "type": "array",
+                  "title": "Response List Sessions Api V1 Tutor Sessions Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "Start",
+        "operationId": "start_api_v1_tutor_sessions_post",
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/tutor/sessions/{session_id}": {
+      "get": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "Get Session",
+        "operationId": "get_session_api_v1_tutor_sessions__session_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tutor/sessions/{session_id}/messages": {
+      "post": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "Send",
+        "operationId": "send_api_v1_tutor_sessions__session_id__messages_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TurnRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/facts": {
+      "get": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "My Facts",
+        "description": "What the teacher remembers about the learner.",
+        "operationId": "my_facts_api_v1_me_facts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FactRead"
+                  },
+                  "type": "array",
+                  "title": "Response My Facts Api V1 Me Facts Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "Forget Everything",
+        "operationId": "forget_everything_api_v1_me_facts_delete",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/me/facts/{fact_id}": {
+      "delete": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "Forget Fact",
+        "operationId": "forget_fact_api_v1_me_facts__fact_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "fact_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Fact Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1400,6 +1649,45 @@
           "blanks"
         ],
         "title": "ClozeResponse"
+      },
+      "Correction": {
+        "properties": {
+          "original": {
+            "type": "string",
+            "title": "Original",
+            "description": "Exact wrong words from the learner's LAST message"
+          },
+          "correction": {
+            "type": "string",
+            "title": "Correction",
+            "description": "The corrected words only"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "grammar",
+              "vocabulary",
+              "spelling",
+              "punctuation",
+              "word_order",
+              "style"
+            ],
+            "title": "Category"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation",
+            "description": "One short sentence, at the learner's level"
+          }
+        },
+        "type": "object",
+        "required": [
+          "original",
+          "correction",
+          "category",
+          "explanation"
+        ],
+        "title": "Correction"
       },
       "CourseDetail": {
         "properties": {
@@ -1635,6 +1923,31 @@
           "due"
         ],
         "title": "DeckWord"
+      },
+      "FactRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "fact": {
+            "type": "string",
+            "title": "Fact"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "fact",
+          "created_at"
+        ],
+        "title": "FactRead"
       },
       "HTTPValidationError": {
         "properties": {
@@ -1942,6 +2255,43 @@
           "choice"
         ],
         "title": "McqResponse"
+      },
+      "MessageRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "speaker": {
+            "$ref": "#/components/schemas/Speaker"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "corrections": {
+            "items": {
+              "$ref": "#/components/schemas/Correction"
+            },
+            "type": "array",
+            "title": "Corrections"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "speaker",
+          "text",
+          "corrections",
+          "created_at"
+        ],
+        "title": "MessageRead"
       },
       "MistakeCategory": {
         "type": "string",
@@ -2503,6 +2853,129 @@
         ],
         "title": "Scores"
       },
+      "SendRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "SendRequest"
+      },
+      "SessionDetail": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "message_count": {
+            "type": "integer",
+            "title": "Message Count"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Started At"
+          },
+          "last_message_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Message At"
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/MessageRead"
+            },
+            "type": "array",
+            "title": "Messages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "message_count",
+          "started_at",
+          "last_message_at",
+          "messages"
+        ],
+        "title": "SessionDetail"
+      },
+      "SessionSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "message_count": {
+            "type": "integer",
+            "title": "Message Count"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Started At"
+          },
+          "last_message_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Message At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "message_count",
+          "started_at",
+          "last_message_at"
+        ],
+        "title": "SessionSummary"
+      },
       "Skill": {
         "type": "string",
         "enum": [
@@ -2557,6 +3030,14 @@
           "score"
         ],
         "title": "SkillResult"
+      },
+      "Speaker": {
+        "type": "string",
+        "enum": [
+          "learner",
+          "tutor"
+        ],
+        "title": "Speaker"
       },
       "StepKind": {
         "type": "string",
@@ -2734,6 +3215,22 @@
           "expires_in"
         ],
         "title": "TokenPair"
+      },
+      "TurnRead": {
+        "properties": {
+          "learner": {
+            "$ref": "#/components/schemas/MessageRead"
+          },
+          "tutor": {
+            "$ref": "#/components/schemas/MessageRead"
+          }
+        },
+        "type": "object",
+        "required": [
+          "learner",
+          "tutor"
+        ],
+        "title": "TurnRead"
       },
       "UnitOutline": {
         "properties": {
