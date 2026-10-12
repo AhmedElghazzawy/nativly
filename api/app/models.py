@@ -15,6 +15,12 @@ from app.learning.models import (
     Unit,
     lesson_objectives,
 )
+from app.placement.models import (
+    PlacementItem,
+    PlacementResponse,
+    PlacementSession,
+    SkillLevel,
+)
 from app.vocab.models import Deck, DeckSubscription, Review, UserCard, VocabItem, deck_items
 from app.writing.models import Mistake, WritingSubmission, WritingTask
 
@@ -32,8 +38,12 @@ __all__ = [
     "LessonStep",
     "Mistake",
     "ObjectiveMastery",
+    "PlacementItem",
+    "PlacementResponse",
+    "PlacementSession",
     "RefreshToken",
     "Review",
+    "SkillLevel",
     "Unit",
     "User",
     "UserCard",

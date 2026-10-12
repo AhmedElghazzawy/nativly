@@ -363,10 +363,90 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/placement/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Start
+         * @description Start a placement test, or resume the learner's unfinished one.
+         */
+        post: operations["start_api_v1_placement_sessions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/placement/sessions/latest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Latest */
+        get: operations["latest_api_v1_placement_sessions_latest_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/placement/sessions/{session_id}/answers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Answer */
+        post: operations["answer_api_v1_placement_sessions__session_id__answers_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/levels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My Levels */
+        get: operations["my_levels_api_v1_me_levels_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AnswerRequest */
+        AnswerRequest: {
+            /** Item Slug */
+            item_slug: string;
+            /** Choice */
+            choice: number;
+            /** Duration Ms */
+            duration_ms?: number | null;
+        };
         /** AttemptRequest */
         AttemptRequest: {
             /** Response */
@@ -688,6 +768,47 @@ export interface components {
          * @enum {string}
          */
         PartOfSpeech: "noun" | "verb" | "adjective" | "adverb" | "preposition" | "phrase" | "other";
+        /** PlacementQuestion */
+        PlacementQuestion: {
+            /** Slug */
+            slug: string;
+            skill: components["schemas"]["Skill"];
+            /** Passage */
+            passage: string | null;
+            /** Prompt */
+            prompt: string;
+            /** Options */
+            options: string[];
+        };
+        /** PlacementResult */
+        PlacementResult: {
+            /** Skills */
+            skills: {
+                [key: string]: components["schemas"]["SkillResult"];
+            };
+            overall: components["schemas"]["CefrLevel"] | null;
+            /** Recommended Course */
+            recommended_course: string | null;
+        };
+        /** PlacementState */
+        PlacementState: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "in_progress" | "completed";
+            /** Answered */
+            answered: number;
+            /** Total */
+            total: number;
+            question: components["schemas"]["PlacementQuestion"] | null;
+            result: components["schemas"]["PlacementResult"] | null;
+        };
         /** ProgressRead */
         ProgressRead: {
             /** Lessons */
@@ -808,6 +929,21 @@ export interface components {
          * @enum {string}
          */
         Skill: "reading" | "listening" | "writing" | "speaking" | "grammar" | "vocab";
+        /** SkillLevelRead */
+        SkillLevelRead: {
+            skill: components["schemas"]["Skill"];
+            level: components["schemas"]["CefrLevel"];
+            /** Score */
+            score: number;
+            /** Source */
+            source: string;
+        };
+        /** SkillResult */
+        SkillResult: {
+            level: components["schemas"]["CefrLevel"];
+            /** Score */
+            score: number;
+        };
         /**
          * StepKind
          * @enum {string}
@@ -1678,6 +1814,112 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    start_api_v1_placement_sessions_post: {
+        parameters: {
+            query?: {
+                language?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlacementState"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    latest_api_v1_placement_sessions_latest_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlacementState"];
+                };
+            };
+        };
+    };
+    answer_api_v1_placement_sessions__session_id__answers_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                session_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AnswerRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlacementState"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    my_levels_api_v1_me_levels_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SkillLevelRead"][];
                 };
             };
         };

@@ -1,0 +1,22 @@
+skill: vocab
+items:
+  # --- A1 ---
+  - {slug: pl-v-a1-01, level: A1, prompt: "Your mother's mother is your ___.", options: [aunt, grandmother, sister, daughter], answer: 1}
+  - {slug: pl-v-a1-02, level: A1, prompt: "Which one is a day of the week?", options: [March, Summer, Tuesday, Morning], answer: 2}
+  - {slug: pl-v-a1-03, level: A1, prompt: "I'm hungry. Let's ___ something.", options: [drink, eat, sleep, read], answer: 1}
+  - {slug: pl-v-a1-04, level: A1, prompt: "The opposite of 'big' is ___.", options: [tall, small, long, old], answer: 1}
+  # --- A2 ---
+  - {slug: pl-v-a2-01, level: A2, prompt: "I need to ___ a doctor's appointment.", options: [do, make, take, have], answer: 1}
+  - {slug: pl-v-a2-02, level: A2, prompt: "Can you ___ me your pen? I'll give it back.", options: [borrow, lend, take, bring], answer: 1}
+  - {slug: pl-v-a2-03, level: A2, prompt: "The train was late, so I ___ my meeting.", options: [lost, missed, forgot, left], answer: 1}
+  - {slug: pl-v-a2-04, level: A2, prompt: "It's very cold. Put on a warm ___.", options: [jacket, shirt, sandals, skirt], answer: 0}
+  # --- B1 ---
+  - {slug: pl-v-b1-01, level: B1, prompt: "Could you ___ the music down? I'm trying to work.", options: [put, turn, take, set], answer: 1}
+  - {slug: pl-v-b1-02, level: B1, prompt: "She's very ___: she always tells the truth.", options: [honest, generous, polite, patient], answer: 0}
+  - {slug: pl-v-b1-03, level: B1, prompt: "I'm looking ___ to the holidays.", options: [up, after, forward, for], answer: 2}
+  - {slug: pl-v-b1-04, level: B1, prompt: "The company had to ___ 50 workers because of the crisis.", options: [lay off, take off, put off, set off], answer: 0}
+  # --- B2 ---
+  - {slug: pl-v-b2-01, level: B2, prompt: "The new policy will have a significant ___ on small businesses.", options: [affect, impact, effort, result], answer: 1}
+  - {slug: pl-v-b2-02, level: B2, prompt: "Despite the setbacks, the team ___ to finish on time.", options: [succeeded, achieved, managed, reached], answer: 2}
+  - {slug: pl-v-b2-03, level: B2, prompt: "His explanation was so ___ that nobody understood it.", options: [vague, vivid, brief, accurate], answer: 0}
+  - {slug: pl-v-b2-04, level: B2, prompt: "We need to ___ the pros and cons before deciding.", options: [weigh up, look up, bring up, give up], answer: 0}

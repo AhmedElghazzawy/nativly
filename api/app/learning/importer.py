@@ -38,6 +38,8 @@ from app.learning.models import (
     StepKind,
     Unit,
 )
+from app.placement.content import PlacementBankDef
+from app.placement.models import PlacementItem
 from app.vocab.content import DeckDef
 from app.vocab.importer import import_deck
 from app.writing.models import WritingTask
@@ -56,6 +58,19 @@ class CourseBundle:
 
 
 @dataclass
+class PlacementBundle:
+    path: Path
+    language: str
+    bank: PlacementBankDef
+
+
+@dataclass
+class Content:
+    courses: list[CourseBundle]
+    placement: list[PlacementBundle]
+
+
+@dataclass
 class ImportReport:
     courses: int = 0
     units: int = 0
@@ -65,6 +80,7 @@ class ImportReport:
     decks: int = 0
     vocab_items: int = 0
     writing_tasks: int = 0
+    placement_items: int = 0
     created: list[str] = field(default_factory=list)
 
     def __str__(self) -> str:
@@ -72,7 +88,8 @@ class ImportReport:
             f"{self.courses} course(s), {self.units} unit(s), {self.lessons} lesson(s), "
             f"{self.exercises} exercise(s), {self.objectives} objective(s), "
             f"{self.writing_tasks} writing task(s), "
-            f"{self.decks} deck(s) with {self.vocab_items} word(s); "
+            f"{self.decks} deck(s) with {self.vocab_items} word(s), "
+            f"{self.placement_items} placement item(s); "
             f"{len(self.created)} new"
         )
 
@@ -83,7 +100,12 @@ def _read_yaml(path: Path) -> Any:
 
 
 def load_content(root: Path) -> list[CourseBundle]:
-    """Parse and cross-validate all content under `root`. Raises ContentError."""
+    """Parse and cross-validate the courses under `root`. Raises ContentError."""
+    return load_all(root).courses
+
+
+def load_all(root: Path) -> Content:
+    """Parse and cross-validate all content (courses and placement banks). Raises ContentError."""
     if not root.is_dir():
         raise ContentError(f"content directory not found: {root}")
 
@@ -109,11 +131,25 @@ def load_content(root: Path) -> list[CourseBundle]:
                 errors.append(f"{deck_file}: {exc}")
         bundles.append(CourseBundle(course_file, course, units, decks))
 
+    placement: list[PlacementBundle] = []
+    for bank_file in sorted(root.glob("*/placement/*.yaml")):
+        try:
+            bank = PlacementBankDef.model_validate(_read_yaml(bank_file))
+            placement.append(PlacementBundle(bank_file, bank_file.parent.parent.name, bank))
+        except (ValidationError, yaml.YAMLError) as exc:
+            errors.append(f"{bank_file}: {exc}")
+
     if not errors:
         errors.extend(_cross_check(bundles))
+        seen: dict[str, Path] = {}
+        for pb in placement:
+            for item in pb.bank.items:
+                if item.slug in seen:
+                    errors.append(f"duplicate placement item slug '{item.slug}' in {pb.path}")
+                seen[item.slug] = pb.path
     if errors:
         raise ContentError("\n".join(errors))
-    return bundles
+    return Content(bundles, placement)
 
 
 def _cross_check(bundles: list[CourseBundle]) -> list[str]:
@@ -162,9 +198,9 @@ def _cross_check(bundles: list[CourseBundle]) -> list[str]:
     return errors
 
 
-async def _upsert[M: (Course, Unit, Lesson, LearningObjective, Exercise, WritingTask)](
-    session: AsyncSession, model: type[M], slug: str, report: ImportReport, **values: Any
-) -> M:
+async def _upsert[
+    M: (Course, Unit, Lesson, LearningObjective, Exercise, WritingTask, PlacementItem)
+](session: AsyncSession, model: type[M], slug: str, report: ImportReport, **values: Any) -> M:
     obj = await session.scalar(select(model).where(model.slug == slug))
     if obj is None:
         obj = model(slug=slug, **values)
@@ -178,8 +214,19 @@ async def _upsert[M: (Course, Unit, Lesson, LearningObjective, Exercise, Writing
 
 
 async def import_content(session: AsyncSession, root: Path) -> ImportReport:
-    bundles = load_content(root)
+    content = load_all(root)
+    bundles = content.courses
     report = ImportReport()
+
+    for pb in content.placement:
+        for item in pb.bank.items:
+            await _upsert(
+                session, PlacementItem, item.slug, report,
+                language=pb.language, skill=pb.bank.skill, cefr_level=item.level,
+                passage=item.passage, prompt=item.prompt, options=list(item.options),
+                answer=item.answer,
+            )  # fmt: skip
+            report.placement_items += 1
 
     for bundle in bundles:
         c = bundle.course

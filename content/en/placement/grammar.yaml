@@ -1,0 +1,22 @@
+skill: grammar
+items:
+  # --- A1 ---
+  - {slug: pl-g-a1-01, level: A1, prompt: "She ___ a doctor.", options: [am, is, are, be], answer: 1}
+  - {slug: pl-g-a1-02, level: A1, prompt: "___ you from Canada?", options: [Is, Do, Are, Am], answer: 2}
+  - {slug: pl-g-a1-03, level: A1, prompt: "This is my brother. ___ name is Tom.", options: [He, His, Her, Him], answer: 1}
+  - {slug: pl-g-a1-04, level: A1, prompt: "I ___ coffee every morning.", options: [drinks, drinking, drink, am drink], answer: 2}
+  # --- A2 ---
+  - {slug: pl-g-a2-01, level: A2, prompt: "We ___ to the cinema last night.", options: [go, went, gone, goes], answer: 1}
+  - {slug: pl-g-a2-02, level: A2, prompt: "___ you see the match yesterday?", options: [Do, Was, Did, Were], answer: 2}
+  - {slug: pl-g-a2-03, level: A2, prompt: "My sister is ___ than me.", options: [tall, taller, more tall, tallest], answer: 1}
+  - {slug: pl-g-a2-04, level: A2, prompt: "Look! It ___.", options: [snows, is snowing, snow, snowed], answer: 1}
+  # --- B1 ---
+  - {slug: pl-g-b1-01, level: B1, prompt: "I ___ in this city since 2018.", options: [live, lived, have lived, am living], answer: 2}
+  - {slug: pl-g-b1-02, level: B1, prompt: "If it rains tomorrow, we ___ at home.", options: [stay, will stay, would stay, stayed], answer: 1}
+  - {slug: pl-g-b1-03, level: B1, prompt: "I was cooking when the phone ___.", options: [rang, was ringing, rings, has rung], answer: 0}
+  - {slug: pl-g-b1-04, level: B1, prompt: "The bridge ___ in 1890.", options: [built, was built, has built, is building], answer: 1}
+  # --- B2 ---
+  - {slug: pl-g-b2-01, level: B2, prompt: "If I ___ about the traffic, I would have left earlier.", options: [knew, had known, have known, would know], answer: 1}
+  - {slug: pl-g-b2-02, level: B2, prompt: "She asked me where I ___.", options: [live, did live, lived, do I live], answer: 2}
+  - {slug: pl-g-b2-03, level: B2, prompt: "By next June, they ___ the new hospital.", options: [will finish, will have finished, finish, are finishing], answer: 1}
+  - {slug: pl-g-b2-04, level: B2, prompt: "I'm not used to ___ up so early.", options: [get, getting, got, have got], answer: 1}

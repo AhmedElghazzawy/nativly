@@ -1025,10 +1025,207 @@
           }
         }
       }
+    },
+    "/api/v1/placement/sessions": {
+      "post": {
+        "tags": [
+          "placement"
+        ],
+        "summary": "Start",
+        "description": "Start a placement test, or resume the learner's unfinished one.",
+        "operationId": "start_api_v1_placement_sessions_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z]{2}$",
+              "default": "en",
+              "title": "Language"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlacementState"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/placement/sessions/latest": {
+      "get": {
+        "tags": [
+          "placement"
+        ],
+        "summary": "Latest",
+        "operationId": "latest_api_v1_placement_sessions_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlacementState"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/placement/sessions/{session_id}/answers": {
+      "post": {
+        "tags": [
+          "placement"
+        ],
+        "summary": "Answer",
+        "operationId": "answer_api_v1_placement_sessions__session_id__answers_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnswerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlacementState"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/levels": {
+      "get": {
+        "tags": [
+          "placement"
+        ],
+        "summary": "My Levels",
+        "operationId": "my_levels_api_v1_me_levels_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SkillLevelRead"
+                  },
+                  "type": "array",
+                  "title": "Response My Levels Api V1 Me Levels Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
     "schemas": {
+      "AnswerRequest": {
+        "properties": {
+          "item_slug": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Item Slug"
+          },
+          "choice": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Choice"
+          },
+          "duration_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 3600000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Ms"
+          }
+        },
+        "type": "object",
+        "required": [
+          "item_slug",
+          "choice"
+        ],
+        "title": "AnswerRequest"
+      },
       "AttemptRequest": {
         "properties": {
           "response": {
@@ -1881,6 +2078,145 @@
         ],
         "title": "PartOfSpeech"
       },
+      "PlacementQuestion": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "skill": {
+            "$ref": "#/components/schemas/Skill"
+          },
+          "passage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Passage"
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "options": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Options"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "skill",
+          "passage",
+          "prompt",
+          "options"
+        ],
+        "title": "PlacementQuestion"
+      },
+      "PlacementResult": {
+        "properties": {
+          "skills": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SkillResult"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/Skill"
+            },
+            "type": "object",
+            "title": "Skills"
+          },
+          "overall": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CefrLevel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recommended_course": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Course"
+          }
+        },
+        "type": "object",
+        "required": [
+          "skills",
+          "overall",
+          "recommended_course"
+        ],
+        "title": "PlacementResult"
+      },
+      "PlacementState": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "in_progress",
+              "completed"
+            ],
+            "title": "Status"
+          },
+          "answered": {
+            "type": "integer",
+            "title": "Answered"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "question": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PlacementQuestion"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PlacementResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "answered",
+          "total",
+          "question",
+          "result"
+        ],
+        "title": "PlacementState"
+      },
       "ProgressRead": {
         "properties": {
           "lessons": {
@@ -2178,6 +2514,49 @@
           "vocab"
         ],
         "title": "Skill"
+      },
+      "SkillLevelRead": {
+        "properties": {
+          "skill": {
+            "$ref": "#/components/schemas/Skill"
+          },
+          "level": {
+            "$ref": "#/components/schemas/CefrLevel"
+          },
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "skill",
+          "level",
+          "score",
+          "source"
+        ],
+        "title": "SkillLevelRead"
+      },
+      "SkillResult": {
+        "properties": {
+          "level": {
+            "$ref": "#/components/schemas/CefrLevel"
+          },
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "level",
+          "score"
+        ],
+        "title": "SkillResult"
       },
       "StepKind": {
         "type": "string",

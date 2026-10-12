@@ -1,0 +1,102 @@
+skill: reading
+items:
+  # --- A1 ---
+  - slug: pl-r-a1-01
+    level: A1
+    passage: "Hi! I'm Maya. I'm from Toronto. I have one brother and two sisters. I like cats and music."
+    prompt: How many sisters does Maya have?
+    options: [One, Two, Three, None]
+    answer: 1
+  - slug: pl-r-a1-02
+    level: A1
+    passage: "The shop opens at 9 a.m. and closes at 6 p.m. It is closed on Sundays."
+    prompt: When can you NOT go to the shop?
+    options: [Monday morning, Saturday afternoon, Sunday, Friday at 5 p.m.]
+    answer: 2
+  - slug: pl-r-a1-03
+    level: A1
+    passage: "Tom gets up at seven. He has breakfast and takes the bus to work. He works in a bank."
+    prompt: How does Tom go to work?
+    options: [By car, On foot, By bus, By train]
+    answer: 2
+  - slug: pl-r-a1-04
+    level: A1
+    passage: "Room for rent. Big kitchen, small garden. Near the station. 500 euros a month."
+    prompt: What is near the room?
+    options: [A park, The station, A school, The beach]
+    answer: 1
+  # --- A2 ---
+  - slug: pl-r-a2-01
+    level: A2
+    passage: "Dear Sam, thanks for the invitation! I'd love to come to your party, but I'm working on Saturday until 8. Can I come after that? Lucy"
+    prompt: What does Lucy want to do?
+    options: [Not go to the party, Go to the party late, Change the party day, Work with Sam]
+    answer: 1
+  - slug: pl-r-a2-02
+    level: A2
+    passage: "Last summer we rented a small house by the sea. The weather was terrible for the first three days, but then it was sunny every day."
+    prompt: How was the weather at the start of the holiday?
+    options: [Sunny, Hot, Bad, Snowy]
+    answer: 2
+  - slug: pl-r-a2-03
+    level: A2
+    passage: "NOTICE: The swimming pool will be closed from 1 to 15 June for cleaning. The gym stays open as usual."
+    prompt: What can you do on 10 June?
+    options: [Swim, Use the gym, Clean the pool, "Nothing: everything is closed"]
+    answer: 1
+  - slug: pl-r-a2-04
+    level: A2
+    passage: "Ben started learning the guitar when he was twelve. Now he plays in a band with three friends, and they practise every Friday."
+    prompt: Which sentence is true?
+    options: [Ben learned the guitar last year., Ben plays alone., The band practises once a week., Ben is twelve.]
+    answer: 2
+  # --- B1 ---
+  - slug: pl-r-b1-01
+    level: B1
+    passage: "Although remote work saves time on commuting, many employees say they miss the informal conversations that happen in an office. Some companies now ask staff to come in two days a week."
+    prompt: Why do some companies ask staff to come to the office?
+    options: [To save money on travel, Because people miss talking face to face, Because remote work is illegal, To reduce working hours]
+    answer: 1
+  - slug: pl-r-b1-02
+    level: B1
+    passage: "I'd been looking forward to the concert for months, so I was really disappointed when it was cancelled just an hour before it was due to start."
+    prompt: How did the writer feel?
+    options: [Relieved, Surprised but happy, Let down, Bored]
+    answer: 2
+  - slug: pl-r-b1-03
+    level: B1
+    passage: "Our library has introduced a new system: you can now borrow e-books for up to three weeks, and they return themselves automatically, so there are no late fees."
+    prompt: What is the main advantage of the new system?
+    options: [E-books are cheaper, You can keep books forever, You never pay for returning late, The library is open longer]
+    answer: 2
+  - slug: pl-r-b1-04
+    level: B1
+    passage: "Volunteers are needed to help at the city marathon. No experience is necessary, but you must be over 16 and available from 6 a.m. to 1 p.m. on the day."
+    prompt: Who can NOT volunteer?
+    options: [A 15-year-old student, Someone without experience, A retired teacher, Someone free all morning]
+    answer: 0
+  # --- B2 ---
+  - slug: pl-r-b2-01
+    level: B2
+    passage: "Critics argue that the city's new cycling lanes have worsened congestion, yet data from the first year suggests the opposite: average journey times fell by 8%, while cycling trips doubled."
+    prompt: What does the data suggest?
+    options: [The critics were right, Traffic did not get worse, Fewer people cycle now, Journeys became 8% longer]
+    answer: 1
+  - slug: pl-r-b2-02
+    level: B2
+    passage: "The author's latest novel is ambitious in scope, but its sprawling cast of characters makes it hard to care about any of them for long."
+    prompt: What is the reviewer's main criticism?
+    options: [The novel is too short, There are too many characters, The plot is unrealistic, The writing is too simple]
+    answer: 1
+  - slug: pl-r-b2-03
+    level: B2
+    passage: "Had the warning signs been taken seriously, the company might have avoided the collapse. Instead, management dismissed the concerns raised by its own analysts."
+    prompt: What does the writer imply?
+    options: [The analysts caused the collapse, The collapse could probably have been prevented, The company did not collapse, Management followed the analysts' advice]
+    answer: 1
+  - slug: pl-r-b2-04
+    level: B2
+    passage: "While the medication is generally well tolerated, a small minority of patients report persistent headaches, which usually subside within a fortnight."
+    prompt: What happens to most patients who get headaches?
+    options: [They stop taking the medicine immediately, The headaches go away within two weeks, The headaches last for months, They need a second medicine]
+    answer: 1
