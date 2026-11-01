@@ -2,7 +2,7 @@
 
 # Build context: the repo root (so curriculum content in content/ can be baked in).
 # ---- build: resolve deps into a venv with uv, using the lockfile ----
-FROM python:3.12-slim AS builder
+FROM python:3.15-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:0.12.23 /uv /bin/uv
 
 ENV UV_COMPILE_BYTECODE=1 \
@@ -23,7 +23,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev
 
 # ---- runtime: no uv, no build cache, non-root ----
-FROM python:3.12-slim
+FROM python:3.15-slim
 
 RUN useradd --create-home --uid 1000 app
 WORKDIR /app
