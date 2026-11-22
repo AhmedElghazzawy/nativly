@@ -3,26 +3,26 @@ name = "nativly-api"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    "alembic>=1.20.0",
+    "alembic>=1.20.1",
     "asyncpg>=0.32.0",
-    "fastapi[standard]>=0.143.0",
-    "fsrs>=6.3.2",
-    "google-genai>=2.29.0",
-    "pwdlib[argon2]>=0.3.1",
-    "pydantic-settings>=2.15.0",
+    "fastapi[standard]>=0.165.0",
+    "fsrs>=6.3.3",
+    "google-genai>=3.6.1",
+    "pwdlib[argon2]>=0.4.2",
+    "pydantic-settings>=2.16.3",
     "pyjwt>=2.15.1",
     "pyyaml>=6.0.3",
-    "sqlalchemy[asyncio]>=2.1.4",
+    "sqlalchemy[asyncio]>=2.1.9",
 ]
 
 [dependency-groups]
 dev = [
-    "mypy>=2.4.0",
-    "pytest>=9.1.1",
-    "pytest-asyncio>=1.4.0",
+    "mypy>=2.4.1",
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.5.0",
     "pytest-cov>=7.1.0",
-    "ruff>=0.17.0",
-    "types-pyyaml>=6.0.12.20260906",
+    "ruff>=0.17.5",
+    "types-pyyaml>=6.0.12.20261113",
 ]
 
 [tool.ruff]
